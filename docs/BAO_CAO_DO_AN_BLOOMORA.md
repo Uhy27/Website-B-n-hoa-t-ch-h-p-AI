@@ -100,7 +100,8 @@ Báo cáo đồ án được kết cấu thành **7 phần chính**:
 
 # PHẦN 2 – PHÂN TÍCH YÊU CẦU
 
-### 2.1. Khảo sát hiện trạng các website tham khảo
+### <a id="21-khảo-sát-hiện-trạng"></a>2.1. Khảo sát hiện trạng
+*(Khảo sát 2 website thương mại điện tử hoa tươi tham khảo: WishFlorist & FlowerDJ)*
 Nhóm đã tiến hành khảo sát 2 website thương mại điện tử hoa tươi quốc tế tiêu biểu:
 1.  **WishFlorist (wishflorist.com.tw - Đài Bắc):**
     *   *Điểm mạnh:* Danh mục phong phú, phân loại dịp tặng rất chi tiết, form thông tin người gửi/nhận tách biệt.
@@ -127,7 +128,8 @@ Hệ thống được chia thành 5 phân hệ lớn:
 | **ACT03** | **Nghệ nhân / Nhân viên (Staff)** | Nhân viên phụ trách cắm hoa và đóng gói | Truy cập Admin Portal; đổi trạng thái đơn hoa; cập nhật link ảnh hoa chụp thực tế. |
 | **ACT04** | **Quản trị viên (Admin)** | Chủ cửa hàng hoặc Quản lý hệ thống | Toàn quyền hệ thống: xem thống kê doanh thu, quản lý đơn hàng, quản lý sản phẩm, tài khoản. |
 
-### 2.4. Danh sách User Story (12 User Stories cốt lõi)
+### <a id="24-danh-sách-user-story"></a>2.4. Danh sách User Story
+*(Bao gồm 12 User Stories cốt lõi)*
 
 | ID | Actor | User Story (Người dùng muốn gì & Vì sao) | Độ Ưu Tiên |
 | :--- | :--- | :--- | :--- |
@@ -578,7 +580,7 @@ Sản phẩm hoàn chỉnh được đóng gói bao gồm:
 *   File kịch bản cơ sở dữ liệu: `bloomora_db.sql` (toàn bộ cấu trúc bảng và dữ liệu mẫu 18 sản phẩm ban đầu chuẩn mã hóa UTF-8).
 *   Tài liệu hướng dẫn cài đặt và tài khoản quản trị demo.
 
-### 6.2. Hướng dẫn cài đặt môi trường Local (XAMPP)
+### <a id="62-hướng-dẫn-cài-đặt-môi-trường-local"></a>6.2. Hướng dẫn cài đặt môi trường Local (XAMPP)
 1.  **Yêu cầu môi trường:** Cài đặt phần mềm XAMPP (hỗ trợ PHP 8.0 trở lên và MySQL/MariaDB).
 2.  **Giải nén mã nguồn:** Giải nén toàn bộ thư mục dự án vào đường dẫn: `C:\xampp\htdocs\flow`.
 3.  **Khởi động dịch vụ:** Mở XAMPP Control Panel, bấm **Start** cả 2 dịch vụ **Apache** và **MySQL**.
@@ -642,3 +644,4 @@ Sản phẩm hoàn chỉnh được đóng gói bao gồm:
 4.  VietQR, *"Tiêu chuẩn kỹ thuật mã phản hồi nhanh (QR Code) chuyển mạch tài chính quốc gia NAPAS"*, vietqr.net, 2023.
 5.  WishFlorist Taiwan, *"Hệ thống điện hoa trực tuyến Wish Florist"*, wishflorist.com.tw, 2024.
 6.  FlowerDJ Taiwan, *"Nền tảng thương mại điện tử hoa tươi FlowerDJ"*, flowerdj.com, 2024.
+
