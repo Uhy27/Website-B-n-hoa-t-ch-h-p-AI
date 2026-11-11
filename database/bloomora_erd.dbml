@@ -1,0 +1,99 @@
+// Sơ đồ Cơ sở Dữ liệu Bloomora - Website Hoa Tươi
+// Vẽ trực tiếp trên website: https://dbdiagram.io
+// Hướng dẫn: Mở https://dbdiagram.io -> Xóa hết code mẫu -> Dán toàn bộ nội dung file này vào!
+
+Table roles {
+  id int [pk, increment]
+  name varchar(50) [not null, unique, note: 'admin, staff, customer']
+  description varchar(255)
+  created_at timestamp
+}
+
+Table users {
+  id int [pk, increment]
+  role_id int [ref: > roles.id, note: 'Khóa ngoại liên kết bảng roles']
+  email varchar(150) [not null, unique]
+  password_hash varchar(255) [not null, note: 'Mã hóa BCRYPT']
+  full_name varchar(100) [not null]
+  phone varchar(20)
+  address text
+  status varchar(20) [default: 'active']
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table categories {
+  id int [pk, increment]
+  name varchar(100) [not null]
+  slug varchar(100) [not null, unique]
+  description text
+  icon varchar(50)
+  badge varchar(50)
+  display_order int [default: 0]
+  is_active tinyint [default: 1]
+  created_at timestamp
+}
+
+Table products {
+  id int [pk, increment]
+  category_id int [ref: > categories.id, note: 'Khóa ngoại liên kết bảng categories']
+  sku varchar(50) [not null, unique]
+  name varchar(200) [not null]
+  slug varchar(200) [not null, unique]
+  description text
+  price decimal(12,2) [not null]
+  sale_price decimal(12,2)
+  stock_quantity int [default: 10]
+  primary_flower varchar(100)
+  color varchar(50)
+  occasion varchar(100)
+  thumbnail varchar(255)
+  is_featured tinyint [default: 0]
+  is_active tinyint [default: 1]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table orders {
+  id int [pk, increment]
+  order_code varchar(30) [not null, unique]
+  user_id int [ref: > users.id, note: 'Khóa ngoại liên kết users, null nếu là khách vãng lai']
+  sender_name varchar(100) [not null]
+  sender_phone varchar(20) [not null]
+  is_anonymous tinyint [default: 0]
+  receiver_name varchar(100) [not null]
+  receiver_phone varchar(20) [not null]
+  receiver_address text [not null]
+  delivery_date date [not null]
+  delivery_time_slot varchar(50) [not null]
+  ribbon_message text
+  total_amount decimal(12,2) [not null]
+  payment_method varchar(30) [default: 'vietqr']
+  payment_status varchar(30) [default: 'pending']
+  order_status varchar(30) [default: 'received']
+  photo_proof varchar(255)
+  delivery_proof varchar(255)
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table order_items {
+  id int [pk, increment]
+  order_id int [ref: > orders.id, note: 'Khóa ngoại liên kết đơn hàng']
+  product_id int [ref: > products.id, note: 'Khóa ngoại liên kết sản phẩm (Quan hệ n-n)']
+  product_name varchar(200) [not null]
+  product_sku varchar(50) [not null]
+  unit_price decimal(12,2) [not null]
+  quantity int [not null, default: 1]
+  total_price decimal(12,2) [not null]
+  created_at timestamp
+}
+
+Table order_status_history {
+  id int [pk, increment]
+  order_id int [ref: > orders.id, note: 'Khóa ngoại liên kết đơn hàng']
+  status varchar(30) [not null]
+  note text
+  created_by int [ref: > users.id]
+  created_at timestamp
+}
