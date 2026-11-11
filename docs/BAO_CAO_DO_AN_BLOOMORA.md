@@ -449,11 +449,72 @@ erDiagram
 *   **Bảng `order_items` (Chi tiết dòng đơn hàng - Snapshot):**
     *   `unit_price` (DECIMAL(12,2)), `product_name` (VARCHAR(200)): **Lưu cố định tên và giá tại đúng thời điểm đặt hàng**, đảm bảo tính chính xác kế toán lịch sử khi giá sản phẩm ngoài cửa hàng thay đổi theo thời vụ.
 
-### 3.3. Thiết kế kiến trúc hệ thống (MVC & REST API)
-Hệ thống vận hành theo mô hình kiến trúc phân lớp:
-1.  **Client Tier (Trình duyệt):** Giao diện HTML5, Tailwind CSS, icon Phosphor và JavaScript ES6. Mọi thao tác tìm kiếm, lọc hoa, mở giỏ hàng, đặt hàng diễn ra mượt mà thông qua cơ chế bất đồng bộ Ajax `fetch()`.
-2.  **Controller / API Tier (Máy chủ PHP):** Tiếp nhận HTTP Request, lọc dữ liệu đầu vào (Sanitize), xác thực quyền truy cập (Auth & Role Middleware), gọi Model xử lý nghiệp vụ và trả về dữ liệu chuẩn JSON.
-3.  **Model / Data Tier (MySQL Database):** Thao tác thông qua lớp `PDO` bảo mật cao, đảm bảo toàn vẹn dữ liệu với các khối Database Transactions.
+### 3.3. Thiết kế kiến trúc hệ thống (Mô hình MVC)
+*(Theo chuẩn mực Buổi 8, Mục 2.1)*
+
+Hệ thống **Bloomora** được thiết kế theo kiến trúc **Mô hình MVC (Model – View – Controller)** kết hợp cơ chế trao đổi dữ liệu hiện đại **RESTful API**, giúp phân tách độc lập giữa tầng giao diện người dùng và tầng xử lý nghiệp vụ dữ liệu phía máy chủ.
+
+#### 1. Sơ đồ Luồng Xử Lý Kiến Trúc MVC (Request Lifecycle)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as 🧑‍💼 Người Dùng (Client)
+    participant View as 🖥️ View (HTML/CSS/JS)
+    participant Router as 🧭 Router / Dispatcher
+    participant Controller as ⚙️ Controller (PHP API)
+    participant Model as 🗄️ Model / PDO Wrapper
+    participant DB as 💾 CSDL MySQL
+
+    User->>View: 1. Thao tác đặt hoa / lọc sản phẩm
+    View->>Router: 2. Gửi HTTP Request (GET / POST JSON)
+    Router->>Controller: 3. Điều hướng đến đúng Controller xử lý
+    Note over Controller: Xác thực Session & Validate dữ liệu đầu vào
+    Controller->>Model: 4. Gọi hàm nghiệp vụ (Query/Transaction)
+    Model->>DB: 5. Thực thi câu lệnh SQL (Prepared Statement)
+    DB-->>Model: 6. Trả về tập kết quả dữ liệu
+    Model-->>Controller: 7. Đóng gói dữ liệu thành Object/Array
+    Controller-->>View: 8. Trả về HTTP Response (Mã trạng thái + JSON)
+    View-->>User: 9. Cập nhật giao diện động tức thì (Render DOM)
+```
+
+```text
++------------------+         HTTP Request         +-------------------+
+|   CLIENT TIER    | ---------------------------> |   ROUTER / API    |
+|  (View / User)   |                              |  (index / router) |
++------------------+                              +-------------------+
+        ^                                                   |
+        |                                                   v
+        |  JSON Response / HTML                     +-------------------+
+        +------------------------------------------ |    CONTROLLER     |
+                                                    | (Auth / Business) |
+                                                    +-------------------+
+                                                            |
+                                                            v
++------------------+          PDO SQL Query         +-------------------+
+|  DATABASE TIER   | <--------------------------- |    MODEL TIER     |
+| (MySQL Bloomora) | ---------------------------> |   (Data Access)   |
++------------------+         Result Sets          +-------------------+
+```
+
+#### 2. Vai trò chi tiết của từng thành phần trong hệ thống
+
+1.  **Request (Yêu cầu từ người dùng):**
+    *   Khởi phát từ các hành động thực tế của khách hàng hoặc quản trị viên trên trình duyệt (F12 fetch API, bấm lọc hoa, submit form đặt hàng, cập nhật trạng thái đơn).
+2.  **Router / Dispatcher (Bộ điều hướng):**
+    *   Tiếp nhận URL và phương thức HTTP (`GET`, `POST`, `PUT`, `DELETE`).
+    *   Phân tích endpoint (ví dụ: `/api/products.php`, `/api/checkout.php`, `/api/auth/login.php`) để điều phối luồng xử lý đến đúng Controller phụ trách.
+3.  **Controller (Bộ điều khiển & Xử lý nghiệp vụ):**
+    *   **Validate & Sanitize:** Làm sạch và kiểm tra tính hợp lệ của dữ liệu đầu vào (`filter_var`, `htmlspecialchars`).
+    *   **Middleware:** Kiểm tra phiên làm việc (Session) và phân quyền người dùng (khách vãng lai, thành viên, nhân viên, quản trị viên).
+    *   **Business Logic:** Thực hiện quy tắc nghiệp vụ (ví dụ: tính toán lại đơn giá hoa, sinh mã đơn `BL-xxxxx`, tạo mã VietQR theo chuẩn NAPAS).
+4.  **Model (Tầng dữ liệu & Tương tác CSDL):**
+    *   Đảm nhiệm toàn bộ việc truy xuất cơ sở dữ liệu qua lớp thư viện `PDO` an toàn.
+    *   Chỉ định nghĩa các câu lệnh truy vấn tham số hóa (Prepared Statements) để triệt tiêu SQL Injection.
+    *   Quản lý các giao dịch phức tạp (Transactions: `beginTransaction`, `commit`, `rollback`) khi tạo đơn hàng nhiều bảng (`orders`, `order_items`, `order_status_history`).
+5.  **View (Giao diện hiển thị & Phản hồi):**
+    *   Tiếp nhận dữ liệu phản hồi JSON từ Controller, giải mã và cập nhật trực tiếp lên giao diện (DOM Rendering) mà không cần tải lại toàn bộ trang (Single-Page Experience).
+    *   Phía Admin sử dụng View kết xuất Server-side kết hợp Dynamic Modal cho các tác vụ quản trị nhanh chóng.
 
 ---
 
