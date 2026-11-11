@@ -129,42 +129,44 @@ Hệ thống được chia thành 5 phân hệ lớn:
 | **ACT04** | **Quản trị viên (Admin)** | Chủ cửa hàng hoặc Quản lý hệ thống | Toàn quyền hệ thống: xem thống kê doanh thu, quản lý đơn hàng, quản lý sản phẩm, tài khoản. |
 
 ### <a id="24-danh-sách-user-story"></a>2.4. Danh sách User Story
-*(Bao gồm 12 User Stories cốt lõi)*
+*(Bao gồm 12 User Stories cốt lõi phân theo từng vai trò người dùng trong hệ thống)*
 
 | ID | Actor | User Story (Người dùng muốn gì & Vì sao) | Độ Ưu Tiên |
 | :--- | :--- | :--- | :--- |
-| **US01** | Guest | Là khách vãng lai, tôi muốn lọc hoa theo ngân sách (vd: 500k-1tr) để tìm được mẫu hoa phù hợp túi tiền nhanh nhất. | **Cao (Must Have)** |
-| **US02** | Guest | Là người mua hoa, tôi muốn xem mô phỏng dải ruy băng/thiệp in lời chúc để biết khi in ra có đẹp hay không. | **Cao (Must Have)** |
-| **US03** | Customer | Là khách mua hoa tặng người yêu, tôi muốn chọn "Gửi tặng ẩn danh" để tạo sự bất ngờ cho người nhận. | **Cao (Must Have)** |
-| **US04** | Customer | Là khách mua hoa, tôi muốn chọn chính xác ngày và khung giờ giao hoa để hoa đến đúng thời điểm chúc mừng. | **Cao (Must Have)** |
-| **US05** | Customer | Là người thanh toán, tôi muốn quét mã VietQR tự động điền số tiền và mã đơn để chuyển khoản nhanh trong 30 giây. | **Cao (Must Have)** |
-| **US06** | Customer | Là người gửi hoa từ xa, tôi muốn xem ảnh chụp hoa thật mà tiệm cắm xong trước khi giao để hoàn toàn yên tâm. | **Cao (Must Have)** |
-| **US07** | Guest | Là người dùng mới, tôi muốn đăng ký tài khoản nhanh chóng chỉ với Tên, SĐT, Email và Mật khẩu. | **Cao (Must Have)** |
-| **US08** | Customer | Là thành viên, tôi muốn khi đặt hàng thông tin cá nhân của tôi tự động được điền sẵn vào form thanh toán. | **Vừa (Should Have)**|
-| **US09** | Staff | Là nhân viên cắm hoa, tôi muốn cập nhật trạng thái đơn sang "Đã chụp ảnh" kèm link ảnh để khách hàng duyệt. | **Cao (Must Have)** |
-| **US10** | Admin | Là quản lý tiệm, tôi muốn xem tổng quan doanh thu và số lượng đơn hàng mới trong ngày trên Dashboard. | **Cao (Must Have)** |
-| **US11** | Admin | Là quản trị viên, tôi muốn phân tách trang đăng nhập Admin riêng biệt để ngăn người dùng thường truy cập trái phép. | **Cao (Must Have)** |
-| **US12** | Customer | Là khách hàng, tôi muốn tra cứu tình trạng đơn hoa bất kỳ lúc nào bằng mã đơn hàng. | **Cao (Must Have)** |
+| **US01** | Guest | Là khách vãng lai, tôi muốn lọc hoa theo ngân sách (vd: dưới 500k, 500k–1tr, trên 1tr) và màu sắc để tìm được mẫu hoa phù hợp túi tiền nhanh nhất. | **Cao (Must Have)** |
+| **US02** | Guest | Là người mua hoa, tôi muốn xem mô phỏng dải ruy băng/thiệp in lời chúc trực tiếp (Live Preview) để biết khi in ra thực tế có đẹp và đúng ý hay không. | **Cao (Must Have)** |
+| **US03** | Customer | Là khách mua hoa tặng người yêu/đối tác, tôi muốn chọn tùy chọn "Gửi tặng ẩn danh" để tạo sự bất ngờ và bảo mật danh tính người gửi. | **Cao (Must Have)** |
+| **US04** | Customer | Là người đặt hoa giao hẹn giờ, tôi muốn chọn chính xác ngày và khung giờ hẹn giao hoa để hoa đến đúng thời điểm sự kiện chúc mừng. | **Cao (Must Have)** |
+| **US05** | Customer | Là người thanh toán online, tôi muốn quét mã VietQR tự động điền số tiền và mã đơn để hoàn tất chuyển khoản nhanh chóng trong 30 giây. | **Cao (Must Have)** |
+| **US06** | Customer | Là người gửi hoa từ xa, tôi muốn xem ảnh chụp hoa thật mà tiệm cắm xong trước khi giao để hoàn toàn yên tâm về chất lượng hoa thực tế. | **Cao (Must Have)** |
+| **US07** | Guest | Là khách hàng mới, tôi muốn đăng ký tài khoản nhanh chóng chỉ với Họ tên, Số điện thoại, Email và Mật khẩu. | **Cao (Must Have)** |
+| **US08** | Customer | Là thành viên đã đăng nhập, tôi muốn khi đặt hàng thông tin cá nhân của tôi tự động được điền sẵn vào form thanh toán để tiết kiệm thời gian. | **Vừa (Should Have)** |
+| **US09** | Staff | Là nghệ nhân Florist cắm hoa, tôi muốn cập nhật trạng thái đơn sang "Đã chụp ảnh hoa thật" kèm link ảnh chụp bó hoa để khách hàng duyệt trước khi giao. | **Cao (Must Have)** |
+| **US10** | Admin | Là quản lý tiệm, tôi muốn xem tổng quan doanh thu, số lượng đơn hàng mới và sản phẩm bán chạy trong ngày trên Dashboard. | **Cao (Must Have)** |
+| **US11** | Admin | Là quản trị viên, tôi muốn phân tách trang đăng nhập Admin riêng biệt với cổng bảo vệ để ngăn chặn người dùng thường truy cập trái phép. | **Cao (Must Have)** |
+| **US12** | Customer | Là khách hàng, tôi muốn tra cứu tình trạng đơn hoa bất kỳ lúc nào bằng mã đơn hàng qua chu trình 5 bước minh bạch. | **Cao (Must Have)** |
+
+---
 
 ### 2.5. Sơ đồ Use Case tổng quát
 
-Sơ đồ Use Case tổng quát của hệ thống **Bloomora** được mô hình hóa theo đúng kiến trúc phân rã chức năng và phân cấp tác nhân (Actor Inheritance), khớp 100% với **12 User Stories ở Mục 2.4**:
-*   **Phía Khách Hàng:** Bao gồm *Thành Viên (Customer)* kế thừa quyền từ *Khách Vãng Lai (Guest)*.
-*   **Phía Vận Hành Tiệm:** Bao gồm *Quản Trị Viên (Admin)* kế thừa quyền từ *Florist / Nhân Viên (Staff)*.
-*   **Khung Hệ Thống Website Hoa Tươi Bloomora:** Được nhóm trực quan thành 5 phân hệ chức năng:
+Sơ đồ Use Case tổng quát của hệ thống **Bloomora** được mô hình hóa theo đúng kiến trúc phân rã chức năng và kế thừa tác nhân (Actor Inheritance), khớp 100% với **12 User Stories ở Mục 2.4**:
+*   **Phía Khách Hàng (Customer Side):** Tác nhân *Thành Viên (Customer)* kế thừa toàn bộ quyền tác vụ của *Khách Vãng Lai (Guest)* và bổ sung các đặc quyền dành riêng cho thành viên (tự điền form, lưu lịch sử đặt hoa).
+*   **Phía Vận Hành Tiệm (Admin Side):** Tác nhân *Quản Trị Viên (Admin)* kế thừa quyền của *Florist / Nhân Viên (Staff)* và nắm giữ toàn quyền quản trị nâng cao (xem Dashboard doanh thu, phân quyền tài khoản).
+*   **Khung Hệ Thống Website Hoa Tươi Bloomora:** Được gom nhóm logic thành 5 phân hệ cốt lõi:
     1. `💼 Tài Khoản & Bảo Mật`: US07, US11.
     2. `📊 Quản Trị & Vận Hành`: US10, US09.
     3. `🌿 Khám Phá & Chọn Hoa`: US01, US02.
     4. `📷 Tra Cứu & Duyệt Hoa`: US12, US06.
     5. `💐 Mua Hàng & Thanh Toán`: US03, US08, US04, US05.
 
-#### 1. Hình ảnh Sơ đồ Use Case Hệ Thống Bloomora (Khớp 100% Bảng Phân Rã)
+#### 1. Hình ảnh Sơ đồ Use Case Tổng Quát (Chuẩn phân rã 5 phân hệ)
 
 ![Sơ đồ Use Case Tổng Quát Bloomora](usecase_bloomora.png)
 
 *(File vector SVG gốc: [usecase_bloomora.svg](usecase_bloomora.svg) | Công cụ xem & copy ảnh vào Word 1-click: [view_diagram.html](view_diagram.html))*
 
-#### 2. Sơ đồ Mermaid (Hiển thị trực tiếp trên trình đọc Markdown / GitHub)
+#### 2. Sơ đồ Mermaid biểu diễn kiến trúc Use Case
 
 ```mermaid
 flowchart TB
@@ -211,8 +213,10 @@ flowchart TB
     Guest --> G_CHECKOUT
     Guest --> G_TRACK
     Guest --> US07
+    Customer -.->|Kế thừa & Thêm quyền| US08
     Staff --> G_ADMIN
     Staff --> US11
+    Admin -.->|Kế thừa & Thêm quyền| US10
 ```
 
 #### 3. Bảng Ánh Xạ Giữa Phân Hệ, Ca Sử Dụng và 12 User Stories Mục 2.4
@@ -232,63 +236,64 @@ flowchart TB
 | | Chọn ngày & giờ hẹn giao hoa | Khách Vãng Lai, Thành Viên | **US04** |
 | | Thanh toán quét mã VietQR tự động | Khách Vãng Lai, Thành Viên | **US05** |
 
-
-
+---
 
 ### 2.6. Đặc tả Use Case chi tiết
 
-#### Use Case 1: Đặt Hàng Hoa Tươi & Thanh Toán VietQR (UC01)
-*   **Tên Use Case:** Đặt Hàng Hoa Tươi & Thanh Toán VietQR
-*   **Actor:** Khách vãng lai (Guest) / Thành viên (Customer)
-*   **Tiền điều kiện (Pre-condition):** Giỏ hàng có ít nhất 01 sản phẩm hoa tươi.
-*   **Luồng sự kiện chính (Main Flow):**
-    1. Khách hàng mở giỏ hàng, kiểm tra danh sách hoa và bấm *"Tiến Hành Đặt Hoa Ngay"*.
-    2. Hệ thống hiển thị Modal Thông tin Đặt Hoa (nếu đã đăng nhập, tự động điền Tên & SĐT người gửi).
-    3. Khách hàng nhập thông tin người nhận, địa chỉ, chọn ngày giao và khung giờ hẹn giao hoa.
-    4. Khách hàng nhập thông điệp in băng rôn/thiệp chúc mừng và chọn phương thức *"Quét mã VietQR"*.
-    5. Khách hàng bấm *"Hoàn Tất Đặt Hoa"*.
-    6. Hệ thống gửi dữ liệu lên Backend `api/checkout.php`: Bắt đầu Transaction, tính lại tiền từ Database, tạo đơn trong bảng `orders`, lưu danh sách vào `order_items`, sinh mã đơn dạng `BL-xxxxx`.
-    7. Hệ thống sinh mã ảnh VietQR chuẩn NAPAS hiển thị lên màn hình kèm hướng dẫn chuyển khoản.
-*   **Luồng ngoại lệ (Alternative Flow):**
-    *   *Ngoại lệ 1:* Thiếu tên người nhận, SĐT hoặc địa chỉ ➔ Hệ thống báo lỗi viền đỏ, yêu cầu điền bổ sung.
-    *   *Ngoại lệ 2:* Mất kết nối CSDL giữa chừng ➔ Backend tự động Rollback dữ liệu, thông báo khách thử lại.
-*   **Hậu điều kiện (Post-condition):** Đơn hàng được tạo thành công với trạng thái `received`, mã đơn được lưu, giỏ hàng được làm rỗng.
+Đặc tả chi tiết **3 Use Case trọng tâm nhất** của hệ thống Bloomora (Đặt hàng & Thanh toán QR, Tra cứu tiến độ & Duyệt ảnh thật, Cập nhật tiến độ & Tải ảnh hoa) theo mẫu chuẩn hóa 6 thành phần bắt buộc:
 
-#### Use Case 2: Cập Nhật Tiến Độ Cắm Hoa & Tải Ảnh Duyệt (UC02)
-*   **Tên Use Case:** Cập Nhật Tiến Độ Cắm Hoa & Tải Ảnh Duyệt (Photo Proof)
-*   **Actor:** Nghệ nhân Florist (Staff) / Quản trị viên (Admin)
-*   **Tiền điều kiện:** Đã đăng nhập vào trang Quản trị Admin (`admin/index.php`) với quyền `staff` hoặc `admin`.
-*   **Luồng sự kiện chính:**
-    1. Nhân viên mở danh sách đơn hàng tại trang Admin, tìm đơn hàng cần xử lý.
-    2. Bấm nút *"Cập nhật"* tại dòng đơn hàng tương ứng.
-    3. Hộp thoại mở ra: Nhân viên chọn trạng thái mới (ví dụ: *"3. Đã chụp ảnh hoa thật"*), dán đường dẫn ảnh hoa thực tế vừa cắm xong, nhập ghi chú.
-    4. Bấm *"Lưu Thay Đổi"*.
-    5. Hệ thống cập nhật bảng `orders` (trường `order_status` và `photo_proof`), đồng thời thêm bản ghi mới vào bảng `order_status_history`.
-    6. Hệ thống thông báo thành công, bảng dữ liệu Admin tự động làm mới.
-*   **Luồng ngoại lệ:** Bỏ trống trạng thái ➔ Hệ thống cảnh báo yêu cầu chọn trạng thái hợp lệ.
-*   **Hậu điều kiện:** Đơn hàng được cập nhật tiến trình mới; khách hàng tra cứu sẽ nhìn thấy ngay ảnh hoa thực tế.
+#### 1. Đặc tả Use Case 1: Đặt Hàng Hoa Tươi & Thanh Toán VietQR
 
-#### Use Case 3: Đăng Ký Tài Khoản Khách Hàng (UC03)
-*   **Tên Use Case:** Đăng Ký Tài Khoản Mới
-*   **Actor:** Khách vãng lai (Guest)
-*   **Tiền điều kiện:** Khách chưa đăng nhập vào hệ thống.
-*   **Luồng sự kiện chính:**
-    1. Khách bấm nút *"Đăng Nhập"* trên Header, chọn tab *"Tạo Tài Khoản Mới"*.
-    2. Khách điền Họ tên, Số điện thoại, Email, Mật khẩu và Xác nhận mật khẩu.
-    3. Khách bấm *"Tạo Tài Khoản Ngay"*.
-    4. Client kiểm tra mật khẩu xác nhận và độ dài >= 6 ký tự.
-    5. Gửi request đến `api/auth/register.php`: Kiểm tra trùng email trong Database, băm mật khẩu `password_hash()`, lưu vào bảng `users` với `role_id = 3`.
-    6. Backend khởi tạo Session đăng nhập ngay lập tức.
-    7. Frontend đóng modal, cập nhật Header hiển thị tên khách hàng và thông báo thành công.
-*   **Luồng ngoại lệ:** Email đã tồn tại trong Database ➔ Trả về mã lỗi 409: *"Email này đã được sử dụng. Vui lòng đăng nhập hoặc dùng email khác!"*.
-*   **Hậu điều kiện:** Bản ghi người dùng mới được lưu vào bảng `users`, phiên đăng nhập hợp lệ được kích hoạt.
+| Mục | Nội dung |
+| :--- | :--- |
+| **Tên Use Case** | **Đặt hàng hoa tươi & Thanh toán VietQR** |
+| **Actor** | Thành viên (Customer), Khách vãng lai (Guest) |
+| **Mô tả tóm tắt** | Cho phép khách hàng chọn mẫu hoa tươi trong giỏ hàng, nhập thông tin giao nhận, thiết kế băng rôn/thiệp, chọn khung giờ giao hẹn trước và quét mã VietQR tự động để hoàn tất đơn hàng. |
+| **Điều kiện trước (Pre-condition)** | Khách hàng đã truy cập website Bloomora; giỏ hàng có ít nhất 01 sản phẩm hoa tươi còn hàng. |
+| **Luồng chính (Main flow)** | 1. Khách hàng mở giỏ hàng, kiểm tra lại danh sách sản phẩm và nhấn **"Tiến Hành Đặt Hoa Ngay"**.<br>2. Hệ thống hiển thị modal form thanh toán (nếu là Thành viên đã đăng nhập: hệ thống tự động điền sẵn Tên và SĐT người gửi).<br>3. Khách hàng nhập thông tin người nhận, địa chỉ giao hoa, chọn ngày giao và khung giờ hẹn giao hoa.<br>4. Khách hàng nhập nội dung thông điệp in lên băng rôn hoặc thiệp chúc mừng.<br>5. Hệ thống gọi chức năng kiểm tra tồn kho và tính toán lại tổng tiền từ Database (include: *Kiểm tra tồn kho & Tính tiền*).<br>6. Khách hàng chọn phương thức thanh toán **"Chuyển khoản VietQR (Tự động 30s)"** và nhấn **"Hoàn Tất Đặt Hoa"**.<br>7. Hệ thống tạo đơn hàng với mã `BL-xxxxx`, lưu chi tiết từng mặt hàng vào CSDL, đồng thời tạo mã ảnh VietQR chuẩn NAPAS hiển thị lên màn hình kèm hướng dẫn quét mã chuyển khoản. |
+| **Luồng rẽ nhánh / ngoại lệ** | - **Gửi tặng ẩn danh:** Khách hàng tích chọn "Gửi tặng ẩn danh", hệ thống sẽ ẩn toàn bộ thông tin người gửi trên phiếu giao hoa (extend: *Gửi tặng ẩn danh*).<br>- **Thiếu thông tin bắt buộc:** Khách bỏ trống Tên người nhận, SĐT hoặc Địa chỉ giao hàng ➔ Hệ thống báo viền đỏ và yêu cầu nhập đủ trước khi tiếp tục.<br>- **Hết hàng hoặc lỗi CSDL:** Hệ thống tự động Rollback giao dịch (Transaction Rollback), thông báo lỗi và yêu cầu cập nhật lại giỏ hàng.<br>- **Khách chọn Tiền mặt (COD):** Đơn hàng được tạo ngay với trạng thái thanh toán là "Chờ thanh toán khi nhận hoa" mà không cần sinh mã QR. |
+| **Include** | *Kiểm tra tồn kho & Tính tiền*; *Tự động điền thông tin thành viên* (nếu đã đăng nhập). |
+| **Extend** | *Gửi tặng ẩn danh*; *Tạo mã VietQR tự động*; *Mô phỏng thiệp/băng rôn chúc mừng*. |
+| **Điều kiện sau (Post-condition)** | Đơn hàng mới được tạo thành công trong CSDL với trạng thái `received` (Chờ xử lý); giỏ hàng của khách hàng được làm rỗng; hệ thống hiển thị màn hình hướng dẫn thanh toán QR và cung cấp mã tra cứu đơn hàng. |
+
+#### 2. Đặc tả Use Case 2: Tra Cứu Tiến Độ Đơn Hoa & Xem Ảnh Thật (Photo Proof)
+
+| Mục | Nội dung |
+| :--- | :--- |
+| **Tên Use Case** | **Tra cứu tiến độ đơn hoa & Xem ảnh chụp hoa thật** |
+| **Actor** | Khách hàng (Customer / Guest) |
+| **Mô tả tóm tắt** | Cho phép khách hàng nhập mã đơn hàng (ví dụ: `BL17301`) để theo dõi tiến độ cắm và giao hoa qua 5 bước thời gian thực, đồng thời xem và duyệt ảnh chụp bó hoa thật mà nghệ nhân tiệm cắm xong trước khi giao. |
+| **Điều kiện trước (Pre-condition)** | Đơn hàng đã được tạo thành công trên hệ thống và khách hàng có mã đơn hàng hợp lệ. |
+| **Luồng chính (Main flow)** | 1. Khách hàng bấm nút **"Tra Cứu Đơn Hàng"** trên thanh Header.<br>2. Hệ thống hiển thị hộp thoại tìm kiếm mã đơn.<br>3. Khách hàng nhập mã đơn hàng và bấm **"Kiểm Tra"**.<br>4. Hệ thống gửi yêu cầu đến `api/tracking.php`, truy vấn thông tin đơn hàng và bảng lịch sử trạng thái `order_status_history`.<br>5. Hệ thống hiển thị Timeline trực quan 5 bước tiến độ (Đã nhận đơn ➔ Đang cắm hoa ➔ Đã chụp ảnh hoa thật ➔ Đang giao hoa ➔ Giao hoa thành công).<br>6. Nếu đơn hàng đã qua bước 3, hệ thống hiển thị trực tiếp **Ảnh chụp hoa thật** (Photo Proof) kèm ghi chú của Florist và ảnh xác nhận người nhận hoa (nếu đã giao thành công). |
+| **Luồng rẽ nhánh / ngoại lệ** | - **Mã đơn hàng không tồn tại:** Hệ thống hiển thị thông báo lỗi: *"Không tìm thấy đơn hàng với mã này. Vui lòng kiểm tra lại!"* và cho phép nhập lại.<br>- **Đơn hàng chưa hoàn thành cắm hoa:** Hệ thống hiển thị trạng thái đang xử lý kèm thông báo: *"Nghệ nhân đang cắm hoa, ảnh chụp thực tế sẽ được cập nhật ngay khi hoàn thành!"*. |
+| **Include** | *Xác thực mã đơn hàng*; *Truy vấn lịch sử trạng thái*. |
+| **Extend** | *Hiển thị ảnh hoa thực tế (Photo Proof)*; *Liên hệ hỗ trợ nhanh qua Hotline/Zalo*. |
+| **Điều kiện sau (Post-condition)** | Khách hàng nắm bắt chính xác tiến độ đơn hàng thời gian thực, hoàn toàn an tâm về chất lượng hoa trước khi người nhận nhận hoa. |
+
+#### 3. Đặc tả Use Case 3: Cập Nhật Tiến Độ Cắm Hoa & Tải Ảnh Hoa Thực Tế
+
+| Mục | Nội dung |
+| :--- | :--- |
+| **Tên Use Case** | **Cập nhật tiến độ cắm hoa & Tải ảnh hoa thực tế** |
+| **Actor** | Florist / Nhân viên tiệm (Staff), Quản trị viên (Admin) |
+| **Mô tả tóm tắt** | Cho phép nhân viên tiệm hoa hoặc quản trị viên cập nhật trạng thái đơn hàng (theo chu trình 5 bước), tải lên liên kết ảnh chụp bó hoa thật vừa hoàn thiện và ghi chú tiến độ để khách hàng theo dõi. |
+| **Điều kiện trước (Pre-condition)** | Nhân viên/Quản trị viên đã đăng nhập thành công vào trang Quản trị (`admin/login.php`) với quyền `staff` hoặc `admin`; đơn hàng đang ở trạng thái cần cập nhật. |
+| **Luồng chính (Main flow)** | 1. Nhân viên truy cập bảng điều khiển Admin (`admin/index.php`), chọn mục **"Quản Lý Đơn Hàng"**.<br>2. Nhân viên tìm đơn hàng cần cập nhật qua thanh tìm kiếm hoặc bộ lọc trạng thái.<br>3. Nhân viên nhấn nút **"Cập Nhật Trạng Thái"** tại đơn hàng tương ứng.<br>4. Modal cập nhật hiển thị: Nhân viên chọn trạng thái mới trong danh sách thả xuống (vd: *"3. Đã chụp ảnh hoa thật"* hoặc *"4. Đang giao hàng"*).<br>5. Nhân viên dán link ảnh chụp sản phẩm thật hoặc ảnh giao hoa vào ô **"Ảnh hoa thực tế (Photo Proof)"** và nhập ghi chú cắm hoa (nếu có).<br>6. Nhân viên nhấn nút **"Lưu Thay Đổi"**.<br>7. Hệ thống gửi request đến `api/admin/orders.php`, cập nhật cột `order_status` và `photo_proof` trong bảng `orders`, đồng thời tự động thêm bản ghi sự kiện mới vào bảng `order_status_history`.<br>8. Hệ thống thông báo thành công và tự động tải lại danh sách đơn hàng. |
+| **Luồng rẽ nhánh / ngoại lệ** | - **Chưa chọn trạng thái mới:** Hệ thống cảnh báo yêu cầu chọn trạng thái hợp lệ trước khi lưu.<br>- **Lỗi kết nối máy chủ:** Hệ thống hiển thị thông báo lỗi và không làm thay đổi trạng thái đơn hàng trong CSDL. |
+| **Include** | *Xác thực quyền hạn Admin/Staff*; *Ghi nhật ký lịch sử trạng thái*. |
+| **Extend** | *Gửi thông báo cập nhật tiến độ*; *Đính kèm ảnh giao hoa thành công*. |
+| **Điều kiện sau (Post-condition)** | Trạng thái đơn hàng và ảnh hoa thật được cập nhật tức thì trên cơ sở dữ liệu; khách hàng khi tra cứu mã đơn sẽ thấy ngay tiến độ mới và ảnh hoa thực tế. |
+
+---
 
 ### 2.7. Yêu cầu phi chức năng
-1.  **Hiệu năng (Performance):** Tốc độ phản hồi API trung bình dưới **300ms**; thời gian tải trang ban đầu dưới **1.5 giây**.
-2.  **Bảo mật (Security):** 100% câu truy vấn tương tác cơ sở dữ liệu sử dụng **PDO Prepared Statements** để triệt tiêu lỗ hổng SQL Injection; mật khẩu lưu trữ trong CSDL được băm một chiều với thuật toán **BCRYPT**; lọc sạch dữ liệu đầu vào chống tấn công XSS.
-3.  **Toàn vẹn dữ liệu tài chính (Data Integrity):** Giá bán sản phẩm được tính toán hoàn toàn ở máy chủ Backend, ngăn chặn hành vi chỉnh sửa giá từ trình duyệt Client (F12 Inspect Element).
-4.  **Tương thích & Giao diện (Usability & Compatibility):** Giao diện Responsive hoàn toàn, hiển thị tối ưu trên Chrome, Edge, Safari, Firefox; font chữ tiếng Việt `Be Vietnam Pro` hiển thị chuẩn xác không bị lỗi dấu (Mojibake).
-5.  **Tính khả dụng (Availability):** Cơ chế chuyển đổi dự phòng (Fallback) linh hoạt: nếu mất kết nối API tạm thời, giao diện tự động chuyển sang dữ liệu bộ đệm cục bộ, không làm crash ứng dụng.
+*(Theo chuẩn mực Buổi 2, Mục 8)*
+
+1.  **Hiệu năng (Performance):** Tốc độ phản hồi API trung bình dưới **300ms**; thời gian tải trang ban đầu dưới **1.5 giây**; hỗ trợ chịu tải đồng thời tối thiểu **100 người dùng** cùng truy cập mua sắm mà không nghẽn mạng.
+2.  **Bảo mật (Security):** 100% câu truy vấn tương tác cơ sở dữ liệu sử dụng **PDO Prepared Statements** để triệt tiêu hoàn toàn lỗ hổng SQL Injection; mật khẩu lưu trữ trong CSDL được băm một chiều với thuật toán an toàn **BCRYPT**; lọc sạch dữ liệu đầu vào chống tấn công XSS; phân quyền Admin nghiêm ngặt qua Middleware Session.
+3.  **Toàn vẹn dữ liệu tài chính (Data Integrity):** Giá bán và tổng tiền đơn hàng được tính toán độc lập ở máy chủ Backend từ dữ liệu gốc trong Database, ngăn chặn triệt để hành vi can thiệp sửa giá từ Client (F12 Inspect Element / Local Storage).
+4.  **Giao diện & Tương thích (Usability & Compatibility):** Giao diện Responsive thích ứng hoàn hảo trên mọi thiết bị (Desktop, Laptop, Tablet, Smartphone); tương thích tốt trên các trình duyệt phổ biến (Google Chrome, Microsoft Edge, Safari, Mozilla Firefox); font chữ tiếng Việt `Be Vietnam Pro` hiển thị chuẩn xác, không bị lỗi bảng mã (Mojibake).
+5.  **Tính sẵn sàng & Độ tin cậy (Availability & Reliability):** Tỷ lệ hoạt động liên tục đạt **99.5%**; có cơ chế Fallback xử lý lỗi mất kết nối máy chủ mà không làm crash ứng dụng; toàn bộ các thao tác tạo đơn nhiều bảng được bao bọc trong **Database Transaction** đảm bảo không bao giờ phát sinh dữ liệu rác mồ côi.
 
 ---
 
