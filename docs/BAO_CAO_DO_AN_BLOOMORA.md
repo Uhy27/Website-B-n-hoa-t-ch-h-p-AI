@@ -148,42 +148,77 @@ Hệ thống được chia thành 5 phân hệ lớn:
 
 ### 2.5. Sơ đồ Use Case tổng quát
 
+Sơ đồ Use Case tổng quát của hệ thống **Bloomora** được xây dựng chuẩn mực theo cấu trúc 3 cột tương tác:
+*   **Cột bên trái:** Tác nhân **Khách hàng** (Bao gồm Khách vãng lai và Thành viên đã đăng ký).
+*   **Khung ở giữa:** **Hệ thống Website Bán hoa Bloomora** (System Boundary) chứa các ca sử dụng (Use Cases) tương ứng.
+*   **Cột bên phải:** Tác nhân **Quản trị viên** (Bao gồm Quản lý Shop và Nghệ nhân cắm hoa / Staff).
+*   **Các đường liên kết màu cam:** Biểu diễn quyền tác động và tương tác trực tiếp của từng Actor tới từng chức năng trong hệ thống.
+
+#### 1. Hình ảnh Sơ đồ Use Case chuẩn mực (3 Cột)
+
+![Sơ đồ Use Case Tổng Quát Bloomora](usecase_bloomora.png)
+
+*(File vector SVG gốc: [usecase_bloomora.svg](usecase_bloomora.svg) | Công cụ xem & copy ảnh vào Word 1-click: [view_diagram.html](view_diagram.html))*
+
+> **Ghi chú về hai phiên bản linh hoạt:**
+> 1. **Phiên bản 1 (Chuẩn Đề tài Bloomora - 6 Use Case cân đối 3-3):** Thêm chức năng *Tra cứu đơn hàng* (US12) - tính năng cốt lõi theo dõi tiến độ cắm hoa và duyệt ảnh thật trước khi giao.
+> 2. **Phiên bản 2 (Y hệt 100% mẫu Slide ShoeShop - 5 Use Case 2-3):** [Xem ảnh mẫu Slide 5 Use Case](usecase_bloomora_5uc.png).
+
+#### 2. Sơ đồ Mermaid (Hiển thị trực tiếp trên trình đọc Markdown / GitHub)
+
 ```mermaid
 flowchart LR
-    Guest((Khách vãng lai))
-    Customer((Thành viên))
-    Staff((Florist / Nhân viên))
-    Admin((Quản trị viên))
-
-    subgraph Bloomora System
-        UC1[Xem & Lọc sản phẩm hoa]
-        UC2[Xem Live Preview Băng rôn]
-        UC3[Đặt hàng & Thanh toán VietQR]
-        UC4[Tra cứu tiến độ 5 bước]
-        UC5[Đăng ký & Đăng nhập]
-        UC6[Cập nhật trạng thái & Ảnh hoa]
-        UC7[Xem Dashboard Doanh thu]
-        UC8[Quản lý Đơn hàng]
+    subgraph LeftActor[" "]
+        direction TB
+        Customer["🧑‍💼 Khách hàng"]
     end
 
-    Guest --> UC1
-    Guest --> UC2
-    Guest --> UC3
-    Guest --> UC4
-    Guest --> UC5
+    subgraph System["Hệ thống Website Bán hoa Bloomora"]
+        direction TB
+        subgraph ColCustomer["Chức năng Khách hàng"]
+            UC1(["🔍 Tìm & xem hoa"])
+            UC2(["💐 Đặt hoa & in thiệp"])
+            UC3(["📦 Tra cứu đơn hàng"])
+        end
+        subgraph ColAdmin["Chức năng Quản trị"]
+            UC4(["🌹 Quản lý hoa tươi"])
+            UC5(["📋 Quản lý đơn hàng"])
+            UC6(["📊 Xem báo cáo"])
+        end
+    end
 
-    Customer --> UC1
-    Customer --> UC2
-    Customer --> UC3
-    Customer --> UC4
+    subgraph RightActor[" "]
+        direction TB
+        Admin["👨‍💻 Quản trị viên"]
+    end
 
-    Staff --> UC6
-    Staff --> UC8
+    Customer -.->|Tương tác| UC1
+    Customer -.->|Tương tác| UC2
+    Customer -.->|Tương tác| UC3
 
-    Admin --> UC6
-    Admin --> UC7
-    Admin --> UC8
+    UC4 <-.-|Quản lý| Admin
+    UC5 <-.-|Quản lý| Admin
+    UC6 <-.-|Quản lý| Admin
+
+    classDef orangeLine stroke:#ea580c,stroke-width:2px,fill:#ffffff,color:#1e293b;
+    classDef actorBox fill:#f8fafc,stroke:#94a3b8,stroke-width:1.5px,font-weight:bold;
+    classDef sysBox fill:#fafaf9,stroke:#cbd5e1,stroke-width:2px;
+    class UC1,UC2,UC3,UC4,UC5,UC6 orangeLine;
+    class Customer,Admin actorBox;
+    class System sysBox;
 ```
+
+#### 3. Bảng Ánh Xạ Giữa Actor và Chức Năng (Use Case Mapping)
+
+| Nhóm Actor | Ca Sử Dụng (Use Case) | Mô Tả Tóm Tắt | User Story Tương Ứng |
+| :--- | :--- | :--- | :--- |
+| **Khách hàng** *(Bên trái)* | **Tìm & xem hoa** | Xem danh mục, lọc theo ngân sách, xem chi tiết mẫu hoa và thông điệp ý nghĩa. | US01 |
+| **Khách hàng** *(Bên trái)* | **Đặt hoa & in thiệp** | Thêm hoa vào giỏ, thiết kế banner/thiệp chúc mừng, điền giờ hẹn giao, thanh toán VietQR. | US02, US03, US04, US05, US08 |
+| **Khách hàng** *(Bên trái)* | **Tra cứu đơn hàng** | Tra cứu tiến độ đơn hoa theo 5 bước, xem ảnh thật tiệm cắm gửi lên trước khi nhận. | US06, US12 |
+| **Quản trị viên** *(Bên phải)* | **Quản lý hoa tươi** | Thêm, sửa, cập nhật giá và tồn kho các mẫu hoa tươi, hoa thiết kế. | US10 |
+| **Quản trị viên** *(Bên phải)* | **Quản lý đơn hàng** | Xem danh sách đơn mới, duyệt tiến độ (5 bước), tải ảnh hoa thật duyệt thành phẩm. | US09, US10 |
+| **Quản trị viên** *(Bên phải)* | **Xem báo cáo** | Báo cáo doanh thu thời gian thực, tổng số đơn hoàn tất, tỷ lệ giao thành công. | US10, US11 |
+
 
 ### 2.6. Đặc tả Use Case chi tiết
 
