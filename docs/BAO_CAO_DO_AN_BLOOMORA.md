@@ -148,88 +148,90 @@ Hệ thống được chia thành 5 phân hệ lớn:
 
 ### 2.5. Sơ đồ Use Case tổng quát
 
-Sơ đồ Use Case tổng quát của hệ thống **Bloomora** được xây dựng khớp 100% với **12 User Stories ở Mục 2.4**, tuân thủ nghiêm ngặt bố cục chuẩn mực tương tác 3 phần:
-*   **Cột bên trái:** Tác nhân **Khách hàng** (Bao gồm Khách vãng lai và Khách hàng thành viên).
-*   **Khung ở giữa:** **Hệ thống Website Bán hoa Bloomora** (System Boundary) chứa 10 ca sử dụng trực quan, bao quát toàn diện các yêu cầu từ US01 đến US12.
-*   **Cột bên phải:** Tác nhân **Quản trị viên** (Bao gồm Quản lý Shop và Nghệ nhân Florist).
-*   **Các đường liên kết màu cam:** Biểu diễn quyền tác động và tương tác trực tiếp của từng Actor tới từng chức năng trong hệ thống.
+Sơ đồ Use Case tổng quát của hệ thống **Bloomora** được mô hình hóa theo đúng kiến trúc phân rã chức năng và phân cấp tác nhân (Actor Inheritance), khớp 100% với **12 User Stories ở Mục 2.4**:
+*   **Phía Khách Hàng:** Bao gồm *Thành Viên (Customer)* kế thừa quyền từ *Khách Vãng Lai (Guest)*.
+*   **Phía Vận Hành Tiệm:** Bao gồm *Quản Trị Viên (Admin)* kế thừa quyền từ *Florist / Nhân Viên (Staff)*.
+*   **Khung Hệ Thống Website Hoa Tươi Bloomora:** Được nhóm trực quan thành 5 phân hệ chức năng:
+    1. `💼 Tài Khoản & Bảo Mật`: US07, US11.
+    2. `📊 Quản Trị & Vận Hành`: US10, US09.
+    3. `🌿 Khám Phá & Chọn Hoa`: US01, US02.
+    4. `📷 Tra Cứu & Duyệt Hoa`: US12, US06.
+    5. `💐 Mua Hàng & Thanh Toán`: US03, US08, US04, US05.
 
-#### 1. Hình ảnh Sơ đồ Use Case chuẩn mực (Khớp 100% Bảng 2.4 User Stories)
+#### 1. Hình ảnh Sơ đồ Use Case Hệ Thống Bloomora (Khớp 100% Bảng Phân Rã)
 
 ![Sơ đồ Use Case Tổng Quát Bloomora](usecase_bloomora.png)
 
 *(File vector SVG gốc: [usecase_bloomora.svg](usecase_bloomora.svg) | Công cụ xem & copy ảnh vào Word 1-click: [view_diagram.html](view_diagram.html))*
 
-> **Ghi chú về các phiên bản:**
-> 1. **Phiên bản chuẩn 2.4 (Khuyên dùng):** Thể hiện trực tiếp các chức năng trong 12 User Stories (Lọc ngân sách, Mô phỏng thiệp/ruy băng, Đặt hoa VietQR, Tra cứu ảnh thật, Đăng ký/nhập, Cập nhật ảnh hoa, Báo cáo doanh thu, Đăng nhập Admin).
-> 2. **Phiên bản rút gọn 5 chức năng (Theo slide mẫu):** [Xem ảnh mẫu Slide 5 Use Case](usecase_bloomora_5uc.png).
-
 #### 2. Sơ đồ Mermaid (Hiển thị trực tiếp trên trình đọc Markdown / GitHub)
 
 ```mermaid
-flowchart LR
-    subgraph LeftActor[" "]
-        direction TB
-        Customer["🧑‍💼 Khách hàng"]
+flowchart TB
+    subgraph KHACH_HANG ["👥 PHÍA KHÁCH HÀNG"]
+        direction LR
+        Customer(["🌸 Thành Viên\n(Customer)"]) -->|Kế thừa| Guest(["👤 Khách Vãng Lai\n(Guest)"])
     end
 
-    subgraph System["Hệ thống Website Bán hoa Bloomora"]
-        direction TB
-        subgraph ColCustomer["Chức năng Khách hàng (Theo User Stories)"]
-            UC1(["🔐 Đăng ký & Đăng nhập (US07, US08)"])
-            UC2(["💰 Lọc hoa theo ngân sách (US01)"])
-            UC3(["🎀 Mô phỏng thiệp / ruy băng (US02)"])
-            UC4(["💐 Đặt hoa & Quét VietQR (US03,04,05)"])
-            UC5(["📸 Tra cứu & Xem ảnh hoa thật (US06,12)"])
+    subgraph VAN_HANH ["👔 PHÍA VẬN HÀNH TIỆM"]
+        direction LR
+        Admin(["👑 Quản Trị Viên\n(Admin)"]) -->|Kế thừa| Staff(["✂️ Florist / Nhân Viên\n(Staff)"])
+    end
+
+    subgraph SYSTEM ["🌸 HỆ THỐNG WEBSITE HOA TƯƠI BLOOMORA"]
+        subgraph G_AUTH ["💼 Tài Khoản & Bảo Mật"]
+            US07["[US07] Đăng ký tài khoản thành viên"]
+            US11["[US11] Cổng đăng nhập Admin riêng biệt"]
         end
-        subgraph ColAdmin["Chức năng Quản trị (Theo User Stories)"]
-            UC6(["🛡️ Đăng nhập Admin (US11)"])
-            UC7(["🌹 Quản lý mẫu hoa tươi"])
-            UC8(["📋 Quản lý đơn hàng (US09, US10)"])
-            UC9(["📷 Cập nhật đơn & Tải ảnh hoa (US09)"])
-            UC10(["📊 Xem báo cáo doanh thu (US10)"])
+
+        subgraph G_ADMIN ["📊 Quản Trị & Vận Hành"]
+            US10["[US10] Xem Dashboard thống kê doanh thu"]
+            US09["[US09] Cập nhật trạng thái & tải ảnh hoa thật"]
+        end
+
+        subgraph G_DISCOVER ["🌿 Khám Phá & Chọn Hoa"]
+            US01["[US01] Lọc hoa theo ngân sách & màu sắc"]
+            US02["[US02] Live Preview mô phỏng băng rôn / thiệp"]
+        end
+
+        subgraph G_TRACK ["📷 Tra Cứu & Duyệt Hoa"]
+            US12["[US12] Tra cứu tiến độ đơn hoa 5 bước"]
+            US06["[US06] Xem ảnh hoa thật cắm xong trước khi giao"]
+        end
+
+        subgraph G_CHECKOUT ["💐 Mua Hàng & Thanh Toán"]
+            US03["[US03] Tùy chọn gửi tặng ẩn danh"]
+            US08["[US08] Tự động điền form mua hàng"]
+            US04["[US04] Chọn ngày & giờ hẹn giao hoa"]
+            US05["[US05] Thanh toán quét mã VietQR tự động"]
         end
     end
 
-    subgraph RightActor[" "]
-        direction TB
-        Admin["👨‍💻 Quản trị viên"]
-    end
-
-    Customer -.->|Tương tác| UC1
-    Customer -.->|Tương tác| UC2
-    Customer -.->|Tương tác| UC3
-    Customer -.->|Tương tác| UC4
-    Customer -.->|Tương tác| UC5
-
-    UC6 <-.-|Quản lý| Admin
-    UC7 <-.-|Quản lý| Admin
-    UC8 <-.-|Quản lý| Admin
-    UC9 <-.-|Quản lý| Admin
-    UC10 <-.-|Quản lý| Admin
-
-    classDef orangeLine stroke:#ea580c,stroke-width:2px,fill:#ffffff,color:#1e293b;
-    classDef actorBox fill:#f8fafc,stroke:#94a3b8,stroke-width:1.5px,font-weight:bold;
-    classDef sysBox fill:#fafaf9,stroke:#cbd5e1,stroke-width:2px;
-    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10 orangeLine;
-    class Customer,Admin actorBox;
-    class System sysBox;
+    Guest --> G_DISCOVER
+    Guest --> G_CHECKOUT
+    Guest --> G_TRACK
+    Guest --> US07
+    Staff --> G_ADMIN
+    Staff --> US11
 ```
 
-#### 3. Bảng Ánh Xạ Giữa Actor, Chức Năng và 12 User Stories Mục 2.4
+#### 3. Bảng Ánh Xạ Giữa Phân Hệ, Ca Sử Dụng và 12 User Stories Mục 2.4
 
-| Vị trí | Ca Sử Dụng (Use Case) | Mô Tả Tóm Tắt | Khớp User Story Mục 2.4 |
+| Phân Hệ Chức Năng | Ca Sử Dụng (Use Case) | Tác Nhân (Actor) | Khớp User Story Mục 2.4 |
 | :--- | :--- | :--- | :--- |
-| **Khách hàng** *(Bên trái)* | **Đăng ký & Đăng nhập** | Khách tạo tài khoản mới nhanh chóng, tự động điền sẵn thông tin khi mua hoa. | **US07, US08** |
-| **Khách hàng** *(Bên trái)* | **Lọc hoa theo ngân sách** | Bộ lọc thông minh theo các mức giá (dưới 500k, 500k-1tr, trên 1tr) và màu sắc, sự kiện. | **US01** |
-| **Khách hàng** *(Bên trái)* | **Mô phỏng thiệp & ruy băng** | Xem trước trực quan dải băng rôn chữ nghệ thuật và thiệp in lời chúc trước khi gửi. | **US02** |
-| **Khách hàng** *(Bên trái)* | **Đặt hoa & Quét VietQR** | Chọn người nhận, giờ hẹn giao, gửi tặng ẩn danh, sinh mã VietQR chuyển khoản 30s. | **US03, US04, US05** |
-| **Khách hàng** *(Bên trái)* | **Tra cứu & Xem ảnh hoa thật** | Nhập mã tra cứu đơn hàng, theo dõi 5 bước cắm hoa và duyệt ảnh chụp hoa thật trước khi nhận. | **US06, US12** |
-| **Quản trị viên** *(Bên phải)* | **Đăng nhập Admin** | Trang đăng nhập quản trị riêng biệt, phân quyền bảo mật 2 lớp chống xâm nhập. | **US11** |
-| **Quản trị viên** *(Bên phải)* | **Quản lý mẫu hoa tươi** | Thêm mới, chỉnh sửa giá bán, danh mục, cập nhật mô tả và hình ảnh sản phẩm. | Nền tảng CRUD |
-| **Quản trị viên** *(Bên phải)* | **Quản lý đơn hàng** | Xem danh sách đơn mới trong ngày, lọc trạng thái, xem chi tiết người nhận và thông điệp. | **US09, US10** |
-| **Quản trị viên** *(Bên phải)* | **Cập nhật đơn & Tải ảnh hoa** | Florist cập nhật trạng thái đơn ("Đang cắm", "Đã chụp ảnh") và tải link ảnh hoa thật cho khách. | **US09** |
-| **Quản trị viên** *(Bên phải)* | **Xem báo cáo doanh thu** | Thống kê doanh thu theo ngày, số đơn thành công, tổng sản phẩm bán ra trên Dashboard. | **US10** |
+| **💼 Tài Khoản & Bảo Mật** | Đăng ký tài khoản thành viên | Khách Vãng Lai (Guest) | **US07** |
+| | Cổng đăng nhập Admin riêng biệt | Quản Trị Viên, Florist | **US11** |
+| **📊 Quản Trị & Vận Hành** | Xem Dashboard thống kê doanh thu | Quản Trị Viên (Admin) | **US10** |
+| | Cập nhật trạng thái & tải ảnh hoa thật | Florist / Nhân Viên (Staff) | **US09** |
+| **🌿 Khám Phá & Chọn Hoa** | Lọc hoa theo ngân sách & màu sắc | Khách Vãng Lai, Thành Viên | **US01** |
+| | Live Preview mô phỏng băng rôn / thiệp | Khách Vãng Lai, Thành Viên | **US02** |
+| **📷 Tra Cứu & Duyệt Hoa** | Tra cứu tiến độ đơn hoa 5 bước | Khách Vãng Lai, Thành Viên | **US12** |
+| | Xem ảnh hoa thật cắm xong trước khi giao | Khách Vãng Lai, Thành Viên | **US06** |
+| **💐 Mua Hàng & Thanh Toán** | Tùy chọn gửi tặng ẩn danh | Khách Vãng Lai, Thành Viên | **US03** |
+| | Tự động điền form mua hàng | Thành Viên (Customer) | **US08** |
+| | Chọn ngày & giờ hẹn giao hoa | Khách Vãng Lai, Thành Viên | **US04** |
+| | Thanh toán quét mã VietQR tự động | Khách Vãng Lai, Thành Viên | **US05** |
+
 
 
 
