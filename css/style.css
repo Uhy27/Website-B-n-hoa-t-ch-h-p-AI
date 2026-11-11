@@ -1,0 +1,206 @@
+/* ==========================================================================
+   MỘC LAM FLORIST - STYLESHEET
+   Phong cách hoa tươi thuần Việt kết hợp trải nghiệm hiện đại quốc tế
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
+
+:root {
+  --primary-rose: #e11d48;
+  --primary-light: #fff1f2;
+  --primary-dark: #9f1239;
+  --accent-gold: #d97706;
+  --leaf-green: #059669;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --border-color: #f3f4f6;
+}
+
+body {
+  font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-main);
+  background-color: #fafaf9;
+  overflow-x: hidden;
+}
+
+.font-serif-title {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Smooth glass effect */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Product Card Hover & Image Zoom */
+.product-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 25px -5px rgba(225, 29, 72, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+.product-card .img-zoom {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.product-card:hover .img-zoom {
+  transform: scale(1.08);
+}
+
+/* Pulse Animation for Floating Buttons */
+@keyframes ring-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(225, 29, 72, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0);
+  }
+}
+.pulse-ring {
+  animation: ring-pulse 2s infinite;
+}
+
+@keyframes zalo-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 104, 255, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(0, 104, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 104, 255, 0);
+  }
+}
+.zalo-ring {
+  animation: zalo-pulse 2s infinite;
+}
+
+/* Floating Hotline Shake */
+@keyframes shake-phone {
+  0%, 100% { transform: rotate(0deg); }
+  20%, 60% { transform: rotate(-15deg); }
+  40%, 80% { transform: rotate(15deg); }
+}
+.phone-shake:hover i {
+  animation: shake-phone 0.5s ease infinite;
+}
+
+/* Banner / Ruy băng chúc mừng trực quan (In chữ vi tính) */
+.ribbon-banner-preview {
+  position: relative;
+  background: linear-gradient(135deg, #be123c, #e11d48);
+  color: #fef08a;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+.ribbon-banner-preview::before,
+.ribbon-banner-preview::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* VietQR Frame */
+.vietqr-box {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: white;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.3);
+}
+
+/* Category Pill Active */
+.category-pill.active {
+  background: #e11d48;
+  color: #ffffff;
+  border-color: #e11d48;
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.25);
+}
+
+/* Color Circle Active */
+.color-filter-btn.active {
+  ring-width: 3px;
+  ring-color: #e11d48;
+  transform: scale(1.15);
+}
+
+/* Badge Glow */
+.badge-hot {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+}
+
+/* Modal backdrop blur */
+.modal-backdrop {
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+/* Toast Notification Animation */
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+.toast-animate {
+  animation: slideDownFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Falling flower petals (Optional ambient background) */
+.petal {
+  position: fixed;
+  top: -20px;
+  background-color: #fbcfe8;
+  border-radius: 150% 0 150% 0;
+  pointer-events: none;
+  z-index: 9999;
+  animation: fall linear infinite;
+  opacity: 0.65;
+}
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg) translateX(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg) translateX(80px);
+    opacity: 0.1;
+  }
+}
+
