@@ -1,5 +1,20 @@
 <?php
-// BLOOMORA ADMIN DASHBOARD
+/**
+ * BLOOMORA ADMIN DASHBOARD - BẢO VỆ PHIÊN ĐĂNG NHẬP
+ */
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Kiểm tra quyền Admin/Staff
+if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role_name'] ?? '', ['admin', 'staff'])) {
+    header('Location: login.php');
+    exit;
+}
+
+$adminName = $_SESSION['full_name'] ?? 'Quản Trị Viên';
+$adminRole = $_SESSION['role_name'] === 'admin' ? 'Quản Trị Viên' : 'Nghệ Nhân Florist';
+$adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -27,6 +42,15 @@
         }
       }
     }
+    async function handleAdminLogout() {
+      if (!confirm('Bạn có chắc chắn muốn đăng xuất khỏi trang quản trị?')) return;
+      try {
+        await fetch('../api/auth/logout.php');
+        window.location.href = 'login.php';
+      } catch (e) {
+        window.location.href = 'login.php';
+      }
+    }
   </script>
 </head>
 <body class="bg-stone-100 text-stone-800 antialiased min-h-screen flex flex-col">
@@ -44,15 +68,32 @@
         <span class="text-[11px] bg-rose-900/60 text-rose-300 px-2.5 py-0.5 rounded-full font-semibold border border-rose-700/50">v1.0 Quản Trị</span>
       </div>
 
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center space-x-3 sm:space-x-4">
         <a href="../index.html" class="flex items-center space-x-1.5 text-xs text-stone-300 hover:text-white bg-stone-800 px-3 py-1.5 rounded-lg border border-stone-700 transition">
           <i class="ph ph-arrow-square-out text-sm"></i>
           <span>Xem Cửa Hàng</span>
         </a>
+
+        <!-- Thông tin Admin đang đăng nhập -->
         <div class="flex items-center space-x-2 text-xs">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" alt="Admin" class="w-8 h-8 rounded-full object-cover border border-rose-500" />
-          <span class="hidden sm:inline font-semibold">Florist Manager</span>
+          <div class="w-8 h-8 rounded-full bg-rose-600 text-white font-bold flex items-center justify-center text-xs shadow">
+            <?php echo mb_substr($adminName, 0, 1); ?>
+          </div>
+          <div class="hidden sm:block text-left">
+            <span class="block font-semibold text-white leading-tight"><?php echo htmlspecialchars($adminName); ?></span>
+            <span class="text-[10px] text-rose-400 block"><?php echo htmlspecialchars($adminRole); ?></span>
+          </div>
         </div>
+
+        <!-- Nút Đăng Xuất -->
+        <button 
+          onclick="handleAdminLogout()"
+          class="flex items-center space-x-1 text-xs text-stone-400 hover:text-rose-400 bg-stone-800 hover:bg-stone-700/80 px-2.5 py-1.5 rounded-lg border border-stone-700 transition"
+          title="Đăng xuất khỏi trang quản trị"
+        >
+          <i class="ph ph-sign-out text-sm"></i>
+          <span class="hidden md:inline">Đăng Xuất</span>
+        </button>
       </div>
     </div>
   </header>
@@ -383,6 +424,15 @@
         }
       } catch (err) {
         alert('Lỗi kết nối máy chủ');
+      }
+    }
+    async function handleAdminLogout() {
+      if (!confirm('Bạn có chắc chắn muốn đăng xuất khỏi trang quản trị?')) return;
+      try {
+        await fetch('../api/auth/logout.php');
+        window.location.href = 'login.php';
+      } catch (e) {
+        window.location.href = 'login.php';
       }
     }
   </script>

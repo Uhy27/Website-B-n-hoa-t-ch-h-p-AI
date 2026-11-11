@@ -23,6 +23,7 @@ const AppState = {
   activeRibbonText: 'Chúc Mừng Khai Trương Hồng Phát - Vạn Sự Hanh Thông',
   activeRibbonColor: 'red',
   lastCreatedOrder: null,
+  currentUser: null,
   isLoading: false
 };
 
@@ -31,6 +32,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadCartFromStorage();
   setupEventListeners();
   updateCartUI();
+
+  // Kiểm tra phiên đăng nhập người dùng
+  await checkAuthSession();
 
   // Gọi API lấy Danh mục & Sản phẩm từ Database MySQL
   await fetchCategories();
@@ -714,6 +718,14 @@ function openCheckoutDrawer() {
   const summaryEl = document.getElementById('checkoutSummaryTotal');
   if (summaryEl) summaryEl.textContent = formatCurrency(subtotal);
 
+  // Tự động điền thông tin nếu đã đăng nhập tài khoản
+  if (AppState.currentUser) {
+    const senderNameInput = document.querySelector('input[name="senderName"]');
+    const senderPhoneInput = document.querySelector('input[name="senderPhone"]');
+    if (senderNameInput && !senderNameInput.value) senderNameInput.value = AppState.currentUser.fullName || '';
+    if (senderPhoneInput && !senderPhoneInput.value) senderPhoneInput.value = AppState.currentUser.phone || '';
+  }
+
   modal.classList.remove('hidden');
   document.body.classList.add('overflow-hidden');
 }
@@ -1126,7 +1138,270 @@ function setupEventListeners() {
       closeCheckoutModal();
       closeOrderSuccessModal();
       closeOrderTrackingModal();
+      closeAuthModal();
       toggleCartDrawer(false);
+      toggleUserDropdown(false);
     }
   });
+
+  // Đóng dropdown khi click ra ngoài
+  document.addEventListener('click', (e) => {
+    const authUserArea = document.getElementById('headerAuthUser');
+    if (authUserArea && !authUserArea.contains(e.target)) {
+      toggleUserDropdown(false);
+    }
+  });
+}
+
+// ==========================================
+// PHÂN HỆ XÁC THỰC TÀI KHOẢN (AUTHENTICATION)
+// ==========================================
+
+// Kiểm tra phiên đăng nhập hiện tại từ API me.php
+async function checkAuthSession() {
+  try {
+    const res = await fetch('api/auth/me.php');
+    const json = await res.json();
+    if (json.success && json.isLoggedIn && json.data) {
+      AppState.currentUser = json.data;
+    } else {
+      AppState.currentUser = null;
+    }
+  } catch (e) {
+    AppState.currentUser = null;
+  }
+  updateAuthUI();
+}
+
+// Cập nhật giao diện Header theo trạng thái đăng nhập
+function updateAuthUI() {
+  const guestEl = document.getElementById('headerAuthGuest');
+  const userEl = document.getElementById('headerAuthUser');
+  if (!guestEl || !userEl) return;
+
+  if (AppState.currentUser) {
+    guestEl.classList.add('hidden');
+    userEl.classList.remove('hidden');
+
+    const nameEl = document.getElementById('headerUserName');
+    const avatarEl = document.getElementById('headerUserAvatar');
+    const dropNameEl = document.getElementById('dropdownFullName');
+    const dropEmailEl = document.getElementById('dropdownEmail');
+    const dropRoleBadge = document.getElementById('dropdownRoleBadge');
+    const adminLink = document.getElementById('dropdownAdminLink');
+
+    const displayName = AppState.currentUser.fullName || AppState.currentUser.email;
+    if (nameEl) nameEl.textContent = displayName.split(' ').pop(); // Tên ngắn gọn
+    if (avatarEl) avatarEl.textContent = displayName.charAt(0).toUpperCase();
+    if (dropNameEl) dropNameEl.textContent = displayName;
+    if (dropEmailEl) dropEmailEl.textContent = AppState.currentUser.email;
+
+    if (dropRoleBadge) {
+      const isStaffOrAdmin = ['admin', 'staff'].includes(AppState.currentUser.role);
+      dropRoleBadge.textContent = isStaffOrAdmin ? 'Quản Trị Viên' : 'Thành Viên';
+      dropRoleBadge.className = isStaffOrAdmin 
+        ? 'inline-block mt-1 text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full uppercase' 
+        : 'inline-block mt-1 text-[10px] bg-rose-50 text-rose-600 font-bold px-2 py-0.5 rounded-full uppercase';
+    }
+
+    if (adminLink) {
+      if (['admin', 'staff'].includes(AppState.currentUser.role)) {
+        adminLink.classList.remove('hidden');
+      } else {
+        adminLink.classList.add('hidden');
+      }
+    }
+  } else {
+    guestEl.classList.remove('hidden');
+    userEl.classList.add('hidden');
+  }
+}
+
+// Bật/tắt dropdown tài khoản
+function toggleUserDropdown(forceState) {
+  const menu = document.getElementById('userDropdownMenu');
+  if (!menu) return;
+  if (typeof forceState === 'boolean') {
+    menu.classList.toggle('hidden', !forceState);
+  } else {
+    menu.classList.toggle('hidden');
+  }
+}
+
+// Mở modal Auth
+function openAuthModal(tab = 'login') {
+  const modal = document.getElementById('authModal');
+  if (!modal) return;
+  modal.classList.remove('hidden');
+  document.body.classList.add('overflow-hidden');
+  switchAuthTab(tab);
+  clearAuthAlert();
+}
+
+// Đóng modal Auth
+function closeAuthModal() {
+  const modal = document.getElementById('authModal');
+  if (!modal) return;
+  modal.classList.add('hidden');
+  document.body.classList.remove('overflow-hidden');
+}
+
+// Chuyển giữa Tab Đăng Nhập & Đăng Ký
+function switchAuthTab(tab) {
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+  const tabLoginBtn = document.getElementById('tabLoginBtn');
+  const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+
+  clearAuthAlert();
+
+  if (tab === 'login') {
+    loginForm.classList.remove('hidden');
+    registerForm.classList.add('hidden');
+    tabLoginBtn.className = 'flex-1 py-2 rounded-xl transition bg-white text-stone-900 shadow-sm';
+    tabRegisterBtn.className = 'flex-1 py-2 rounded-xl transition text-stone-500 hover:text-stone-900';
+  } else {
+    loginForm.classList.add('hidden');
+    registerForm.classList.remove('hidden');
+    tabLoginBtn.className = 'flex-1 py-2 rounded-xl transition text-stone-500 hover:text-stone-900';
+    tabRegisterBtn.className = 'flex-1 py-2 rounded-xl transition bg-white text-stone-900 shadow-sm';
+  }
+}
+
+// Ẩn/hiện mật khẩu
+function toggleInputVisibility(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const icon = btn.querySelector('i');
+  if (input.type === 'password') {
+    input.type = 'text';
+    if (icon) icon.className = 'ph ph-eye-slash';
+  } else {
+    input.type = 'password';
+    if (icon) icon.className = 'ph ph-eye';
+  }
+}
+
+// Điền nhanh tài khoản demo
+function fillDemoAccount() {
+  document.getElementById('loginEmail').value = 'khachhang@gmail.com';
+  document.getElementById('loginPassword').value = 'admin123';
+  showAuthAlert('Đã điền tài khoản mẫu! Bấm "Đăng Nhập Ngay" để tiếp tục.', 'info');
+}
+
+function showAuthAlert(msg, type = 'error') {
+  const alertBox = document.getElementById('authAlert');
+  if (!alertBox) return;
+  alertBox.classList.remove('hidden');
+  if (type === 'success') {
+    alertBox.className = 'mb-4 p-3 rounded-xl text-xs font-semibold bg-emerald-50 border border-emerald-300 text-emerald-800 block';
+  } else if (type === 'info') {
+    alertBox.className = 'mb-4 p-3 rounded-xl text-xs font-semibold bg-blue-50 border border-blue-300 text-blue-800 block';
+  } else {
+    alertBox.className = 'mb-4 p-3 rounded-xl text-xs font-semibold bg-rose-50 border border-rose-300 text-rose-800 block';
+  }
+  alertBox.textContent = msg;
+}
+
+function clearAuthAlert() {
+  const alertBox = document.getElementById('authAlert');
+  if (alertBox) alertBox.classList.add('hidden');
+}
+
+// Xử lý nộp form Đăng Nhập
+async function handleCustomerLoginSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const email = form.email.value.trim();
+  const password = form.password.value;
+  const btn = document.getElementById('loginSubmitBtn');
+  const originText = btn.innerHTML;
+
+  btn.disabled = true;
+  btn.innerHTML = `<i class="ph ph-spinner animate-spin text-base"></i><span>Đang xác thực...</span>`;
+  clearAuthAlert();
+
+  try {
+    const res = await fetch('api/auth/login.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const json = await res.json();
+
+    if (json.success && json.data) {
+      AppState.currentUser = json.data;
+      updateAuthUI();
+      closeAuthModal();
+      showToast(`Chào mừng ${json.data.fullName || 'bạn'} quay trở lại!`, 'success');
+    } else {
+      showAuthAlert(json.message || 'Email hoặc mật khẩu không chính xác.');
+    }
+  } catch (err) {
+    showAuthAlert('Lỗi kết nối máy chủ. Vui lòng thử lại!');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originText;
+  }
+}
+
+// Xử lý nộp form Đăng Ký
+async function handleCustomerRegisterSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const fullName = form.fullName.value.trim();
+  const phone = form.phone.value.trim();
+  const email = form.email.value.trim();
+  const password = form.password.value;
+  const confirmPassword = form.confirmPassword.value;
+  const btn = document.getElementById('regSubmitBtn');
+  const originText = btn.innerHTML;
+
+  if (password !== confirmPassword) {
+    showAuthAlert('Mật khẩu xác nhận không trùng khớp!');
+    return;
+  }
+
+  if (password.length < 6) {
+    showAuthAlert('Mật khẩu phải chứa ít nhất 6 ký tự!');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = `<i class="ph ph-spinner animate-spin text-base"></i><span>Đang tạo tài khoản...</span>`;
+  clearAuthAlert();
+
+  try {
+    const res = await fetch('api/auth/register.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fullName, phone, email, password })
+    });
+    const json = await res.json();
+
+    if (json.success && json.data) {
+      AppState.currentUser = json.data;
+      updateAuthUI();
+      closeAuthModal();
+      showToast(`Chúc mừng ${json.data.fullName}, tạo tài khoản thành công!`, 'success');
+    } else {
+      showAuthAlert(json.message || 'Đăng ký thất bại. Vui lòng kiểm tra lại thông tin.');
+    }
+  } catch (err) {
+    showAuthAlert('Lỗi kết nối máy chủ. Vui lòng thử lại!');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originText;
+  }
+}
+
+// Xử lý Đăng Xuất
+async function handleCustomerLogout() {
+  try {
+    await fetch('api/auth/logout.php');
+  } catch (e) {}
+  AppState.currentUser = null;
+  updateAuthUI();
+  toggleUserDropdown(false);
+  showToast('Đã đăng xuất tài khoản thành công!', 'info');
 }

@@ -235,7 +235,7 @@ const FLOWER_PRODUCTS = [
     flowerTypes: "Hoa baby Hà Lan nhuộm màu hữu cơ pastel: hồng, tím, xanh dương, vàng, cam",
     size: "Cao 65cm x Rộng 55cm (Bó xòe tròn to)",
     meaning: "Tượng trưng cho thế giới muôn màu khi có em bên cạnh, hoa có thể để khô ngắm suốt 2-3 năm.",
-    included: ["Giấy holographic ánh kim", "Thiệp dập nổi", "Dây quai đeo vai"]
+    included: ["Giấy hogit push -u origin mainraphic ánh kim", "Thiệp dập nổi", "Dây quai đeo vai"]
   },
 
   // 4. LAN HỒ ĐIỆP HOÀNG GIA

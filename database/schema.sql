@@ -48,9 +48,9 @@ CREATE TABLE `users` (
 
 -- Mật khẩu mặc định: admin123
 INSERT INTO `users` (`id`, `role_id`, `email`, `password_hash`, `full_name`, `phone`, `status`) VALUES
-(1, 1, 'admin@bloomora.vn', '$2y$10$wT0lQf/P.K0P3wA0R6y/dOomvQ6P7P.Cj3B2D2Vd/t6P1O/h0uTfa', 'Quản Trị Viên Bloomora', '0908123456', 'active'),
-(2, 2, 'florist@bloomora.vn', '$2y$10$wT0lQf/P.K0P3wA0R6y/dOomvQ6P7P.Cj3B2D2Vd/t6P1O/h0uTfa', 'Nghệ Nhân Cắm Hoa Mai Anh', '0912345678', 'active'),
-(3, 3, 'khachhang@gmail.com', '$2y$10$wT0lQf/P.K0P3wA0R6y/dOomvQ6P7P.Cj3B2D2Vd/t6P1O/h0uTfa', 'Trần Tuấn Kiệt', '0987654321', 'active');
+(1, 1, 'admin@bloomora.vn', '$2y$10$N5M8..CphqZPinYm6jUbputTUy4IOuzJkdRQZmKaDYhRSTHd7o.Jy', 'Quản Trị Viên Bloomora', '0908123456', 'active'),
+(2, 2, 'florist@bloomora.vn', '$2y$10$N5M8..CphqZPinYm6jUbputTUy4IOuzJkdRQZmKaDYhRSTHd7o.Jy', 'Nghệ Nhân Cắm Hoa Mai Anh', '0912345678', 'active'),
+(3, 3, 'khachhang@gmail.com', '$2y$10$N5M8..CphqZPinYm6jUbputTUy4IOuzJkdRQZmKaDYhRSTHd7o.Jy', 'Trần Tuấn Kiệt', '0987654321', 'active');
 
 -- 3. BẢNG DANH MỤC HOA
 CREATE TABLE `categories` (
