@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mục 2.6 - Đặc Tả Use Case Chi Tiết (Bloomora)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Be Vietnam Pro', sans-serif; }
+    .word-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 13.5px;
+    }
+    .word-table th, .word-table td {
+      border: 1px solid #cbd5e1;
+      padding: 10px 14px;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .word-table th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      text-align: left;
+    }
+    .col-label {
+      width: 25%;
+      font-weight: 600;
+      color: #1e293b;
+      background-color: #f8fafc;
+    }
+    .col-content {
+      width: 75%;
+      color: #334155;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen py-10 px-4">
+  <div class="max-w-5xl mx-auto space-y-8">
+    
+    <!-- Header -->
+    <div class="text-center space-y-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-semibold">
+        Báo Cáo Đồ Án Bloomora - Buổi 2 (Mục 7)
+      </div>
+      <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">
+        2.6. Đặc Tả Use Case Chi Tiết (Chuẩn Mẫu Bảng 6 Thành Phần)
+      </h1>
+      <p class="text-slate-500 max-w-2xl mx-auto text-sm">
+        Bao gồm 3 Use Case chính cốt lõi nhất của hệ thống Bloomora theo đúng biểu mẫu: Tên, Actor, Tiền điều kiện, Luồng chính, Luồng ngoại lệ, Include, Extend, Hậu điều kiện.
+      </p>
+    </div>
+
+    <!-- Hướng dẫn nhanh -->
+    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">✓</div>
+        <p class="text-xs text-emerald-900 leading-relaxed">
+          <strong>Mẹo copy vào Word:</strong> Bấm nút <strong>"Sao chép bảng này vào Word"</strong> bên dưới mỗi Use Case, sau đó mở file Word báo cáo và bấm <strong>Ctrl + V</strong> là bảng sẽ giữ nguyên đường viền, màu sắc và định dạng chuẩn Word.
+        </p>
+      </div>
+    </div>
+
+    <!-- ================= USE CASE 1 ================= -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-slate-100">
+        <div>
+          <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">Use Case 01</span>
+          <h2 class="text-lg font-bold text-slate-900">Đặt hàng hoa tươi &amp; Thanh toán VietQR</h2>
+        </div>
+        <button onclick="copyTable('table-uc1', 'btn-uc1')" id="btn-uc1" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-sm transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+          <span>Sao chép bảng này vào Word</span>
+        </button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table id="table-uc1" class="word-table">
+          <thead>
+            <tr>
+              <th class="col-label">Mục</th>
+              <th class="col-content">Nội dung chi tiết</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-label">Tên Use Case</td>
+              <td class="col-content"><strong>Đặt hàng hoa tươi &amp; Thanh toán VietQR</strong></td>
+            </tr>
+            <tr>
+              <td class="col-label">Actor</td>
+              <td class="col-content">Thành viên (Customer), Khách vãng lai (Guest)</td>
+            </tr>
+            <tr>
+              <td class="col-label">Mô tả tóm tắt</td>
+              <td class="col-content">Cho phép khách hàng chọn mẫu hoa tươi trong giỏ hàng, nhập thông tin giao nhận, thiết kế băng rôn/thiệp, chọn khung giờ hẹn giao hoa và quét mã VietQR tự động để hoàn tất đơn hàng.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Điều kiện trước (Pre-condition)</td>
+              <td class="col-content">Khách hàng đã truy cập website Bloomora; giỏ hàng có ít nhất 01 sản phẩm hoa tươi còn hàng trong kho.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Luồng chính (Main flow)</td>
+              <td class="col-content">
+                <ol class="list-decimal pl-5 space-y-1">
+                  <li>Khách hàng mở giỏ hàng, kiểm tra lại danh sách sản phẩm và nhấn <strong>"Tiến Hành Đặt Hoa Ngay"</strong>.</li>
+                  <li>Hệ thống hiển thị modal form thanh toán (nếu là Thành viên đã đăng nhập: hệ thống tự động điền sẵn Tên và SĐT người gửi).</li>
+                  <li>Khách hàng nhập thông tin người nhận, địa chỉ giao hoa, chọn ngày giao và khung giờ hẹn giao hoa.</li>
+                  <li>Khách hàng nhập nội dung thông điệp in lên băng rôn hoặc thiệp chúc mừng.</li>
+                  <li>Hệ thống gọi chức năng kiểm tra tồn kho và tính toán lại tổng tiền từ Database (<em>include: Kiểm tra tồn kho &amp; Tính tiền</em>).</li>
+                  <li>Khách hàng chọn phương thức thanh toán <strong>"Chuyển khoản VietQR (Tự động 30s)"</strong> và nhấn <strong>"Hoàn Tất Đặt Hoa"</strong>.</li>
+                  <li>Hệ thống tạo đơn hàng với mã <code>BL-xxxxx</code>, lưu chi tiết từng mặt hàng vào CSDL, đồng thời tạo mã ảnh VietQR chuẩn NAPAS hiển thị lên màn hình kèm hướng dẫn quét mã chuyển khoản.</li>
+                </ol>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-label">Luồng rẽ nhánh / ngoại lệ</td>
+              <td class="col-content">
+                <ul class="list-disc pl-5 space-y-1">
+                  <li><strong>Gửi tặng ẩn danh:</strong> Khách hàng tích chọn "Gửi tặng ẩn danh", hệ thống sẽ ẩn toàn bộ thông tin người gửi trên phiếu giao hoa (<em>extend: Gửi tặng ẩn danh</em>).</li>
+                  <li><strong>Thiếu thông tin bắt buộc:</strong> Khách bỏ trống Tên người nhận, SĐT hoặc Địa chỉ giao hàng ➔ Hệ thống báo viền đỏ và yêu cầu nhập đủ trước khi tiếp tục.</li>
+                  <li><strong>Hết hàng hoặc lỗi CSDL:</strong> Hệ thống tự động Rollback giao dịch (Transaction Rollback), thông báo lỗi và yêu cầu cập nhật lại giỏ hàng.</li>
+                  <li><strong>Khách chọn Tiền mặt (COD):</strong> Đơn hàng được tạo ngay với trạng thái thanh toán là "Chờ thanh toán khi nhận hoa" mà không cần sinh mã QR.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-label">Include</td>
+              <td class="col-content"><em>Kiểm tra tồn kho &amp; Tính tiền</em>; <em>Tự động điền thông tin thành viên</em> (nếu đã đăng nhập).</td>
+            </tr>
+            <tr>
+              <td class="col-label">Extend</td>
+              <td class="col-content"><em>Gửi tặng ẩn danh</em>; <em>Tạo mã VietQR tự động</em>; <em>Mô phỏng thiệp/băng rôn chúc mừng</em>.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Điều kiện sau (Post-condition)</td>
+              <td class="col-content">Đơn hàng mới được tạo thành công trong CSDL với trạng thái <code>received</code> (Chờ xử lý); giỏ hàng của khách hàng được làm rỗng; hệ thống hiển thị màn hình hướng dẫn thanh toán QR và cung cấp mã tra cứu đơn hàng.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <!-- ================= USE CASE 2 ================= -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-slate-100">
+        <div>
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Use Case 02</span>
+          <h2 class="text-lg font-bold text-slate-900">Tra cứu tiến độ đơn hoa &amp; Xem ảnh thật (Photo Proof)</h2>
+        </div>
+        <button onclick="copyTable('table-uc2', 'btn-uc2')" id="btn-uc2" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+          <span>Sao chép bảng này vào Word</span>
+        </button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table id="table-uc2" class="word-table">
+          <thead>
+            <tr>
+              <th class="col-label">Mục</th>
+              <th class="col-content">Nội dung chi tiết</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-label">Tên Use Case</td>
+              <td class="col-content"><strong>Tra cứu tiến độ đơn hoa &amp; Xem ảnh chụp hoa thật</strong></td>
+            </tr>
+            <tr>
+              <td class="col-label">Actor</td>
+              <td class="col-content">Khách hàng (Customer / Guest)</td>
+            </tr>
+            <tr>
+              <td class="col-label">Mô tả tóm tắt</td>
+              <td class="col-content">Cho phép khách hàng nhập mã đơn hàng (ví dụ: <code>BL17301</code>) để theo dõi tiến độ cắm và giao hoa qua 5 bước thời gian thực, đồng thời xem và duyệt ảnh chụp bó hoa thật mà nghệ nhân tiệm cắm xong trước khi giao.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Điều kiện trước (Pre-condition)</td>
+              <td class="col-content">Đơn hàng đã được tạo thành công trên hệ thống và khách hàng có mã đơn hàng hợp lệ.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Luồng chính (Main flow)</td>
+              <td class="col-content">
+                <ol class="list-decimal pl-5 space-y-1">
+                  <li>Khách hàng bấm nút <strong>"Tra Cứu Đơn Hàng"</strong> trên thanh Header.</li>
+                  <li>Hệ thống hiển thị hộp thoại tìm kiếm mã đơn.</li>
+                  <li>Khách hàng nhập mã đơn hàng và bấm <strong>"Kiểm Tra"</strong>.</li>
+                  <li>Hệ thống gửi yêu cầu đến <code>api/tracking.php</code>, truy vấn thông tin đơn hàng và bảng lịch sử trạng thái <code>order_status_history</code>.</li>
+                  <li>Hệ thống hiển thị Timeline trực quan 5 bước tiến độ (Đã nhận đơn ➔ Đang cắm hoa ➔ Đã chụp ảnh hoa thật ➔ Đang giao hoa ➔ Giao hoa thành công).</li>
+                  <li>Nếu đơn hàng đã qua bước 3, hệ thống hiển thị trực tiếp <strong>Ảnh chụp hoa thật</strong> (Photo Proof) kèm ghi chú của Florist và ảnh xác nhận người nhận hoa (nếu đã giao thành công).</li>
+                </ol>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-label">Luồng rẽ nhánh / ngoại lệ</td>
+              <td class="col-content">
+                <ul class="list-disc pl-5 space-y-1">
+                  <li><strong>Mã đơn hàng không tồn tại:</strong> Hệ thống hiển thị thông báo lỗi: <em>"Không tìm thấy đơn hàng với mã này. Vui lòng kiểm tra lại!"</em> và cho phép nhập lại.</li>
+                  <li><strong>Đơn hàng chưa hoàn thành cắm hoa:</strong> Hệ thống hiển thị trạng thái đang xử lý kèm thông báo: <em>"Nghệ nhân đang cắm hoa, ảnh chụp thực tế sẽ được cập nhật ngay khi hoàn thành!"</em>.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-label">Include</td>
+              <td class="col-content"><em>Xác thực mã đơn hàng</em>; <em>Truy vấn lịch sử trạng thái</em>.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Extend</td>
+              <td class="col-content"><em>Hiển thị ảnh hoa thực tế (Photo Proof)</em>; <em>Liên hệ hỗ trợ nhanh qua Hotline/Zalo</em>.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Điều kiện sau (Post-condition)</td>
+              <td class="col-content">Khách hàng nắm bắt chính xác tiến độ đơn hàng thời gian thực, hoàn toàn an tâm về chất lượng hoa trước khi người nhận nhận hoa.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <!-- ================= USE CASE 3 ================= -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-slate-100">
+        <div>
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Use Case 03</span>
+          <h2 class="text-lg font-bold text-slate-900">Cập nhật tiến độ cắm hoa &amp; Tải ảnh hoa thực tế</h2>
+        </div>
+        <button onclick="copyTable('table-uc3', 'btn-uc3')" id="btn-uc3" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-sm transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+          <span>Sao chép bảng này vào Word</span>
+        </button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table id="table-uc3" class="word-table">
+          <thead>
+            <tr>
+              <th class="col-label">Mục</th>
+              <th class="col-content">Nội dung chi tiết</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-label">Tên Use Case</td>
+              <td class="col-content"><strong>Cập nhật tiến độ cắm hoa &amp; Tải ảnh hoa thực tế</strong></td>
+            </tr>
+            <tr>
+              <td class="col-label">Actor</td>
+              <td class="col-content">Florist / Nhân viên tiệm (Staff), Quản trị viên (Admin)</td>
+            </tr>
+            <tr>
+              <td class="col-label">Mô tả tóm tắt</td>
+              <td class="col-content">Cho phép nhân viên tiệm hoa hoặc quản trị viên cập nhật trạng thái đơn hàng (theo chu trình 5 bước), tải lên liên kết ảnh chụp bó hoa thật vừa hoàn thiện và ghi chú tiến độ để khách hàng theo dõi.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Điều kiện trước (Pre-condition)</td>
+              <td class="col-content">Nhân viên/Quản trị viên đã đăng nhập thành công vào trang Quản trị (<code>admin/login.php</code>) với quyền <code>staff</code> hoặc <code>admin</code>; đơn hàng đang ở trạng thái cần cập nhật.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Luồng chính (Main flow)</td>
+              <td class="col-content">
+                <ol class="list-decimal pl-5 space-y-1">
+                  <li>Nhân viên truy cập bảng điều khiển Admin (<code>admin/index.php</code>), chọn mục <strong>"Quản Lý Đơn Hàng"</strong>.</li>
+                  <li>Nhân viên tìm đơn hàng cần cập nhật qua thanh tìm kiếm hoặc bộ lọc trạng thái.</li>
+                  <li>Nhân viên nhấn nút <strong>"Cập Nhật Trạng Thái"</strong> tại đơn hàng tương ứng.</li>
+                  <li>Modal cập nhật hiển thị: Nhân viên chọn trạng thái mới trong danh sách thả xuống (vd: <em>"3. Đã chụp ảnh hoa thật"</em> hoặc <em>"4. Đang giao hàng"</em>).</li>
+                  <li>Nhân viên dán link ảnh chụp sản phẩm thật hoặc ảnh giao hoa vào ô <strong>"Ảnh hoa thực tế (Photo Proof)"</strong> và nhập ghi chú cắm hoa (nếu có).</li>
+                  <li>Nhân viên nhấn nút <strong>"Lưu Thay Đổi"</strong>.</li>
+                  <li>Hệ thống gửi request đến <code>api/admin/orders.php</code>, cập nhật cột <code>order_status</code> và <code>photo_proof</code> trong bảng <code>orders</code>, đồng thời tự động thêm bản ghi sự kiện mới vào bảng <code>order_status_history</code>.</li>
+                  <li>Hệ thống thông báo thành công và tự động tải lại danh sách đơn hàng.</li>
+                </ol>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-label">Luồng rẽ nhánh / ngoại lệ</td>
+              <td class="col-content">
+                <ul class="list-disc pl-5 space-y-1">
+                  <li><strong>Chưa chọn trạng thái mới:</strong> Hệ thống cảnh báo yêu cầu chọn trạng thái hợp lệ trước khi lưu.</li>
+                  <li><strong>Lỗi kết nối máy chủ:</strong> Hệ thống hiển thị thông báo lỗi và không làm thay đổi trạng thái đơn hàng trong CSDL.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-label">Include</td>
+              <td class="col-content"><em>Xác thực quyền hạn Admin/Staff</em>; <em>Ghi nhật ký lịch sử trạng thái</em>.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Extend</td>
+              <td class="col-content"><em>Gửi thông báo cập nhật tiến độ</em>; <em>Đính kèm ảnh giao hoa thành công</em>.</td>
+            </tr>
+            <tr>
+              <td class="col-label">Điều kiện sau (Post-condition)</td>
+              <td class="col-content">Trạng thái đơn hàng và ảnh hoa thật được cập nhật tức thì trên cơ sở dữ liệu; khách hàng khi tra cứu mã đơn sẽ thấy ngay tiến độ mới và ảnh hoa thực tế.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    async function copyTable(tableId, btnId) {
+      const table = document.getElementById(tableId);
+      const btn = document.getElementById(btnId);
+      const originalText = btn.innerHTML;
+
+      try {
+        const range = document.createRange();
+        range.selectNode(table);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        
+        // Copy HTML table to clipboard
+        const html = table.outerHTML;
+        const blob = new Blob([html], { type: 'text/html' });
+        const textBlob = new Blob([table.innerText], { type: 'text/plain' });
+        
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'text/html': blob,
+            'text/plain': textBlob
+          })
+        ]);
+        
+        window.getSelection().removeAllRanges();
+        
+        btn.innerHTML = '<span>✓ Đã sao chép! Dán Ctrl + V vào Word</span>';
+        btn.classList.remove('bg-rose-600', 'bg-indigo-600', 'bg-amber-600');
+        btn.classList.add('bg-emerald-600');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('bg-emerald-600');
+          if (btnId === 'btn-uc1') btn.classList.add('bg-rose-600');
+          if (btnId === 'btn-uc2') btn.classList.add('bg-indigo-600');
+          if (btnId === 'btn-uc3') btn.classList.add('bg-amber-600');
+        }, 4000);
+      } catch (err) {
+        document.execCommand('copy');
+        alert('Đã copy bảng vào clipboard! Bạn có thể mở Word và ấn Ctrl + V.');
+      }
+    }
+  </script>
+</body>
+</html>
