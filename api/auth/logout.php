@@ -26,3 +26,4 @@ echo json_encode([
     'message' => 'Đăng xuất thành công!'
 ], JSON_UNESCAPED_UNICODE);
 ?>
+
