@@ -209,13 +209,7 @@ Sơ đồ Use Case tổng quát của hệ thống **Bloomora** được mô hì
     4. `📷 Tra Cứu & Duyệt Hoa`: US12, US06.
     5. `💐 Mua Hàng & Thanh Toán`: US03, US08, US04, US05.
 
-#### 1. Hình ảnh Sơ đồ Use Case Tổng Quát (Chuẩn phân rã 5 phân hệ)
-
-![Sơ đồ Use Case Tổng Quát Bloomora](usecase_bloomora.png)
-
-*(File vector SVG gốc: [usecase_bloomora.svg](usecase_bloomora.svg) | Công cụ xem & copy ảnh vào Word 1-click: [view_diagram.html](view_diagram.html))*
-
-#### 2. Sơ đồ Mermaid biểu diễn kiến trúc Use Case
+#### Sơ đồ Kiến Trúc Use Case Tổng Quát (5 Phân Hệ Cốt Lõi)
 
 ```mermaid
 flowchart TB
