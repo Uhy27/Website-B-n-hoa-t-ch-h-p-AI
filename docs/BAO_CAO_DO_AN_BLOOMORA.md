@@ -101,15 +101,64 @@ Báo cáo đồ án được kết cấu thành **7 phần chính**:
 # PHẦN 2 – PHÂN TÍCH YÊU CẦU
 
 ### <a id="21-khảo-sát-hiện-trạng"></a>2.1. Khảo sát hiện trạng
-*(Khảo sát 2 website thương mại điện tử hoa tươi tham khảo: WishFlorist & FlowerDJ)*
-Nhóm đã tiến hành khảo sát 2 website thương mại điện tử hoa tươi quốc tế tiêu biểu:
-1.  **WishFlorist (wishflorist.com.tw - Đài Bắc):**
-    *   *Điểm mạnh:* Danh mục phong phú, phân loại dịp tặng rất chi tiết, form thông tin người gửi/nhận tách biệt.
-    *   *Điểm yếu:* Giao diện mang phong cách truyền thống cũ, chưa có xem trước trực quan dải băng rôn, thanh toán chưa thân thiện với người Việt.
-2.  **FlowerDJ (flowerdj.com - Sàn hoa trực tuyến số 1 Đài Loan):**
-    *   *Điểm mạnh:* Hộp tìm hoa 3 bước thông minh, cam kết chụp ảnh hoa thực tế trước khi đi giao, hệ thống tra cứu đơn hàng trực quan.
-    *   *Điểm yếu:* Giao diện nhiều chữ, độ phức tạp cao gây rối mắt cho người dùng di động.
-*   **Bài học rút ra cho Bloomora:** Kế thừa hộp tìm hoa nhanh và quy trình chụp ảnh duyệt hoa thực tế của FlowerDJ, nhưng tái thiết kế theo phong cách tối giản (Modern Minimalist), thuần hóa ngôn ngữ, tiền tệ VNĐ và tích hợp mã thanh toán VietQR ngân hàng Việt Nam.
+*(Khảo sát 2 website thương mại điện tử hoa tươi hàng đầu tại Việt Nam: FlowerCorner.vn & HoaYeuThuong.com)*
+
+Để xây dựng hệ thống website thương mại điện tử hoa tươi **Bloomora** sát với thực tế thị trường Việt Nam, nhóm đã tiến hành khảo sát và phân tích chuyên sâu 2 nền tảng điện hoa trực tuyến lớn nhất hiện nay:
+
+#### 1. Website 1: FlowerCorner (flowercorner.vn)
+*   **Mô tả tổng quan:** Là một trong những thương hiệu điện hoa trực tuyến phát triển nhanh và hiện đại nhất tại TP.HCM và Hà Nội, hướng tới phân khúc khách hàng trẻ, cá nhân và văn phòng.
+*   **Các chức năng chính trên hệ thống:**
+    *   *Duyệt & Tìm kiếm:* Phân loại hơn 500+ mẫu hoa theo chủ đề sự kiện (Khai trương, Sinh nhật, Tình yêu, Tang lễ, Tốt nghiệp...), tìm kiếm theo từ khóa.
+    *   *Đặt hoa theo yêu cầu:* Cho phép khách hàng gửi hình ảnh mẫu hoa riêng hoặc yêu cầu thay đổi màu sắc, loại hoa tùy theo ngân sách.
+    *   *Chụp ảnh sản phẩm thực tế (Photo Proof):* Nhân viên cắm hoa xong sẽ chụp ảnh bó/kệ hoa thật gửi cho khách hàng duyệt qua Zalo hoặc website trước khi tiến hành đi giao.
+    *   *Đa dạng kênh mua sắm:* Tích hợp đặt hàng qua Web, ứng dụng di động (iOS / Android), Fanpage và Zalo OA.
+    *   *Thanh toán:* Chuyển khoản ngân hàng doanh nghiệp (Vietcombank), Thẻ tín dụng quốc tế (Visa, Mastercard), Cổng thanh toán VNPAY, Paypal và tiền mặt (COD nội thành có điều kiện).
+    *   *Giao nhận:* Dịch vụ giao hoa hỏa tốc trong 90 phút – 3 giờ; miễn phí giao hàng nội thành TP.HCM; giao hàng liên tỉnh qua mạng lưới đối tác.
+*   **Điểm mạnh:**
+    *   Giao diện thiết kế phẳng, hiện đại, màu sắc ấm áp, thân thiện với người dùng di động.
+    *   Tính năng chụp ảnh hoa thật trước khi giao giúp giải tỏa tối đa nỗi sợ *"hoa giao không giống hình mẫu trên mạng"*.
+    *   Chính sách giao hỏa tốc 90 phút rất phù hợp với các đơn hàng phát sinh đột xuất.
+*   **Điểm yếu & Hạn chế:**
+    *   Bộ lọc thuộc tính (Lọc theo khoảng giá, lọc theo tone màu sắc) còn khá đơn giản, chưa lọc đa tầng kết hợp được.
+    *   Chưa có tính năng mô phỏng trực quan dải băng rôn hoặc thiệp in lời chúc theo thời gian thực (Live Preview).
+    *   Quy trình duyệt ảnh hoa thật vẫn phụ thuộc nhiều vào nhân viên gửi thủ công qua tin nhắn Zalo, chưa tự động hóa đồng bộ trên dòng thời gian (Timeline) của đơn hàng.
+
+#### 2. Website 2: Hoa Yêu Thương (hoayeuthuong.com)
+*   **Mô tả tổng quan:** Do Công ty Cổ phần Color Life vận hành, là sàn điện hoa có quy mô lớn và lâu đời bậc nhất tại Việt Nam với mạng lưới kết nối cửa hàng phủ sóng khắp 63 tỉnh thành.
+*   **Các chức năng chính trên hệ thống:**
+    *   *Bộ lọc sản phẩm đa tiêu chí:* Hệ thống phân loại cực kỳ chi tiết theo Chủ đề (Khai trương, Sinh nhật, Chia buồn...), Kiểu dáng (Bó hoa, Giỏ hoa, Kệ đứng, Hộp hoa), Loại hoa (Hồng, Cúc, Hướng dương, Lan hồ điệp...), Màu sắc và Khoảng giá.
+    *   *Dịch vụ hoa định kỳ (Subscription):* Cung cấp gói dịch vụ cắm hoa tươi định kỳ hàng tuần/hàng tháng cho các tòa nhà, ngân hàng, văn phòng công ty.
+    *   *Dịch vụ thu tiền hai điểm linh hoạt:* Hỗ trợ giao hoa tận tay cho người nhận ở một địa chỉ, và nhân viên đến thu tiền mặt trực tiếp ở địa chỉ khác của người đặt.
+    *   *Cổng thanh toán đa kênh chuẩn bảo mật:* Hỗ trợ chuyển khoản ngân hàng (Techcombank), thẻ nội địa ATM (Internet Banking), thẻ quốc tế (Visa, Mastercard, JCB) đạt chứng chỉ bảo mật quốc tế PCI DSS và SSL; tích hợp cổng Bảo Kim, PayPal.
+    *   *Giao nhận siêu tốc 60 phút:* Nhờ có mạng lưới cửa hàng chi nhánh lớn tại các quận huyện trung tâm.
+*   **Điểm mạnh:**
+    *   Hệ sinh thái sản phẩm khổng lồ, bộ lọc tìm kiếm sản phẩm hoạt động rất mạnh mẽ và chính xác.
+    *   Năng lực vận hành và logistics chuyên nghiệp, giao hoa cực nhanh trong 60 phút.
+    *   Phương thức thanh toán phong phú bậc nhất, hỗ trợ tốt cả khách hàng cá nhân, doanh nghiệp và kiều bào ở nước ngoài.
+*   **Điểm yếu & Hạn chế:**
+    *   Giao diện chứa quá nhiều thông tin, banner quảng cáo và chữ dày đặc, dễ gây quá tải thị giác (Information Overload) cho khách hàng lần đầu truy cập.
+    *   Quy trình thanh toán nhiều bước khá rườm rà; chưa tối ưu mã QR thanh toán nhanh tự động điền số tiền và mã đơn (VietQR NAPAS).
+    *   Chưa có chế độ "Gửi tặng ẩn danh" trực tiếp trên form đặt hàng một cách tinh tế.
+
+#### 3. Bảng So Sánh Đối Chiếu Các Chức Năng (Feature Matrix)
+
+| Tiêu Chí Chức Năng | FlowerCorner.vn | HoaYeuThuong.com | Bloomora (Đề Tài Đồ Án) |
+| :--- | :---: | :---: | :---: |
+| **Lọc hoa đa chiều (Giá + Màu + Dịp)** | Cơ bản | Rất mạnh (Nhiều cấp) | **Đa chiều Realtime (Kết hợp 4 tiêu chí)** |
+| **Mô phỏng Băng rôn / Thiệp (Live Preview)** | ❌ Chưa có | ❌ Chưa có | **✅ Có (Xem trước chữ in vi tính thời gian thực)** |
+| **Thanh toán VietQR tự động 30s** | ❌ Chuyển khoản thường | ❌ Chuyển khoản thường | **✅ Sinh mã VietQR chuẩn NAPAS tự động** |
+| **Gửi tặng ẩn danh (Anonymous Gift)** | ⚠️ Ghi chú thủ công | ⚠️ Ghi chú thủ công | **✅ Tùy chọn 1-click tích hợp sẵn trên form** |
+| **Chụp ảnh hoa thật duyệt trước (Photo Proof)** | ✅ Gửi qua Zalo | ⚠️ Tùy đơn hàng | **✅ Tích hợp trực tiếp trên Timeline Tra Cứu** |
+| **Tra cứu tiến độ đơn hàng thời gian thực** | ⚠️ Qua tổng đài/Zalo | ⚠️ Kiểm tra mã đơn | **✅ Tra cứu trực quan 5 bước kèm ảnh thật** |
+| **Trải nghiệm giao diện (UI/UX)** | Khá tốt, hiện đại | Hơi rối, nhiều chữ | **Tối giản, sang trọng, Responsive 100%** |
+
+#### 4. Bài học rút ra và giải pháp cải tiến cho Website Bloomora
+Từ việc phân tích 2 website hàng đầu trên, đề tài **Bloomora** đã kế thừa các ưu điểm vượt trội và giải quyết triệt để các hạn chế của họ:
+1.  **Học hỏi thế mạnh dịch vụ:** Kế thừa tính năng **Duyệt ảnh hoa thật trước khi giao** (từ FlowerCorner) và **Bộ lọc hoa chi tiết theo ngân sách/màu sắc** (từ Hoa Yêu Thương).
+2.  **Đột phá cải tiến về công nghệ:**
+    *   Tích hợp tính năng **Live Preview mô phỏng dải băng rôn và thiệp chúc mừng** (khi khách gõ chữ, dải ruy băng trên màn hình tự động hiển thị kiểu chữ nghệ thuật như in ra thật).
+    *   Tích hợp **Mã VietQR động**: Khách quét mã bằng App ngân hàng bất kỳ là tự động điền đúng 100% số tiền và mã đơn `BL-xxxxx`, không sợ chuyển nhầm số tài khoản.
+    *   Tự động hóa chu trình **Tra cứu 5 bước khép kín** (Đã nhận đơn ➔ Đang cắm hoa ➔ Đã chụp ảnh hoa thật ➔ Đang giao hoa ➔ Hoàn tất) trực tiếp trên website mà không cần liên hệ thủ công qua Zalo.
 
 ### 2.2. Yêu cầu Chức năng
 Hệ thống được chia thành 5 phân hệ lớn:
