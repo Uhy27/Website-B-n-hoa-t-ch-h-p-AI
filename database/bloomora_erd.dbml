@@ -97,3 +97,4 @@ Table order_status_history {
   created_by int [ref: > users.id]
   created_at timestamp
 }
+

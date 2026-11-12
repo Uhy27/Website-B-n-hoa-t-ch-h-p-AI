@@ -206,3 +206,38 @@ body {
   }
 }
 
+/* ================= MEGA DROPDOWN MENU (FlowerCorner Style) ================= */
+.nav-dropdown-wrapper {
+  position: relative;
+}
+.nav-dropdown-content {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.nav-dropdown-wrapper:hover .nav-dropdown-content,
+.nav-dropdown-wrapper:focus-within .nav-dropdown-content {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.nav-dropdown-content a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #334155;
+  transition: all 0.15s ease;
+  border-radius: 8px;
+}
+.nav-dropdown-content a:hover {
+  background-color: #fff1f2;
+  color: #e11d48;
+  padding-left: 18px;
+}
+
+

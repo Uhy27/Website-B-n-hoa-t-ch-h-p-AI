@@ -356,6 +356,121 @@ function resetFilters() {
   fetchProducts();
 }
 
+// Helper cuộn mượt đến danh sách sản phẩm
+function scrollToProducts() {
+  const el = document.getElementById('productsSection');
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// 1. Lọc theo Danh mục từ Menu chính
+function navFilterCategory(catSlug, title) {
+  AppState.category = catSlug;
+  AppState.searchQuery = '';
+  AppState.priceRange = 'all';
+  AppState.color = 'all';
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) searchInput.value = '';
+
+  renderCategories();
+  fetchProducts();
+
+  const titleEl = document.getElementById('currentSectionTitle');
+  if (titleEl) {
+    titleEl.textContent = title || 'Danh Mục Hoa';
+  }
+  scrollToProducts();
+}
+
+// 2. Lọc theo Chủ đề (Occasion / Keyword)
+function navFilterTheme(keyword, title) {
+  AppState.category = 'all';
+  AppState.searchQuery = keyword;
+  AppState.priceRange = 'all';
+  AppState.color = 'all';
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) searchInput.value = keyword;
+
+  renderCategories();
+  fetchProducts();
+
+  const titleEl = document.getElementById('currentSectionTitle');
+  if (titleEl) {
+    titleEl.textContent = title || `Chủ Đề: ${keyword}`;
+  }
+  scrollToProducts();
+}
+
+// 3. Lọc theo Thiết kế (Bó, Giỏ, Hộp, Kệ, Chậu...)
+function navFilterDesign(keyword, title) {
+  AppState.category = 'all';
+  AppState.searchQuery = keyword;
+  AppState.priceRange = 'all';
+  AppState.color = 'all';
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) searchInput.value = keyword;
+
+  renderCategories();
+  fetchProducts();
+
+  const titleEl = document.getElementById('currentSectionTitle');
+  if (titleEl) {
+    titleEl.textContent = title || `Thiết Kế: ${keyword}`;
+  }
+  scrollToProducts();
+}
+
+// 4. Lọc theo Loại hoa (Hồng, Hướng dương, Lan hồ điệp...)
+function navFilterFlower(keyword, title) {
+  AppState.category = 'all';
+  AppState.searchQuery = keyword;
+  AppState.priceRange = 'all';
+  AppState.color = 'all';
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) searchInput.value = keyword;
+
+  renderCategories();
+  fetchProducts();
+
+  const titleEl = document.getElementById('currentSectionTitle');
+  if (titleEl) {
+    titleEl.textContent = title || `Loại Hoa: ${keyword}`;
+  }
+  scrollToProducts();
+}
+
+// 5. Lọc Hoa tươi giảm giá / Flash Sale
+function navFilterSale() {
+  AppState.category = 'all';
+  AppState.searchQuery = '';
+  AppState.priceRange = 'all';
+  AppState.color = 'all';
+
+  const titleEl = document.getElementById('currentSectionTitle');
+  if (titleEl) {
+    titleEl.textContent = '🔥 Hoa Tươi Giảm Giá 30% - Ưu Đãi Đặc Biệt';
+  }
+
+  fetch('api/products.php')
+    .then(res => res.json())
+    .then(json => {
+      if (json.success && json.data) {
+        const saleItems = json.data.filter(p => (p.originalPrice && p.originalPrice > p.price) || (p.sale_price && p.sale_price > 0));
+        AppState.filteredProducts = saleItems.length > 0 ? saleItems : json.data.slice(0, 8);
+        renderProducts();
+      }
+    })
+    .catch(() => {
+      if (typeof FLOWER_PRODUCTS !== 'undefined') {
+        AppState.filteredProducts = FLOWER_PRODUCTS.filter(p => p.originalPrice > p.price);
+        renderProducts();
+      }
+    });
+
+  scrollToProducts();
+}
+
 // Modal Xem Nhanh Sản Phẩm (Quick View)
 function openQuickView(productId) {
   const product = AppState.filteredProducts.find(p => p.id == productId) || (typeof FLOWER_PRODUCTS !== 'undefined' ? FLOWER_PRODUCTS.find(p => p.id == productId) : null);

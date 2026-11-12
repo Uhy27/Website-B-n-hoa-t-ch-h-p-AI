@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bloomora | Online Flower Shop - Tiệm Hoa Tươi Thuần Việt</title>
-  <meta name="description" content="Bloomora - Nền tảng điện hoa trực tuyến chuyên nghiệp. Hoa khai trương, sinh nhật, 99 bông hồng, lan hồ điệp. Chụp ảnh trước khi giao, miễn phí băng rôn.">
-  
+  <meta name="description"
+    content="Bloomora - Nền tảng điện hoa trực tuyến chuyên nghiệp. Hoa khai trương, sinh nhật, 99 bông hồng, lan hồ điệp. Chụp ảnh trước khi giao, miễn phí băng rôn.">
+
   <!-- Google Fonts Chuẩn Tiếng Việt -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+    rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- Phosphor Icons (Bộ icon cao cấp, thanh mảnh) -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  
+
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 
@@ -41,20 +45,25 @@
     }
   </script>
 </head>
+
 <body class="bg-stone-50 text-stone-800 antialiased selection:bg-rose-100 selection:text-rose-700">
 
   <!-- ================= TOPBAR ANNOUNCEMENT ================= -->
   <div class="bg-stone-900 text-stone-200 text-xs py-2 px-4 border-b border-stone-800">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
       <div class="flex items-center space-x-2 text-center sm:text-left">
-        <span class="bg-rose-600 text-white font-bold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">Ưu đãi</span>
-        <span class="truncate">🌸 Miễn phí băng rôn in chữ vi tính & Chụp ảnh hoa thực tế gửi duyệt trước khi giao!</span>
+        <span class="bg-rose-600 text-white font-bold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">Ưu
+          đãi</span>
+        <span class="truncate">🌸 Miễn phí băng rôn in chữ vi tính & Chụp ảnh hoa thực tế gửi duyệt trước khi
+          giao!</span>
       </div>
       <div class="flex items-center space-x-4 text-[11px] text-stone-400">
-        <span class="flex items-center"><i class="ph ph-clock mr-1 text-rose-500"></i> Giao 60-90p tại HN & TP.HCM</span>
+        <span class="flex items-center"><i class="ph ph-clock mr-1 text-rose-500"></i> Giao 60-90p tại HN &
+          TP.HCM</span>
         <span class="hidden md:inline">|</span>
         <a href="tel:0908123456" class="flex items-center hover:text-white transition">
-          <i class="ph ph-phone-call mr-1 text-emerald-400"></i> Hotline: <strong class="text-white ml-1">0908 123 456</strong>
+          <i class="ph ph-phone-call mr-1 text-emerald-400"></i> Hotline: <strong class="text-white ml-1">0908 123
+            456</strong>
         </a>
       </div>
     </div>
@@ -64,14 +73,16 @@
   <header class="sticky top-0 z-40 glass-nav border-b border-stone-200/80 transition-all shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20 gap-4">
-        
+
         <!-- Logo thương hiệu Bloomora -->
         <a href="#" class="flex items-center space-x-3 group flex-shrink-0">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-700 to-rose-500 flex items-center justify-center text-white shadow-lg shadow-rose-600/30 group-hover:scale-105 transition-transform">
+          <div
+            class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-700 to-rose-500 flex items-center justify-center text-white shadow-lg shadow-rose-600/30 group-hover:scale-105 transition-transform">
             <i class="ph ph-flower-lotus text-2xl"></i>
           </div>
           <div>
-            <div class="font-serif-title text-2xl font-bold tracking-tight text-stone-900 group-hover:text-rose-600 transition">
+            <div
+              class="font-serif-title text-2xl font-bold tracking-tight text-stone-900 group-hover:text-rose-600 transition">
               BLOOMORA
             </div>
             <div class="text-[10px] uppercase tracking-widest text-stone-400 font-semibold -mt-1">
@@ -82,19 +93,16 @@
 
         <!-- Thanh tìm kiếm thông minh realtime -->
         <div class="hidden md:flex flex-1 max-w-md mx-4 relative">
-          <input 
-            type="text" 
-            id="searchInput"
-            placeholder="Tìm hoa khai trương, hồng đỏ, lan hồ điệp..." 
-            class="w-full bg-stone-100 hover:bg-stone-50 focus:bg-white text-sm text-stone-800 pl-10 pr-4 py-2.5 rounded-full border border-stone-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-200 focus:outline-none transition"
-          />
+          <input type="text" id="searchInput" placeholder="Tìm hoa khai trương, hồng đỏ, lan hồ điệp..."
+            class="w-full bg-stone-100 hover:bg-stone-50 focus:bg-white text-sm text-stone-800 pl-10 pr-4 py-2.5 rounded-full border border-stone-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-200 focus:outline-none transition" />
           <i class="ph ph-magnifying-glass text-stone-400 absolute left-3.5 top-3 text-lg pointer-events-none"></i>
         </div>
 
         <!-- Tiện ích: Chọn khu vực, Tra cứu đơn & Giỏ hàng -->
         <div class="flex items-center space-x-3 sm:space-x-4">
           <!-- Chọn khu vực giao hoa -->
-          <div class="hidden lg:flex items-center space-x-1.5 text-xs text-stone-600 bg-stone-100 px-3 py-2 rounded-xl border border-stone-200">
+          <div
+            class="hidden lg:flex items-center space-x-1.5 text-xs text-stone-600 bg-stone-100 px-3 py-2 rounded-xl border border-stone-200">
             <i class="ph ph-map-pin text-rose-600 text-base"></i>
             <span class="text-stone-400">Giao đến:</span>
             <select class="bg-transparent font-semibold text-stone-800 focus:outline-none cursor-pointer">
@@ -103,15 +111,13 @@
               <option value="dn">Đà Nẵng</option>
               <option value="ct">Cần Thơ</option>
               <option value="hp">Hải Phòng</option>
-              <option value="all">Toàn quốc (63 Tỉnh)</option>
+              <option value="all">Toàn quốc (34 Tỉnh)</option>
             </select>
           </div>
 
           <!-- Tra cứu đơn hàng (Tính năng nổi tiếng từ FlowerDJ) -->
-          <button 
-            onclick="openOrderTracking()" 
-            class="hidden sm:flex items-center space-x-1 px-3 py-2 text-stone-600 hover:text-rose-600 hover:bg-rose-50 rounded-xl text-xs font-semibold transition"
-          >
+          <button onclick="openOrderTracking()"
+            class="hidden sm:flex items-center space-x-1 px-3 py-2 text-stone-600 hover:text-rose-600 hover:bg-rose-50 rounded-xl text-xs font-semibold transition">
             <i class="ph ph-receipt text-base"></i>
             <span>Tra Cứu Đơn</span>
           </button>
@@ -119,10 +125,8 @@
           <!-- KHU VỰC TÀI KHOẢN (AUTH) -->
           <!-- 1. Khi chưa đăng nhập (Khách vãng lai) -->
           <div id="headerAuthGuest">
-            <button 
-              onclick="openAuthModal('login')"
-              class="flex items-center space-x-1.5 px-3 py-2 text-stone-700 hover:text-rose-600 hover:bg-rose-50 rounded-xl text-xs font-semibold transition border border-stone-200"
-            >
+            <button onclick="openAuthModal('login')"
+              class="flex items-center space-x-1.5 px-3 py-2 text-stone-700 hover:text-rose-600 hover:bg-rose-50 rounded-xl text-xs font-semibold transition border border-stone-200">
               <i class="ph ph-user text-base text-rose-600"></i>
               <span>Đăng Nhập</span>
             </button>
@@ -130,11 +134,10 @@
 
           <!-- 2. Khi đã đăng nhập (Customer hoặc Admin) -->
           <div id="headerAuthUser" class="relative hidden">
-            <button 
-              onclick="toggleUserDropdown()"
-              class="flex items-center space-x-2 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-semibold transition border border-stone-200"
-            >
-              <div id="headerUserAvatar" class="w-6 h-6 rounded-full bg-rose-600 text-white font-bold flex items-center justify-center text-[11px]">
+            <button onclick="toggleUserDropdown()"
+              class="flex items-center space-x-2 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-semibold transition border border-stone-200">
+              <div id="headerUserAvatar"
+                class="w-6 h-6 rounded-full bg-rose-600 text-white font-bold flex items-center justify-center text-[11px]">
                 U
               </div>
               <span id="headerUserName" class="max-w-[100px] truncate">Người dùng</span>
@@ -142,26 +145,32 @@
             </button>
 
             <!-- Dropdown Menu -->
-            <div id="userDropdownMenu" class="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-stone-100 py-2 hidden z-50">
+            <div id="userDropdownMenu"
+              class="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-stone-100 py-2 hidden z-50">
               <div class="px-4 py-2 border-b border-stone-100">
                 <span id="dropdownFullName" class="block text-xs font-bold text-stone-900 truncate">Họ Tên</span>
                 <span id="dropdownEmail" class="block text-[11px] text-stone-400 truncate">email@example.com</span>
-                <span id="dropdownRoleBadge" class="inline-block mt-1 text-[10px] bg-rose-50 text-rose-600 font-bold px-2 py-0.5 rounded-full uppercase">Khách Hàng</span>
+                <span id="dropdownRoleBadge"
+                  class="inline-block mt-1 text-[10px] bg-rose-50 text-rose-600 font-bold px-2 py-0.5 rounded-full uppercase">Khách
+                  Hàng</span>
               </div>
 
-              <a href="javascript:void(0)" onclick="openOrderTracking(); toggleUserDropdown(false);" class="flex items-center space-x-2 px-4 py-2.5 text-xs text-stone-700 hover:bg-stone-50 hover:text-rose-600 transition">
+              <a href="javascript:void(0)" onclick="openOrderTracking(); toggleUserDropdown(false);"
+                class="flex items-center space-x-2 px-4 py-2.5 text-xs text-stone-700 hover:bg-stone-50 hover:text-rose-600 transition">
                 <i class="ph ph-clock-counter-clockwise text-base text-stone-400"></i>
                 <span>Lịch Sử Đơn Hàng</span>
               </a>
 
               <!-- Link Admin Portal (Chỉ hiện khi là Admin/Staff) -->
-              <a id="dropdownAdminLink" href="admin/index.php" target="_blank" class="hidden flex items-center space-x-2 px-4 py-2.5 text-xs text-rose-600 hover:bg-rose-50 font-semibold transition">
+              <a id="dropdownAdminLink" href="admin/index.php" target="_blank"
+                class="hidden flex items-center space-x-2 px-4 py-2.5 text-xs text-rose-600 hover:bg-rose-50 font-semibold transition">
                 <i class="ph ph-gear text-base"></i>
                 <span>Vào Trang Quản Trị</span>
               </a>
 
               <div class="border-t border-stone-100 mt-1 pt-1">
-                <button onclick="handleCustomerLogout()" class="w-full text-left flex items-center space-x-2 px-4 py-2 text-xs text-stone-600 hover:text-rose-600 hover:bg-stone-50 transition">
+                <button onclick="handleCustomerLogout()"
+                  class="w-full text-left flex items-center space-x-2 px-4 py-2 text-xs text-stone-600 hover:text-rose-600 hover:bg-stone-50 transition">
                   <i class="ph ph-sign-out text-base text-stone-400"></i>
                   <span>Đăng Xuất</span>
                 </button>
@@ -170,18 +179,132 @@
           </div>
 
           <!-- Giỏ hàng -->
-          <button 
-            onclick="toggleCartDrawer(true)"
-            class="relative flex items-center space-x-2 bg-rose-600 hover:bg-rose-700 text-white px-4 py-2.5 rounded-xl font-semibold text-xs shadow-md shadow-rose-600/20 transition-all hover:scale-105"
-          >
+          <button onclick="toggleCartDrawer(true)"
+            class="relative flex items-center space-x-2 bg-rose-600 hover:bg-rose-700 text-white px-4 py-2.5 rounded-xl font-semibold text-xs shadow-md shadow-rose-600/20 transition-all hover:scale-105">
             <i class="ph ph-shopping-bag text-lg"></i>
             <span class="hidden sm:inline">Giỏ Hàng</span>
-            <span class="cart-badge hidden bg-white text-rose-600 text-[11px] font-extrabold px-1.5 py-0.2 rounded-full shadow">0</span>
+            <span
+              class="cart-badge hidden bg-white text-rose-600 text-[11px] font-extrabold px-1.5 py-0.2 rounded-full shadow">0</span>
           </button>
         </div>
       </div>
     </div>
   </header>
+
+  <!-- ================= SECONDARY NAVIGATION / MEGA MENU (Chuẩn phong cách FlowerCorner) ================= -->
+  <nav class="bg-white border-b border-stone-200 shadow-sm relative z-30 hidden md:block">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <ul class="flex items-center space-x-1 lg:space-x-2 text-[13px] font-bold tracking-wide uppercase text-stone-700 py-2.5">
+          <!-- Hoa Sinh Nhật -->
+          <li>
+            <a href="javascript:void(0)" onclick="navFilterCategory('sinh-nhat', 'Hoa Sinh Nhật Tươi Sắc')" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center">
+              <span>HOA SINH NHẬT</span>
+            </a>
+          </li>
+
+          <!-- Hoa Khai Trương -->
+          <li>
+            <a href="javascript:void(0)" onclick="navFilterCategory('khai-truong', 'Hoa Khai Trương Hồng Phát')" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center">
+              <span>HOA KHAI TRƯƠNG</span>
+            </a>
+          </li>
+
+          <!-- Lan Hồ Điệp -->
+          <li>
+            <a href="javascript:void(0)" onclick="navFilterCategory('lan-ho-diep', 'Chậu Lan Hồ Điệp Sang Trọng')" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center">
+              <span>LAN HỒ ĐIỆP</span>
+            </a>
+          </li>
+
+          <!-- Hoa Tang Lễ -->
+          <li>
+            <a href="javascript:void(0)" onclick="navFilterCategory('chia-buon', 'Hoa Tang Lễ & Chia Buồn Thành Kính')" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center">
+              <span>HOA TANG LỄ</span>
+            </a>
+          </li>
+
+          <!-- Dropdown: CHỦ ĐỀ -->
+          <li class="nav-dropdown-wrapper">
+            <button type="button" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center space-x-1 uppercase font-bold text-rose-600">
+              <span>CHỦ ĐỀ</span>
+              <i class="ph ph-caret-down text-xs"></i>
+            </button>
+            <div class="nav-dropdown-content absolute left-0 top-full w-64 bg-white rounded-2xl shadow-2xl border border-stone-100 p-2 z-50">
+              <a href="javascript:void(0)" onclick="navFilterTheme('chúc mừng', 'Hoa Chúc Mừng')"><i class="ph ph-sparkle text-rose-500"></i> Hoa Chúc Mừng</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('cưới', 'Hoa Cưới Cầm Tay')"><i class="ph ph-heart text-rose-500"></i> Hoa Cưới Cầm Tay</a>
+              <a href="javascript:void(0)" onclick="navFilterCategory('chia-buon', 'Hoa Tang Lễ - Hoa Chia Buồn')"><i class="ph ph-flower-lotus text-stone-500"></i> Hoa Tang Lễ - Hoa Chia Buồn</a>
+              <a href="javascript:void(0)" onclick="navFilterCategory('tinh-yeu', 'Hoa Tình Yêu Lãng Mạn')"><i class="ph ph-heart-straight text-rose-500"></i> Hoa Tình Yêu</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('valentine', 'Hoa Valentine Ngọt Ngào')"><i class="ph ph-heart text-red-500"></i> Hoa Valentine</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('kỷ niệm', 'Hoa Kỷ Niệm Ngày Cưới')"><i class="ph ph-diamonds-four text-amber-500"></i> Hoa Kỷ Niệm Ngày Cưới</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('mẹ', 'Hoa Tặng Ngày Của Mẹ')"><i class="ph ph-hand-heart text-pink-500"></i> Ngày Của Mẹ</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('8-3', 'Hoa Chúc Mừng Quốc Tế Phụ Nữ 8-3')"><i class="ph ph-gift text-rose-500"></i> Hoa Chúc Mừng 8-3</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('20-10', 'Hoa Chúc Mừng Phụ Nữ Việt Nam 20-10')"><i class="ph ph-flower text-rose-500"></i> Hoa Chúc Mừng 20-10</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('nhà giáo', 'Hoa Tri Ân Ngày Nhà Giáo VN')"><i class="ph ph-graduation-cap text-blue-500"></i> Ngày Nhà Giáo VN</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('giáng sinh', 'Hoa & Cây Thông Giáng Sinh')"><i class="ph ph-tree text-emerald-500"></i> Giáng Sinh</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('tết', 'Hoa Tết Âm Lịch')"><i class="ph ph-sun text-amber-500"></i> Tết Âm Lịch</a>
+              <a href="javascript:void(0)" onclick="navFilterCategory('tot-nghiep', 'Hoa Chúc Mừng Tốt Nghiệp')"><i class="ph ph-student text-indigo-500"></i> Hoa Tốt Nghiệp</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('định kỳ', 'Gói Hoa Tươi Định Kỳ')"><i class="ph ph-calendar-check text-teal-500"></i> Hoa Định Kỳ</a>
+            </div>
+          </li>
+
+          <!-- Dropdown: THIẾT KẾ -->
+          <li class="nav-dropdown-wrapper">
+            <button type="button" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center space-x-1 uppercase font-bold">
+              <span>THIẾT KẾ</span>
+              <i class="ph ph-caret-down text-xs"></i>
+            </button>
+            <div class="nav-dropdown-content absolute left-0 top-full w-56 bg-white rounded-2xl shadow-2xl border border-stone-100 p-2 z-50">
+              <a href="javascript:void(0)" onclick="navFilterDesign('bó hoa', 'Thiết Kế: Bó Hoa Tươi Nghệ Thuật')"><i class="ph ph-spiral text-rose-500"></i> Bó Hoa Tươi</a>
+              <a href="javascript:void(0)" onclick="navFilterDesign('giỏ hoa', 'Thiết Kế: Giỏ Hoa Để Bàn')"><i class="ph ph-tote text-amber-500"></i> Giỏ Hoa Để Bàn</a>
+              <a href="javascript:void(0)" onclick="navFilterDesign('hộp hoa', 'Thiết Kế: Hộp Hoa Trái Tim')"><i class="ph ph-package text-pink-500"></i> Hộp Hoa Trái Tim</a>
+              <a href="javascript:void(0)" onclick="navFilterDesign('kệ hoa', 'Thiết Kế: Kệ Hoa 2 Tầng Chúc Mừng')"><i class="ph ph-columns text-emerald-500"></i> Kệ Hoa 2 Tầng</a>
+              <a href="javascript:void(0)" onclick="navFilterDesign('bình hoa', 'Thiết Kế: Bình Hoa Cao Cấp')"><i class="ph ph-brand-telegram text-indigo-500"></i> Bình Hoa Cao Cấp</a>
+              <a href="javascript:void(0)" onclick="navFilterDesign('chậu', 'Thiết Kế: Chậu Lan Hồ Điệp')"><i class="ph ph-plant text-purple-500"></i> Chậu Lan Hồ Điệp</a>
+            </div>
+          </li>
+
+          <!-- Dropdown: HOA TƯƠI / LOẠI HOA -->
+          <li class="nav-dropdown-wrapper">
+            <button type="button" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center space-x-1 uppercase font-bold">
+              <span>HOA TƯƠI</span>
+              <i class="ph ph-caret-down text-xs"></i>
+            </button>
+            <div class="nav-dropdown-content absolute left-0 top-full w-56 bg-white rounded-2xl shadow-2xl border border-stone-100 p-2 z-50">
+              <a href="javascript:void(0)" onclick="navFilterFlower('hồng', 'Hoa Hồng Ecuador & Côn Minh')"><i class="ph ph-flower-lotus text-rose-500"></i> Hoa Hồng Đỏ / Pastel</a>
+              <a href="javascript:void(0)" onclick="navFilterFlower('hướng dương', 'Hoa Hướng Dương Rực Rỡ')"><i class="ph ph-sun text-amber-500"></i> Hoa Hướng Dương</a>
+              <a href="javascript:void(0)" onclick="navFilterFlower('lan hồ điệp', 'Hoa Lan Hồ Điệp')"><i class="ph ph-flower text-purple-500"></i> Lan Hồ Điệp</a>
+              <a href="javascript:void(0)" onclick="navFilterFlower('baby', 'Hoa Baby Trắng Nhập Khẩu')"><i class="ph ph-snowflake text-stone-400"></i> Hoa Baby Trắng</a>
+              <a href="javascript:void(0)" onclick="navFilterFlower('mẫu đơn', 'Hoa Cúc Mẫu Đơn')"><i class="ph ph-sparkle text-pink-500"></i> Cúc Mẫu Đơn</a>
+              <a href="javascript:void(0)" onclick="navFilterFlower('hoa ly', 'Hoa Ly Thanh Khiết')"><i class="ph ph-drop text-blue-400"></i> Hoa Ly Trắng / Vàng</a>
+            </div>
+          </li>
+
+          <!-- Hoa Tươi Giảm 30% (Khuyến mãi Hot) -->
+          <li>
+            <a href="javascript:void(0)" onclick="navFilterSale()" class="px-3 py-2 rounded-lg text-rose-600 bg-rose-50 hover:bg-rose-100 font-extrabold transition flex items-center space-x-1.5 border border-rose-200">
+              <i class="ph ph-tag text-sm animate-pulse"></i>
+              <span>HOA TƯƠI GIẢM 30%</span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Hotline đặt hoa nhanh bên góc phải -->
+        <div class="hidden xl:flex items-center space-x-2 text-xs font-semibold text-stone-600">
+          <i class="ph ph-headset text-base text-rose-600"></i>
+          <span>Hỗ trợ 24/7: <strong class="text-rose-600 font-bold">1900 633 045</strong></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HOTLINE BANNER CHẠY NGANG (Chuẩn phong cách FlowerCorner) ================= -->
+  <div class="bg-rose-50/80 border-b border-rose-100 py-2 px-4 text-center">
+    <div class="max-w-7xl mx-auto flex items-center justify-center space-x-2 text-xs sm:text-sm font-bold text-rose-600 tracking-wide">
+      <i class="ph ph-phone-call animate-bounce"></i>
+      <span>HOTLINE ĐẶT HOA NHANH - TP HCM: <a href="tel:1900633045" class="underline hover:text-rose-800">1900 633 045</a> - HÀ NỘI: <a href="tel:0942007921" class="underline hover:text-rose-800">094 200 7921</a></span>
+    </div>
+  </div>
 
   <!-- ================= HERO SECTION & SMART FILTER (Phối hợp phong cách FlowerDJ & FaSunflower) ================= -->
   <section class="relative bg-gradient-to-b from-stone-100 via-rose-50/40 to-stone-50 py-12 lg:py-16 overflow-hidden">
@@ -191,10 +314,11 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        
+
         <!-- Cột Tiêu đề & Giới thiệu -->
         <div class="lg:col-span-7 space-y-5 text-center lg:text-left">
-          <div class="inline-flex items-center space-x-2 bg-white/80 border border-rose-200 px-3.5 py-1.5 rounded-full text-xs font-semibold text-rose-700 shadow-sm">
+          <div
+            class="inline-flex items-center space-x-2 bg-white/80 border border-rose-200 px-3.5 py-1.5 rounded-full text-xs font-semibold text-rose-700 shadow-sm">
             <span class="flex h-2 w-2 rounded-full bg-rose-600 animate-ping"></span>
             <span>Tiệm Hoa Trực Tuyến Được Yêu Thích 2026</span>
           </div>
@@ -205,7 +329,8 @@
           </h1>
 
           <p class="text-stone-600 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
-            Hội tụ tinh hoa cắm hoa nghệ thuật phong cách Á Đông hiện đại. Cam kết 100% hoa tươi Đà Lạt & hoa nhập khẩu, giao hỏa tốc 60 phút, gửi ảnh chụp thật trước khi giao cho bạn tuyệt đối yên tâm.
+            Hội tụ tinh hoa cắm hoa nghệ thuật phong cách Á Đông hiện đại. Cam kết 100% hoa tươi Đà Lạt & hoa nhập khẩu,
+            giao hỏa tốc 60 phút, gửi ảnh chụp thật trước khi giao cho bạn tuyệt đối yên tâm.
           </p>
 
           <!-- 4 Cam kết vàng chuẩn thương hiệu -->
@@ -232,7 +357,8 @@
         <!-- Cột Hộp TÌM HOA NHANH THEO YÊU CẦU (Lấy cảm hứng từ FlowerDJ hàng đầu Đài Loan) -->
         <div class="lg:col-span-5">
           <div class="glass-card p-6 rounded-3xl shadow-xl shadow-rose-900/5 border border-white">
-            <div class="flex items-center space-x-2 text-stone-900 font-bold text-base mb-4 pb-3 border-b border-stone-200">
+            <div
+              class="flex items-center space-x-2 text-stone-900 font-bold text-base mb-4 pb-3 border-b border-stone-200">
               <div class="w-8 h-8 rounded-lg bg-rose-600 text-white flex items-center justify-center text-lg">
                 <i class="ph ph-sparkle"></i>
               </div>
@@ -246,7 +372,8 @@
               <!-- Chọn Dịp tặng hoa -->
               <div>
                 <label class="block text-xs font-semibold text-stone-700 mb-1">1. Bạn muốn tặng hoa dịp gì?</label>
-                <select id="heroOccasionSelect" class="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-stone-800 font-medium focus:ring-2 focus:ring-rose-500 focus:outline-none">
+                <select id="heroOccasionSelect"
+                  class="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-stone-800 font-medium focus:ring-2 focus:ring-rose-500 focus:outline-none">
                   <option value="all">Tất cả các dịp</option>
                   <option value="khai-truong">Hoa Khai Trương (Kệ / Lẵng phát tài)</option>
                   <option value="sinh-nhat">Hoa Sinh Nhật (Bó hoa / Giỏ sang trọng)</option>
@@ -260,7 +387,8 @@
               <!-- Chọn Mức ngân sách -->
               <div>
                 <label class="block text-xs font-semibold text-stone-700 mb-1">2. Khoảng ngân sách của bạn?</label>
-                <select id="heroBudgetSelect" class="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-stone-800 font-medium focus:ring-2 focus:ring-rose-500 focus:outline-none">
+                <select id="heroBudgetSelect"
+                  class="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-stone-800 font-medium focus:ring-2 focus:ring-rose-500 focus:outline-none">
                   <option value="all">Tất cả mức giá</option>
                   <option value="under-500">Dưới 500.000₫ (Tiết kiệm)</option>
                   <option value="500-1000">500.000₫ - 1.000.000₫ (Phổ biến nhất)</option>
@@ -272,7 +400,8 @@
               <!-- Chọn Khu vực nhận hoa -->
               <div>
                 <label class="block text-xs font-semibold text-stone-700 mb-1">3. Khu vực giao hoa?</label>
-                <select class="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-stone-800 font-medium focus:ring-2 focus:ring-rose-500 focus:outline-none">
+                <select
+                  class="w-full bg-white border border-stone-300 rounded-xl px-3.5 py-2.5 text-xs text-stone-800 font-medium focus:ring-2 focus:ring-rose-500 focus:outline-none">
                   <option>TP. Hồ Chí Minh (Nội thành hỏa tốc 60p)</option>
                   <option>Hà Nội (Nội thành hỏa tốc 60p)</option>
                   <option>Đà Nẵng & Hội An</option>
@@ -282,10 +411,8 @@
               </div>
 
               <!-- Nút Tìm hoa ngay -->
-              <button 
-                id="heroSearchBtn"
-                class="w-full mt-2 py-3 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white rounded-xl font-bold text-sm shadow-lg shadow-rose-600/30 transition flex items-center justify-center space-x-2"
-              >
+              <button id="heroSearchBtn"
+                class="w-full mt-2 py-3 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white rounded-xl font-bold text-sm shadow-lg shadow-rose-600/30 transition flex items-center justify-center space-x-2">
                 <i class="ph ph-magnifying-glass-bold text-base"></i>
                 <span>Tìm Kiếm Mẫu Hoa Phù Hợp</span>
               </button>
@@ -299,7 +426,7 @@
 
   <!-- ================= BỘ LỌC DANH MỤC & TÔNG MÀU ================= -->
   <section id="productsSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    
+
     <!-- Thanh Danh Mục Cuộn Ngang (Horizontal Scrollable Pills) -->
     <div class="mb-6">
       <div class="flex items-center justify-between mb-3">
@@ -317,34 +444,55 @@
     </div>
 
     <!-- Bộ lọc phụ: Khoảng giá, Tông màu & Sắp xếp -->
-    <div class="bg-white p-4 rounded-2xl border border-stone-200/80 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-      
+    <div
+      class="bg-white p-4 rounded-2xl border border-stone-200/80 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+
       <!-- Lọc theo khoảng giá -->
       <div class="flex flex-wrap items-center gap-1.5 w-full md:w-auto text-xs">
         <span class="text-stone-400 font-semibold mr-1">Ngân sách:</span>
-        <button onclick="setPriceRange('all')" data-range="all" class="price-filter-btn px-3 py-1.5 rounded-lg border border-stone-200 hover:border-rose-400 transition">Tất cả</button>
-        <button onclick="setPriceRange('under-500')" data-range="under-500" class="price-filter-btn px-3 py-1.5 rounded-lg border border-stone-200 hover:border-rose-400 transition">&lt; 500k</button>
-        <button onclick="setPriceRange('500-1000')" data-range="500-1000" class="price-filter-btn px-3 py-1.5 rounded-lg border border-stone-200 hover:border-rose-400 transition">500k - 1tr</button>
-        <button onclick="setPriceRange('1000-2000')" data-range="1000-2000" class="price-filter-btn px-3 py-1.5 rounded-lg border border-stone-200 hover:border-rose-400 transition">1tr - 2tr</button>
-        <button onclick="setPriceRange('above-2000')" data-range="above-2000" class="price-filter-btn px-3 py-1.5 rounded-lg border border-stone-200 hover:border-rose-400 transition">&gt; 2tr</button>
+        <button onclick="setPriceRange('all')" data-range="all"
+          class="price-filter-btn px-3 py-1.5 rounded-lg border border-stone-200 hover:border-rose-400 transition">Tất
+          cả</button>
+        <button onclick="setPriceRange('under-500')" data-range="under-500"
+          class="price-filter-btn px-3 py-1.5 rounded-lg border border-stone-200 hover:border-rose-400 transition">&lt;
+          500k</button>
+        <button onclick="setPriceRange('500-1000')" data-range="500-1000"
+          class="price-filter-btn px-3 py-1.5 rounded-lg border border-stone-200 hover:border-rose-400 transition">500k
+          - 1tr</button>
+        <button onclick="setPriceRange('1000-2000')" data-range="1000-2000"
+          class="price-filter-btn px-3 py-1.5 rounded-lg border border-stone-200 hover:border-rose-400 transition">1tr -
+          2tr</button>
+        <button onclick="setPriceRange('above-2000')" data-range="above-2000"
+          class="price-filter-btn px-3 py-1.5 rounded-lg border border-stone-200 hover:border-rose-400 transition">&gt;
+          2tr</button>
       </div>
 
       <!-- Lọc theo Tông màu (Đặc trưng từ FaSunflower Florist) -->
       <div class="flex items-center space-x-2 text-xs">
         <span class="text-stone-400 font-semibold mr-1">Tone màu:</span>
-        <button onclick="setColorFilter('all')" data-color="all" class="color-filter-btn w-6 h-6 rounded-full border border-stone-300 bg-stone-100 flex items-center justify-center text-[10px]" title="Tất cả màu">ALL</button>
-        <button onclick="setColorFilter('do')" data-color="do" class="color-filter-btn w-6 h-6 rounded-full bg-red-600 shadow" title="Tone Đỏ"></button>
-        <button onclick="setColorFilter('hong')" data-color="hong" class="color-filter-btn w-6 h-6 rounded-full bg-pink-400 shadow" title="Tone Hồng"></button>
-        <button onclick="setColorFilter('vang')" data-color="vang" class="color-filter-btn w-6 h-6 rounded-full bg-amber-400 shadow" title="Tone Vàng/Cam"></button>
-        <button onclick="setColorFilter('trang')" data-color="trang" class="color-filter-btn w-6 h-6 rounded-full bg-white border border-stone-300 shadow" title="Tone Trắng"></button>
-        <button onclick="setColorFilter('tim')" data-color="tim" class="color-filter-btn w-6 h-6 rounded-full bg-purple-500 shadow" title="Tone Tím"></button>
-        <button onclick="setColorFilter('xanh')" data-color="xanh" class="color-filter-btn w-6 h-6 rounded-full bg-sky-400 shadow" title="Tone Xanh"></button>
+        <button onclick="setColorFilter('all')" data-color="all"
+          class="color-filter-btn w-6 h-6 rounded-full border border-stone-300 bg-stone-100 flex items-center justify-center text-[10px]"
+          title="Tất cả màu">ALL</button>
+        <button onclick="setColorFilter('do')" data-color="do"
+          class="color-filter-btn w-6 h-6 rounded-full bg-red-600 shadow" title="Tone Đỏ"></button>
+        <button onclick="setColorFilter('hong')" data-color="hong"
+          class="color-filter-btn w-6 h-6 rounded-full bg-pink-400 shadow" title="Tone Hồng"></button>
+        <button onclick="setColorFilter('vang')" data-color="vang"
+          class="color-filter-btn w-6 h-6 rounded-full bg-amber-400 shadow" title="Tone Vàng/Cam"></button>
+        <button onclick="setColorFilter('trang')" data-color="trang"
+          class="color-filter-btn w-6 h-6 rounded-full bg-white border border-stone-300 shadow"
+          title="Tone Trắng"></button>
+        <button onclick="setColorFilter('tim')" data-color="tim"
+          class="color-filter-btn w-6 h-6 rounded-full bg-purple-500 shadow" title="Tone Tím"></button>
+        <button onclick="setColorFilter('xanh')" data-color="xanh"
+          class="color-filter-btn w-6 h-6 rounded-full bg-sky-400 shadow" title="Tone Xanh"></button>
       </div>
 
       <!-- Sắp xếp -->
       <div class="flex items-center space-x-2 text-xs w-full sm:w-auto justify-end">
         <span class="text-stone-400 font-semibold">Sắp xếp:</span>
-        <select id="sortSelect" class="bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-1.5 text-stone-700 font-medium focus:ring-1 focus:ring-rose-500 focus:outline-none">
+        <select id="sortSelect"
+          class="bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-1.5 text-stone-700 font-medium focus:ring-1 focus:ring-rose-500 focus:outline-none">
           <option value="popular">Bán chạy nhất</option>
           <option value="price-asc">Giá từ thấp đến cao</option>
           <option value="price-desc">Giá từ cao đến thấp</option>
@@ -367,7 +515,8 @@
       <div class="text-center max-w-2xl mx-auto mb-12">
         <span class="text-rose-600 font-bold text-xs uppercase tracking-widest">Dịch Vụ Chuyên Biệt</span>
         <h2 class="text-3xl font-bold font-serif-title text-stone-900 mt-1">Dịch Vụ Hoa Tươi Thuần Việt</h2>
-        <p class="text-stone-500 text-sm mt-2">Được thiết kế tỉ mỉ bởi các nghệ nhân trên 10 năm kinh nghiệm trong ngành hoa tươi Việt Nam.</p>
+        <p class="text-stone-500 text-sm mt-2">Được thiết kế tỉ mỉ bởi các nghệ nhân trên 10 năm kinh nghiệm trong ngành
+          hoa tươi Việt Nam.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -378,9 +527,11 @@
           </div>
           <h3 class="text-lg font-bold text-stone-900 mb-2">Hoa Khai Trương Phát Tài</h3>
           <p class="text-stone-600 text-xs leading-relaxed mb-4">
-            Kệ hoa 1 tầng, 2 tầng đứng hoành tráng, giỏ hoa để bàn lễ tân. Tặng kèm dải ruy băng lụa dập chữ nhũ vàng thương hiệu đối tác.
+            Kệ hoa 1 tầng, 2 tầng đứng hoành tráng, giỏ hoa để bàn lễ tân. Tặng kèm dải ruy băng lụa dập chữ nhũ vàng
+            thương hiệu đối tác.
           </p>
-          <button onclick="setCategory('khai-truong')" class="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center">
+          <button onclick="setCategory('khai-truong')"
+            class="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center">
             <span>Xem 4 mẫu khai trương</span>
             <i class="ph ph-arrow-right ml-1"></i>
           </button>
@@ -393,9 +544,11 @@
           </div>
           <h3 class="text-lg font-bold text-stone-900 mb-2">Bó 99 Bông Hồng Cầu Hôn</h3>
           <p class="text-stone-600 text-xs leading-relaxed mb-4">
-            Hồng đỏ Ecuador cành dài 80cm nở to rực rỡ, trang trí đèn fairy light lung linh. Dịch vụ bảo mật người gửi tạo sự bất ngờ trọn vẹn.
+            Hồng đỏ Ecuador cành dài 80cm nở to rực rỡ, trang trí đèn fairy light lung linh. Dịch vụ bảo mật người gửi
+            tạo sự bất ngờ trọn vẹn.
           </p>
-          <button onclick="setCategory('tinh-yeu')" class="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center">
+          <button onclick="setCategory('tinh-yeu')"
+            class="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center">
             <span>Xem bộ sưu tập tình yêu</span>
             <i class="ph ph-arrow-right ml-1"></i>
           </button>
@@ -403,14 +556,17 @@
 
         <!-- Card 3: Lan Hồ Điệp Hoàng Gia -->
         <div class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm hover:shadow-md transition">
-          <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-2xl flex items-center justify-center text-2xl mb-4">
+          <div
+            class="w-12 h-12 bg-purple-100 text-purple-700 rounded-2xl flex items-center justify-center text-2xl mb-4">
             <i class="ph ph-crown"></i>
           </div>
           <h3 class="text-lg font-bold text-stone-900 mb-2">Lan Hồ Điệp Hoàng Gia VIP</h3>
           <p class="text-stone-600 text-xs leading-relaxed mb-4">
-            Tuyển chọn cành đại hồ điệp 10-14 bông/cành, chậu gốm tráng men Bát Tràng sang trọng. Độ tươi giữ từ 4 đến 8 tuần liên tục.
+            Tuyển chọn cành đại hồ điệp 10-14 bông/cành, chậu gốm tráng men Bát Tràng sang trọng. Độ tươi giữ từ 4 đến 8
+            tuần liên tục.
           </p>
-          <button onclick="setCategory('lan-ho-diep')" class="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center">
+          <button onclick="setCategory('lan-ho-diep')"
+            class="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center">
             <span>Xem chậu lan hồ điệp</span>
             <i class="ph ph-arrow-right ml-1"></i>
           </button>
@@ -424,7 +580,8 @@
     <div class="text-center max-w-2xl mx-auto mb-10">
       <span class="text-rose-600 font-bold text-xs uppercase tracking-widest">Đánh Giá Từ Khách Hàng</span>
       <h2 class="text-3xl font-bold font-serif-title text-stone-900 mt-1">Hơn 50,000 Khách Hàng Hài Lòng</h2>
-      <p class="text-stone-500 text-sm mt-1">Trải nghiệm mua hoa trực tuyến an tâm số 1 với cam kết chất lượng tuyệt đối.</p>
+      <p class="text-stone-500 text-sm mt-1">Trải nghiệm mua hoa trực tuyến an tâm số 1 với cam kết chất lượng tuyệt
+        đối.</p>
     </div>
 
     <div id="reviewsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -436,7 +593,7 @@
   <footer class="bg-stone-900 text-stone-300 pt-16 pb-12 border-t border-stone-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
-        
+
         <!-- Cột 1 & 2: Về Bloomora -->
         <div class="lg:col-span-2 space-y-4">
           <div class="flex items-center space-x-3">
@@ -446,12 +603,16 @@
             <span class="font-serif-title text-xl font-bold text-white tracking-wide">BLOOMORA FLORIST</span>
           </div>
           <p class="text-xs text-stone-400 leading-relaxed max-w-sm">
-            Nền tảng thương mại điện tử hoa tươi cao cấp hàng đầu Việt Nam. Kết nối tình cảm, mang niềm vui và vượng khí đến hàng triệu gia đình và doanh nghiệp trên 63 tỉnh thành.
+            Nền tảng thương mại điện tử hoa tươi cao cấp hàng đầu Việt Nam. Kết nối tình cảm, mang niềm vui và vượng khí
+            đến hàng triệu gia đình và doanh nghiệp trên 63 tỉnh thành.
           </p>
           <div class="text-xs text-stone-400 space-y-2">
-            <p><i class="ph ph-map-pin text-rose-500 mr-2"></i> <strong>Hà Nội:</strong> 128 Phố Huế, P. Hàng Bài, Q. Hoàn Kiếm</p>
-            <p><i class="ph ph-map-pin text-rose-500 mr-2"></i> <strong>TP. HCM:</strong> 352 Nguyễn Đình Chiểu, Phường 4, Quận 3</p>
-            <p><i class="ph ph-map-pin text-rose-500 mr-2"></i> <strong>Đà Nẵng:</strong> 86 Nguyễn Văn Linh, P. Nam Dương, Q. Hải Châu</p>
+            <p><i class="ph ph-map-pin text-rose-500 mr-2"></i> <strong>Hà Nội:</strong> 128 Phố Huế, P. Hàng Bài, Q.
+              Hoàn Kiếm</p>
+            <p><i class="ph ph-map-pin text-rose-500 mr-2"></i> <strong>TP. HCM:</strong> 352 Nguyễn Đình Chiểu, Phường
+              4, Quận 3</p>
+            <p><i class="ph ph-map-pin text-rose-500 mr-2"></i> <strong>Đà Nẵng:</strong> 86 Nguyễn Văn Linh, P. Nam
+              Dương, Q. Hải Châu</p>
           </div>
         </div>
 
@@ -459,11 +620,16 @@
         <div class="space-y-3">
           <h4 class="text-sm font-bold text-white uppercase tracking-wider">Danh Mục Hoa</h4>
           <ul class="text-xs text-stone-400 space-y-2">
-            <li><a href="javascript:void(0)" onclick="setCategory('khai-truong')" class="hover:text-rose-400 transition">Hoa Khai Trương</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategory('sinh-nhat')" class="hover:text-rose-400 transition">Hoa Chúc Mừng Sinh Nhật</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategory('tinh-yeu')" class="hover:text-rose-400 transition">Bó Hoa Tình Yêu / Cầu Hôn</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategory('lan-ho-diep')" class="hover:text-rose-400 transition">Lan Hồ Điệp Hoàng Gia</a></li>
-            <li><a href="javascript:void(0)" onclick="setCategory('chia-buon')" class="hover:text-rose-400 transition">Hoa Tang Lễ / Viếng Phân Ưu</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategory('khai-truong')"
+                class="hover:text-rose-400 transition">Hoa Khai Trương</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategory('sinh-nhat')"
+                class="hover:text-rose-400 transition">Hoa Chúc Mừng Sinh Nhật</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategory('tinh-yeu')" class="hover:text-rose-400 transition">Bó
+                Hoa Tình Yêu / Cầu Hôn</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategory('lan-ho-diep')"
+                class="hover:text-rose-400 transition">Lan Hồ Điệp Hoàng Gia</a></li>
+            <li><a href="javascript:void(0)" onclick="setCategory('chia-buon')"
+                class="hover:text-rose-400 transition">Hoa Tang Lễ / Viếng Phân Ưu</a></li>
           </ul>
         </div>
 
@@ -471,11 +637,16 @@
         <div class="space-y-3">
           <h4 class="text-sm font-bold text-white uppercase tracking-wider">Chính Sách & Hỗ Trợ</h4>
           <ul class="text-xs text-stone-400 space-y-2">
-            <li><a href="javascript:void(0)" onclick="openOrderTracking()" class="hover:text-rose-400 transition">Tra cứu trạng thái đơn hoa</a></li>
-            <li><a href="javascript:void(0)" class="hover:text-rose-400 transition">Chính sách giao hỏa tốc 60 phút</a></li>
-            <li><a href="javascript:void(0)" class="hover:text-rose-400 transition">Chính sách hoàn tiền & đổi mới 100%</a></li>
-            <li><a href="javascript:void(0)" class="hover:text-rose-400 transition">Hướng dẫn thanh toán VietQR / MoMo</a></li>
-            <li><a href="javascript:void(0)" class="hover:text-rose-400 transition">Xuất hóa đơn điện tử VAT Doanh nghiệp</a></li>
+            <li><a href="javascript:void(0)" onclick="openOrderTracking()" class="hover:text-rose-400 transition">Tra
+                cứu trạng thái đơn hoa</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-rose-400 transition">Chính sách giao hỏa tốc 60 phút</a>
+            </li>
+            <li><a href="javascript:void(0)" class="hover:text-rose-400 transition">Chính sách hoàn tiền & đổi mới
+                100%</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-rose-400 transition">Hướng dẫn thanh toán VietQR /
+                MoMo</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-rose-400 transition">Xuất hóa đơn điện tử VAT Doanh
+                nghiệp</a></li>
           </ul>
         </div>
 
@@ -486,7 +657,8 @@
             <span class="text-[11px] text-stone-400 block">Hotline 24/7 (Miễn phí cước)</span>
             <a href="tel:19006868" class="text-lg font-bold text-rose-500 hover:underline block font-mono">1900 6868</a>
             <span class="text-[11px] text-stone-400 block mt-1">Zalo Hỗ Trợ Nhanh:</span>
-            <a href="https://zalo.me/0908123456" target="_blank" class="text-sm font-bold text-sky-400 hover:underline font-mono">0908 123 456</a>
+            <a href="https://zalo.me/0908123456" target="_blank"
+              class="text-sm font-bold text-sky-400 hover:underline font-mono">0908 123 456</a>
           </div>
 
           <div class="pt-2">
@@ -502,7 +674,8 @@
 
       </div>
 
-      <div class="border-t border-stone-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
+      <div
+        class="border-t border-stone-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
         <p>© 2026 Mộc Lam Florist. Bản quyền đã được đăng ký. Cung cấp dịch vụ hoa tươi thuần Việt chất lượng cao.</p>
         <p class="flex items-center space-x-1">
           <span>Thiết kế & phát triển với</span>
@@ -514,16 +687,19 @@
   </footer>
 
   <!-- ================= SLIDE-OVER CART DRAWER ================= -->
-  <div id="cartBackdrop" onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-50 hidden transition-opacity"></div>
-  
-  <div id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between">
+  <div id="cartBackdrop" onclick="toggleCartDrawer(false)"
+    class="fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+
+  <div id="cartDrawer"
+    class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between">
     <!-- Header giỏ hàng -->
     <div class="p-4 border-b border-stone-200 flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <i class="ph ph-shopping-bag text-rose-600 text-xl"></i>
         <h3 class="font-bold text-stone-900 text-base">Giỏ Hàng Của Bạn</h3>
       </div>
-      <button onclick="toggleCartDrawer(false)" class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 text-lg">
+      <button onclick="toggleCartDrawer(false)"
+        class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 text-lg">
         <i class="ph ph-x"></i>
       </button>
     </div>
@@ -554,10 +730,8 @@
         </div>
       </div>
 
-      <button 
-        onclick="openCheckoutDrawer()"
-        class="w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-rose-600/30 transition flex items-center justify-center space-x-2"
-      >
+      <button onclick="openCheckoutDrawer()"
+        class="w-full py-3.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-rose-600/30 transition flex items-center justify-center space-x-2">
         <span>Tiến Hành Đặt Hoa Ngay</span>
         <i class="ph ph-arrow-right-bold"></i>
       </button>
@@ -567,8 +741,10 @@
   <!-- ================= MODAL QUICK VIEW SẢN PHẨM ================= -->
   <div id="quickViewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div onclick="closeQuickView()" class="fixed inset-0 modal-backdrop"></div>
-    <div class="relative bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 border border-stone-100">
-      <button onclick="closeQuickView()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center text-xl transition">
+    <div
+      class="relative bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 border border-stone-100">
+      <button onclick="closeQuickView()"
+        class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center text-xl transition">
         <i class="ph ph-x"></i>
       </button>
       <div id="quickViewContent">
@@ -580,19 +756,21 @@
   <!-- ================= MODAL CHECKOUT / ĐẶT HÀNG THUẦN VIỆT ================= -->
   <div id="checkoutModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div onclick="closeCheckoutModal()" class="fixed inset-0 modal-backdrop"></div>
-    <div class="relative bg-white rounded-3xl max-w-2xl w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 p-6 sm:p-8 border border-stone-100">
+    <div
+      class="relative bg-white rounded-3xl max-w-2xl w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 p-6 sm:p-8 border border-stone-100">
       <div class="flex items-center justify-between pb-4 border-b border-stone-200 mb-6">
         <div>
           <h3 class="font-serif-title text-2xl font-bold text-stone-900">Thông Tin Đặt Hoa</h3>
           <p class="text-xs text-stone-500">Mộc Lam Florist cam kết bảo mật thông tin & gửi ảnh hoa trước khi giao</p>
         </div>
-        <button onclick="closeCheckoutModal()" class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 text-lg">
+        <button onclick="closeCheckoutModal()"
+          class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 text-lg">
           <i class="ph ph-x"></i>
         </button>
       </div>
 
       <form onsubmit="handleCheckoutSubmit(event)" class="space-y-5">
-        
+
         <!-- Nhóm 1: Người gửi -->
         <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200 space-y-3">
           <div class="flex items-center justify-between">
@@ -608,11 +786,13 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-[11px] font-medium text-stone-600 mb-1">Họ tên của bạn</label>
-              <input type="text" name="senderName" placeholder="Nguyễn Văn A" class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
+              <input type="text" name="senderName" placeholder="Nguyễn Văn A"
+                class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             </div>
             <div>
               <label class="block text-[11px] font-medium text-stone-600 mb-1">Số điện thoại nhận ảnh hoa</label>
-              <input type="tel" name="senderPhone" placeholder="0912 345 678" class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
+              <input type="tel" name="senderPhone" placeholder="0912 345 678"
+                class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             </div>
           </div>
         </div>
@@ -625,28 +805,36 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-[11px] font-medium text-stone-600 mb-1">Tên người nhận <span class="text-rose-600">*</span></label>
-              <input type="text" name="receiverName" required placeholder="Chị Mai Hương" class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
+              <label class="block text-[11px] font-medium text-stone-600 mb-1">Tên người nhận <span
+                  class="text-rose-600">*</span></label>
+              <input type="text" name="receiverName" required placeholder="Chị Mai Hương"
+                class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             </div>
             <div>
-              <label class="block text-[11px] font-medium text-stone-600 mb-1">Số điện thoại người nhận <span class="text-rose-600">*</span></label>
-              <input type="tel" name="receiverPhone" required placeholder="0988 765 432" class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
+              <label class="block text-[11px] font-medium text-stone-600 mb-1">Số điện thoại người nhận <span
+                  class="text-rose-600">*</span></label>
+              <input type="tel" name="receiverPhone" required placeholder="0988 765 432"
+                class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             </div>
           </div>
 
           <div>
-            <label class="block text-[11px] font-medium text-stone-600 mb-1">Địa chỉ chi tiết (Số nhà, Tên đường, Tòa nhà, Phường/Quận) <span class="text-rose-600">*</span></label>
-            <input type="text" name="address" required placeholder="Tầng 12 Tòa Bitexco, Q.1, TP. Hồ Chí Minh" class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
+            <label class="block text-[11px] font-medium text-stone-600 mb-1">Địa chỉ chi tiết (Số nhà, Tên đường, Tòa
+              nhà, Phường/Quận) <span class="text-rose-600">*</span></label>
+            <input type="text" name="address" required placeholder="Tầng 12 Tòa Bitexco, Q.1, TP. Hồ Chí Minh"
+              class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-[11px] font-medium text-stone-600 mb-1">Ngày giao hoa</label>
-              <input type="date" name="deliveryDate" value="2026-11-08" class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
+              <input type="date" name="deliveryDate" value="2026-11-08"
+                class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             </div>
             <div>
               <label class="block text-[11px] font-medium text-stone-600 mb-1">Khung giờ giao hoa</label>
-              <select name="deliveryTime" class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none">
+              <select name="deliveryTime"
+                class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none">
                 <option value="Hỏa tốc 60-90 phút">⚡ Hỏa tốc ngay trong 60-90 phút</option>
                 <option value="Sáng (08:00 - 11:30)">Buổi sáng (08:00 - 11:30)</option>
                 <option value="Trưa (11:30 - 14:00)">Buổi trưa (11:30 - 14:00)</option>
@@ -660,10 +848,14 @@
         <!-- Nhóm 3: Lời chúc Băng rôn / Thiệp -->
         <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200 space-y-2">
           <span class="text-xs font-bold uppercase tracking-wider text-stone-700 flex items-center justify-between">
-            <span class="flex items-center"><i class="ph ph-chats-circle text-rose-600 mr-1.5 text-base"></i> Lời chúc in Băng rôn hoặc Viết Thiệp</span>
-            <span class="text-[10px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded font-semibold">Miễn phí 100%</span>
+            <span class="flex items-center"><i class="ph ph-chats-circle text-rose-600 mr-1.5 text-base"></i> Lời chúc
+              in Băng rôn hoặc Viết Thiệp</span>
+            <span class="text-[10px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded font-semibold">Miễn phí
+              100%</span>
           </span>
-          <textarea name="bannerMessage" rows="2" placeholder="Ví dụ: Chúc mừng khai trương hồng phát - Công ty BĐS An Khang kính tặng..." class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"></textarea>
+          <textarea name="bannerMessage" rows="2"
+            placeholder="Ví dụ: Chúc mừng khai trương hồng phát - Công ty BĐS An Khang kính tặng..."
+            class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"></textarea>
         </div>
 
         <!-- Nhóm 4: Phương thức thanh toán chuẩn thuần Việt -->
@@ -671,8 +863,10 @@
           <span class="text-xs font-bold uppercase tracking-wider text-stone-700 block">Phương thức thanh toán</span>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <!-- VietQR -->
-            <label class="flex items-center p-3 border border-stone-200 rounded-xl cursor-pointer hover:border-rose-500 bg-white transition text-xs">
-              <input type="radio" name="paymentMethod" value="vietqr" checked class="text-rose-600 focus:ring-rose-500 mr-2">
+            <label
+              class="flex items-center p-3 border border-stone-200 rounded-xl cursor-pointer hover:border-rose-500 bg-white transition text-xs">
+              <input type="radio" name="paymentMethod" value="vietqr" checked
+                class="text-rose-600 focus:ring-rose-500 mr-2">
               <div>
                 <span class="font-bold text-sky-600 block">Quét mã VietQR</span>
                 <span class="text-[10px] text-stone-400">Ngân hàng 24/7 tức thì</span>
@@ -680,7 +874,8 @@
             </label>
 
             <!-- MoMo -->
-            <label class="flex items-center p-3 border border-stone-200 rounded-xl cursor-pointer hover:border-rose-500 bg-white transition text-xs">
+            <label
+              class="flex items-center p-3 border border-stone-200 rounded-xl cursor-pointer hover:border-rose-500 bg-white transition text-xs">
               <input type="radio" name="paymentMethod" value="momo" class="text-rose-600 focus:ring-rose-500 mr-2">
               <div>
                 <span class="font-bold text-pink-600 block">Ví MoMo</span>
@@ -689,7 +884,8 @@
             </label>
 
             <!-- COD -->
-            <label class="flex items-center p-3 border border-stone-200 rounded-xl cursor-pointer hover:border-rose-500 bg-white transition text-xs">
+            <label
+              class="flex items-center p-3 border border-stone-200 rounded-xl cursor-pointer hover:border-rose-500 bg-white transition text-xs">
               <input type="radio" name="paymentMethod" value="cod" class="text-rose-600 focus:ring-rose-500 mr-2">
               <div>
                 <span class="font-bold text-stone-800 block">Tiền mặt (COD)</span>
@@ -706,10 +902,8 @@
             <span id="checkoutSummaryTotal" class="text-xl font-extrabold text-rose-600 font-serif-title">0₫</span>
           </div>
 
-          <button 
-            type="submit"
-            class="py-3 px-8 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-rose-600/30 transition flex items-center space-x-2"
-          >
+          <button type="submit"
+            class="py-3 px-8 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-rose-600/30 transition flex items-center space-x-2">
             <i class="ph ph-check-circle-bold text-base"></i>
             <span>Hoàn Tất Đặt Hoa</span>
           </button>
@@ -722,7 +916,8 @@
   <!-- ================= MODAL ORDER SUCCESS & VIETQR DỘNG ================= -->
   <div id="orderSuccessModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div onclick="closeOrderSuccessModal()" class="fixed inset-0 modal-backdrop"></div>
-    <div class="relative bg-white rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 border border-stone-100">
+    <div
+      class="relative bg-white rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 border border-stone-100">
       <div id="orderSuccessContent">
         <!-- Render dynamic VietQR from js/app.js -->
       </div>
@@ -732,29 +927,25 @@
   <!-- ================= MODAL TRA CỨU ĐƠN HÀNG (ORDER TRACKING) ================= -->
   <div id="orderTrackingModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div onclick="closeOrderTrackingModal()" class="fixed inset-0 modal-backdrop"></div>
-    <div class="relative bg-white rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 p-6 sm:p-8 border border-stone-100">
+    <div
+      class="relative bg-white rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 p-6 sm:p-8 border border-stone-100">
       <div class="flex items-center justify-between pb-4 border-b border-stone-200">
         <div>
           <h3 class="font-serif-title text-2xl font-bold text-stone-900">Tra Cứu Tiến Độ Đơn Hoa</h3>
           <p class="text-xs text-stone-500">Xem trực tiếp quy trình cắm hoa & shipper giao hàng</p>
         </div>
-        <button onclick="closeOrderTrackingModal()" class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 text-lg">
+        <button onclick="closeOrderTrackingModal()"
+          class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 text-lg">
           <i class="ph ph-x"></i>
         </button>
       </div>
 
       <div class="mt-5">
         <div class="flex space-x-2">
-          <input 
-            type="text" 
-            id="trackingInput" 
-            placeholder="Nhập mã đơn hàng (Ví dụ: ML89241)..." 
-            class="flex-1 text-xs px-3.5 py-2.5 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none font-mono"
-          />
-          <button 
-            onclick="lookupOrder()"
-            class="px-5 py-2.5 bg-stone-900 hover:bg-black text-white rounded-xl text-xs font-bold transition flex items-center space-x-1"
-          >
+          <input type="text" id="trackingInput" placeholder="Nhập mã đơn hàng (Ví dụ: ML89241)..."
+            class="flex-1 text-xs px-3.5 py-2.5 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none font-mono" />
+          <button onclick="lookupOrder()"
+            class="px-5 py-2.5 bg-stone-900 hover:bg-black text-white rounded-xl text-xs font-bold transition flex items-center space-x-1">
             <i class="ph ph-magnifying-glass"></i>
             <span>Tra cứu</span>
           </button>
@@ -773,16 +964,19 @@
   <!-- ================= MODAL ĐĂNG NHẬP / ĐĂNG KÝ (AUTH MODAL) ================= -->
   <div id="authModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div onclick="closeAuthModal()" class="fixed inset-0 modal-backdrop"></div>
-    <div class="relative bg-white rounded-3xl max-w-md w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 border border-stone-100 p-6 sm:p-8">
-      
+    <div
+      class="relative bg-white rounded-3xl max-w-md w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 border border-stone-100 p-6 sm:p-8">
+
       <!-- Nút đóng -->
-      <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-400 text-lg transition">
+      <button onclick="closeAuthModal()"
+        class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-400 text-lg transition">
         <i class="ph ph-x"></i>
       </button>
 
       <!-- Logo & Tiêu đề -->
       <div class="text-center mb-6">
-        <div class="w-12 h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center mx-auto mb-2 text-2xl shadow-md shadow-rose-600/30">
+        <div
+          class="w-12 h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center mx-auto mb-2 text-2xl shadow-md shadow-rose-600/30">
           <i class="ph ph-flower-lotus"></i>
         </div>
         <h3 class="font-serif-title text-2xl font-bold text-stone-900">Chào Mừng Đến Bloomora</h3>
@@ -791,18 +985,12 @@
 
       <!-- Tab Chuyển Đổi (Đăng Nhập / Đăng Ký) -->
       <div class="flex bg-stone-100 p-1 rounded-2xl mb-5 text-xs font-bold">
-        <button 
-          id="tabLoginBtn" 
-          onclick="switchAuthTab('login')" 
-          class="flex-1 py-2 rounded-xl transition bg-white text-stone-900 shadow-sm"
-        >
+        <button id="tabLoginBtn" onclick="switchAuthTab('login')"
+          class="flex-1 py-2 rounded-xl transition bg-white text-stone-900 shadow-sm">
           Đăng Nhập
         </button>
-        <button 
-          id="tabRegisterBtn" 
-          onclick="switchAuthTab('register')" 
-          class="flex-1 py-2 rounded-xl transition text-stone-500 hover:text-stone-900"
-        >
+        <button id="tabRegisterBtn" onclick="switchAuthTab('register')"
+          class="flex-1 py-2 rounded-xl transition text-stone-500 hover:text-stone-900">
           Tạo Tài Khoản Mới
         </button>
       </div>
@@ -815,14 +1003,8 @@
         <div>
           <label class="block font-semibold text-stone-700 mb-1">Email</label>
           <div class="relative">
-            <input 
-              type="email" 
-              name="email" 
-              id="loginEmail"
-              required 
-              placeholder="nhap-email@gmail.com" 
-              class="w-full px-3.5 py-2.5 pl-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"
-            />
+            <input type="email" name="email" id="loginEmail" required placeholder="nhap-email@gmail.com"
+              class="w-full px-3.5 py-2.5 pl-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             <i class="ph ph-envelope text-stone-400 absolute left-3.5 top-3 text-base"></i>
           </div>
         </div>
@@ -830,20 +1012,11 @@
         <div>
           <label class="block font-semibold text-stone-700 mb-1">Mật khẩu</label>
           <div class="relative">
-            <input 
-              type="password" 
-              name="password" 
-              id="loginPassword"
-              required 
-              placeholder="••••••••" 
-              class="w-full px-3.5 py-2.5 pl-10 pr-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"
-            />
+            <input type="password" name="password" id="loginPassword" required placeholder="••••••••"
+              class="w-full px-3.5 py-2.5 pl-10 pr-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             <i class="ph ph-lock text-stone-400 absolute left-3.5 top-3 text-base"></i>
-            <button 
-              type="button" 
-              onclick="toggleInputVisibility('loginPassword', this)" 
-              class="absolute right-3.5 top-3 text-stone-400 hover:text-stone-700"
-            >
+            <button type="button" onclick="toggleInputVisibility('loginPassword', this)"
+              class="absolute right-3.5 top-3 text-stone-400 hover:text-stone-700">
               <i class="ph ph-eye"></i>
             </button>
           </div>
@@ -854,25 +1027,21 @@
             <input type="checkbox" name="remember" class="rounded text-rose-600 focus:ring-rose-500" checked />
             <span>Ghi nhớ tài khoản</span>
           </label>
-          <a href="javascript:void(0)" onclick="alert('Vui lòng liên hệ Hotline 0908 123 456 để đặt lại mật khẩu nhanh nhất!')" class="text-rose-600 hover:underline">Quên mật khẩu?</a>
+          <a href="javascript:void(0)"
+            onclick="alert('Vui lòng liên hệ Hotline 0908 123 456 để đặt lại mật khẩu nhanh nhất!')"
+            class="text-rose-600 hover:underline">Quên mật khẩu?</a>
         </div>
 
-        <button 
-          type="submit" 
-          id="loginSubmitBtn"
-          class="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-rose-600/30 transition flex items-center justify-center space-x-2"
-        >
+        <button type="submit" id="loginSubmitBtn"
+          class="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-rose-600/30 transition flex items-center justify-center space-x-2">
           <span>Đăng Nhập Ngay</span>
           <i class="ph ph-arrow-right-bold"></i>
         </button>
 
         <!-- Nút điền nhanh tài khoản demo -->
         <div class="pt-2 text-center">
-          <button 
-            type="button" 
-            onclick="fillDemoAccount()"
-            class="text-[11px] text-stone-400 hover:text-rose-600 underline font-medium"
-          >
+          <button type="button" onclick="fillDemoAccount()"
+            class="text-[11px] text-stone-400 hover:text-rose-600 underline font-medium">
             Điền nhanh tài khoản mẫu: khachhang@gmail.com
           </button>
         </div>
@@ -881,92 +1050,61 @@
       <!-- FORM 2: ĐĂNG KÝ -->
       <form id="registerForm" onsubmit="handleCustomerRegisterSubmit(event)" class="space-y-3.5 text-xs hidden">
         <div>
-          <label class="block font-semibold text-stone-700 mb-1">Họ và tên của bạn <span class="text-rose-600">*</span></label>
+          <label class="block font-semibold text-stone-700 mb-1">Họ và tên của bạn <span
+              class="text-rose-600">*</span></label>
           <div class="relative">
-            <input 
-              type="text" 
-              name="fullName" 
-              id="regFullName"
-              required 
-              placeholder="Nguyễn Văn A" 
-              class="w-full px-3.5 py-2.5 pl-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"
-            />
+            <input type="text" name="fullName" id="regFullName" required placeholder="Nguyễn Văn A"
+              class="w-full px-3.5 py-2.5 pl-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             <i class="ph ph-user text-stone-400 absolute left-3.5 top-3 text-base"></i>
           </div>
         </div>
 
         <div>
-          <label class="block font-semibold text-stone-700 mb-1">Số điện thoại nhận ảnh hoa <span class="text-rose-600">*</span></label>
+          <label class="block font-semibold text-stone-700 mb-1">Số điện thoại nhận ảnh hoa <span
+              class="text-rose-600">*</span></label>
           <div class="relative">
-            <input 
-              type="tel" 
-              name="phone" 
-              id="regPhone"
-              required 
-              placeholder="0912 345 678" 
-              class="w-full px-3.5 py-2.5 pl-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"
-            />
+            <input type="tel" name="phone" id="regPhone" required placeholder="0912 345 678"
+              class="w-full px-3.5 py-2.5 pl-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             <i class="ph ph-phone text-stone-400 absolute left-3.5 top-3 text-base"></i>
           </div>
         </div>
 
         <div>
-          <label class="block font-semibold text-stone-700 mb-1">Địa chỉ Email (Tài khoản) <span class="text-rose-600">*</span></label>
+          <label class="block font-semibold text-stone-700 mb-1">Địa chỉ Email (Tài khoản) <span
+              class="text-rose-600">*</span></label>
           <div class="relative">
-            <input 
-              type="email" 
-              name="email" 
-              id="regEmail"
-              required 
-              placeholder="email-cua-ban@gmail.com" 
-              class="w-full px-3.5 py-2.5 pl-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"
-            />
+            <input type="email" name="email" id="regEmail" required placeholder="email-cua-ban@gmail.com"
+              class="w-full px-3.5 py-2.5 pl-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             <i class="ph ph-envelope text-stone-400 absolute left-3.5 top-3 text-base"></i>
           </div>
         </div>
 
         <div>
-          <label class="block font-semibold text-stone-700 mb-1">Mật khẩu (Tối thiểu 6 ký tự) <span class="text-rose-600">*</span></label>
+          <label class="block font-semibold text-stone-700 mb-1">Mật khẩu (Tối thiểu 6 ký tự) <span
+              class="text-rose-600">*</span></label>
           <div class="relative">
-            <input 
-              type="password" 
-              name="password" 
-              id="regPassword"
-              required 
-              placeholder="••••••••" 
-              class="w-full px-3.5 py-2.5 pl-10 pr-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"
-            />
+            <input type="password" name="password" id="regPassword" required placeholder="••••••••"
+              class="w-full px-3.5 py-2.5 pl-10 pr-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             <i class="ph ph-lock text-stone-400 absolute left-3.5 top-3 text-base"></i>
-            <button 
-              type="button" 
-              onclick="toggleInputVisibility('regPassword', this)" 
-              class="absolute right-3.5 top-3 text-stone-400 hover:text-stone-700"
-            >
+            <button type="button" onclick="toggleInputVisibility('regPassword', this)"
+              class="absolute right-3.5 top-3 text-stone-400 hover:text-stone-700">
               <i class="ph ph-eye"></i>
             </button>
           </div>
         </div>
 
         <div>
-          <label class="block font-semibold text-stone-700 mb-1">Xác nhận lại mật khẩu <span class="text-rose-600">*</span></label>
+          <label class="block font-semibold text-stone-700 mb-1">Xác nhận lại mật khẩu <span
+              class="text-rose-600">*</span></label>
           <div class="relative">
-            <input 
-              type="password" 
-              name="confirmPassword" 
-              id="regConfirmPassword"
-              required 
-              placeholder="••••••••" 
-              class="w-full px-3.5 py-2.5 pl-10 pr-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"
-            />
+            <input type="password" name="confirmPassword" id="regConfirmPassword" required placeholder="••••••••"
+              class="w-full px-3.5 py-2.5 pl-10 pr-10 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             <i class="ph ph-shield-check text-stone-400 absolute left-3.5 top-3 text-base"></i>
           </div>
         </div>
 
-        <button 
-          type="submit" 
-          id="regSubmitBtn"
-          class="w-full mt-2 py-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-rose-600/30 transition flex items-center justify-center space-x-2"
-        >
+        <button type="submit" id="regSubmitBtn"
+          class="w-full mt-2 py-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-rose-600/30 transition flex items-center justify-center space-x-2">
           <span>Tạo Tài Khoản Ngay</span>
           <i class="ph ph-check-circle-bold"></i>
         </button>
@@ -978,14 +1116,11 @@
   <!-- ================= FLOATING ACTION BUTTONS THUẦN VIỆT ================= -->
   <!-- Nút Chat Zalo & Hotline Rung Lắc & Nút Cuộn -->
   <div class="fixed bottom-6 right-6 z-40 flex flex-col space-y-3 items-end">
-    
+
     <!-- Nút Chat Zalo -->
-    <a 
-      href="https://zalo.me/0908123456" 
-      target="_blank" 
+    <a href="https://zalo.me/0908123456" target="_blank"
       class="zalo-ring flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-full shadow-xl transition-all duration-300 hover:scale-105"
-      title="Chat tư vấn Zalo 24/7"
-    >
+      title="Chat tư vấn Zalo 24/7">
       <div class="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center text-xs font-black">
         Z
       </div>
@@ -993,11 +1128,9 @@
     </a>
 
     <!-- Nút Hotline Gọi Ngay -->
-    <a 
-      href="tel:0908123456" 
+    <a href="tel:0908123456"
       class="pulse-ring phone-shake flex items-center space-x-2 bg-rose-600 hover:bg-rose-700 text-white px-4 py-2.5 rounded-full shadow-xl transition-all duration-300 hover:scale-105"
-      title="Gọi Hotline đặt hoa nhanh"
-    >
+      title="Gọi Hotline đặt hoa nhanh">
       <i class="ph ph-phone-call text-lg"></i>
       <span class="text-xs font-bold hidden sm:inline">0908 123 456</span>
     </a>
@@ -1008,5 +1141,5 @@
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
 </body>
-</html>
 
+</html>
