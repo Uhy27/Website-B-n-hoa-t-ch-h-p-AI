@@ -5,6 +5,7 @@
  */
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/helpers.php';
 
 try {
     $pdo = getDBConnection();
@@ -35,17 +36,16 @@ try {
 
     array_unshift($categories, $allCategory);
 
-    echo json_encode([
+    json_response([
         'success' => true,
         'data' => $categories
-    ], JSON_UNESCAPED_UNICODE);
+    ]);
 
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode([
+    error_log("[Categories API Error] " . $e->getMessage());
+    json_response([
         'success' => false,
-        'message' => 'Lỗi máy chủ: ' . $e->getMessage()
-    ], JSON_UNESCAPED_UNICODE);
+        'message' => 'Lỗi tải danh mục sản phẩm.'
+    ], 500);
 }
 ?>
-

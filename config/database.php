@@ -1,16 +1,14 @@
 <?php
 /**
  * BLOOMORA - KẾT NỐI CƠ SỞ DỮ LIỆU MYSQL / MARIADB
- * Sử dụng PDO với cấu hình bảo mật chống SQL Injection
+ * Chuẩn PDO bảo mật cao, chống SQL Injection & che giấu thông tin nhạy cảm
  */
 
-header('Content-Type: application/json; charset=UTF-8');
-
-define('DB_HOST', '127.0.0.1');
-define('DB_PORT', '3306');
-define('DB_NAME', 'bloomora_db');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
+define('DB_PORT', getenv('DB_PORT') ?: '3306');
+define('DB_NAME', getenv('DB_NAME') ?: 'bloomora_db');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
 
 function getDBConnection() {
     static $pdo = null;
@@ -29,10 +27,16 @@ function getDBConnection() {
         $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         return $pdo;
     } catch (PDOException $e) {
+        // Ghi log chi tiết vào error log của hệ thống thay vì phơi bày ra client
+        error_log("[Bloomora DB Error] " . $e->getMessage());
+
         http_response_code(500);
+        if (!headers_sent()) {
+            header('Content-Type: application/json; charset=UTF-8');
+        }
         echo json_encode([
             'success' => false,
-            'message' => 'Lỗi kết nối Cơ sở dữ liệu: ' . $e->getMessage()
+            'message' => 'Lỗi kết nối cơ sở dữ liệu. Vui lòng kiểm tra dịch vụ MySQL!'
         ], JSON_UNESCAPED_UNICODE);
         exit;
     }

@@ -1,12 +1,12 @@
 <?php
 /**
- * API: Đăng xuất người dùng & Hủy session
+ * API: Đăng xuất người dùng & Hủy session an toàn
  * Endpoint: POST/GET /api/auth/logout.php
- */
+ */4
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/../../config/helpers.php';
+
+init_secure_session();
 
 $_SESSION = [];
 
@@ -20,10 +20,8 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-header('Content-Type: application/json; charset=UTF-8');
-echo json_encode([
+json_response([
     'success' => true,
     'message' => 'Đăng xuất thành công!'
-], JSON_UNESCAPED_UNICODE);
+]);
 ?>
-

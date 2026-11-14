@@ -4,22 +4,19 @@
  * Endpoint: POST /api/auth/register.php
  */
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../config/helpers.php';
+
+init_secure_session();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Chỉ chấp nhận phương thức POST']);
-    exit;
+    json_response(['success' => false, 'message' => 'Chỉ chấp nhận phương thức POST'], 405);
 }
 
 try {
     $pdo = getDBConnection();
 
-    $input = json_decode(file_get_contents('php://input'), true) ?? $_POST;
+    $input = get_json_input();
     $fullName = isset($input['fullName']) ? trim($input['fullName']) : '';
     $phone = isset($input['phone']) ? trim($input['phone']) : '';
     $email = isset($input['email']) ? strtolower(trim($input['email'])) : '';
@@ -27,74 +24,75 @@ try {
 
     // Validation
     if (empty($fullName) || empty($email) || empty($password)) {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'message' => 'Vui lòng điền đầy đủ Họ tên, Email và Mật khẩu!'], JSON_UNESCAPED_UNICODE);
-        exit;
+        json_response(['success' => false, 'message' => 'Vui lòng điền đầy đủ Họ tên, Email và Mật khẩu!'], 400);
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'message' => 'Định dạng Email không hợp lệ!'], JSON_UNESCAPED_UNICODE);
-        exit;
+        json_response(['success' => false, 'message' => 'Định dạng Email không hợp lệ!'], 400);
     }
 
-    if (strlen($password) < 6) {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'message' => 'Mật khẩu phải chứa ít nhất 6 ký tự!'], JSON_UNESCAPED_UNICODE);
-        exit;
+    if (mb_strlen($password) < 6) {
+        json_response(['success' => false, 'message' => 'Mật khẩu phải chứa ít nhất 6 ký tự!'], 400);
     }
 
     // Kiểm tra trùng email
-    $checkStmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+    $checkStmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE LOWER(email) = :email");
     $checkStmt->execute([':email' => $email]);
     if ($checkStmt->fetchColumn() > 0) {
-        http_response_code(409);
-        echo json_encode(['success' => false, 'message' => 'Email này đã được sử dụng. Vui lòng đăng nhập hoặc dùng email khác!'], JSON_UNESCAPED_UNICODE);
-        exit;
+        json_response(['success' => false, 'message' => 'Email này đã được đăng ký tài khoản trên hệ thống!'], 400);
     }
 
-    // Băm mật khẩu chuẩn bảo mật BCRYPT
-    $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+    // Mã hóa mật khẩu bảo mật
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Mặc định khách hàng là role_id = 3 (customer)
-    $sql = "INSERT INTO users (role_id, email, password_hash, full_name, phone, status)
-            VALUES (3, :email, :password_hash, :full_name, :phone, 'active')";
-    
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
+    // Lấy role_id của customer (role_id = 3)
+    $roleStmt = $pdo->prepare("SELECT id FROM roles WHERE name = 'customer' LIMIT 1");
+    $roleStmt->execute();
+    $roleId = $roleStmt->fetchColumn() ?: 3;
+
+    // Tạo avatar mặc định
+    $avatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
+
+    $insertSql = "INSERT INTO users (role_id, email, password_hash, full_name, phone, avatar, status)
+                  VALUES (:role_id, :email, :password_hash, :full_name, :phone, :avatar, 'active')";
+    $insertStmt = $pdo->prepare($insertSql);
+    $insertStmt->execute([
+        ':role_id' => $roleId,
         ':email' => $email,
         ':password_hash' => $passwordHash,
         ':full_name' => $fullName,
-        ':phone' => $phone
+        ':phone' => $phone,
+        ':avatar' => $avatar
     ]);
 
-    $userId = $pdo->lastInsertId();
+    $newUserId = (int)$pdo->lastInsertId();
 
-    // Tự động đăng nhập luôn sau khi tạo tài khoản thành công
-    $_SESSION['user_id'] = $userId;
+    // Tái tạo Session ID và tự động đăng nhập sau khi đăng ký
+    session_regenerate_id(true);
+    $_SESSION['user_id'] = $newUserId;
     $_SESSION['role_name'] = 'customer';
     $_SESSION['full_name'] = $fullName;
     $_SESSION['email'] = $email;
     $_SESSION['phone'] = $phone;
 
-    echo json_encode([
+    json_response([
         'success' => true,
         'message' => 'Đăng ký tài khoản thành công!',
         'data' => [
-            'id' => $userId,
+            'id' => $newUserId,
             'email' => $email,
             'fullName' => $fullName,
             'phone' => $phone,
+            'avatar' => $avatar,
             'role' => 'customer'
         ]
-    ], JSON_UNESCAPED_UNICODE);
+    ]);
 
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode([
+    error_log("[Auth Register Error] " . $e->getMessage());
+    json_response([
         'success' => false,
-        'message' => 'Lỗi tạo tài khoản: ' . $e->getMessage()
-    ], JSON_UNESCAPED_UNICODE);
+        'message' => 'Lỗi tạo tài khoản. Vui lòng thử lại sau.'
+    ], 500);
 }
 ?>
-

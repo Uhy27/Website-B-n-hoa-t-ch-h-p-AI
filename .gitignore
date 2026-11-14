@@ -1,0 +1,14 @@
+# Temporary files
+~$*
+*.tmp
+*.bak
+Thumbs.db
+.DS_Store
+
+# Logs
+error_log
+*.log
+
+# IDE
+.vscode/
+.idea/

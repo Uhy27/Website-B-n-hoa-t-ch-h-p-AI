@@ -4,19 +4,17 @@
  * Endpoint: GET /api/auth/me.php
  */
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../config/helpers.php';
+
+init_secure_session();
 
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode([
+    json_response([
         'success' => false,
         'isLoggedIn' => false,
         'message' => 'Chưa đăng nhập'
-    ], JSON_UNESCAPED_UNICODE);
-    exit;
+    ]);
 }
 
 try {
@@ -27,36 +25,40 @@ try {
                            JOIN roles r ON u.role_id = r.id
                            WHERE u.id = :id AND u.status = 'active'
                            LIMIT 1");
-    $stmt->execute([':id' => $_SESSION['user_id']]);
+    $stmt->execute([':id' => (int)$_SESSION['user_id']]);
     $user = $stmt->fetch();
 
     if (!$user) {
-        // User không còn tồn tại hoặc bị khóa
+        // User không còn tồn tại hoặc đã bị khóa/ban
+        $_SESSION = [];
+        if (ini_get("session.use_cookies")) {
+            $p = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000, $p["path"], $p["domain"], $p["secure"], $p["httponly"]);
+        }
         session_destroy();
-        echo json_encode([
+
+        json_response([
             'success' => false,
             'isLoggedIn' => false,
-            'message' => 'Phiên đăng nhập không hợp lệ'
-        ], JSON_UNESCAPED_UNICODE);
-        exit;
+            'message' => 'Phiên đăng nhập đã hết hạn hoặc tài khoản bị khóa'
+        ]);
     }
 
-    echo json_encode([
+    json_response([
         'success' => true,
         'isLoggedIn' => true,
         'data' => [
-            'id' => $user['id'],
+            'id' => (int)$user['id'],
             'email' => $user['email'],
             'fullName' => $user['full_name'],
             'phone' => $user['phone'],
             'avatar' => $user['avatar'],
             'role' => $user['role']
         ]
-    ], JSON_UNESCAPED_UNICODE);
+    ]);
 
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Lỗi kiểm tra phiên'], JSON_UNESCAPED_UNICODE);
+    error_log("[Auth Me Error] " . $e->getMessage());
+    json_response(['success' => false, 'message' => 'Lỗi kiểm tra phiên'], 500);
 }
 ?>
-

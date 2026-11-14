@@ -61,9 +61,8 @@
         <span class="flex items-center"><i class="ph ph-clock mr-1 text-rose-500"></i> Giao 60-90p tại HN &
           TP.HCM</span>
         <span class="hidden md:inline">|</span>
-        <a href="tel:0908123456" class="flex items-center hover:text-white transition">
-          <i class="ph ph-phone-call mr-1 text-emerald-400"></i> Hotline: <strong class="text-white ml-1">0908 123
-            456</strong>
+        <a href="tel:1900633045" class="flex items-center hover:text-white transition">
+          <i class="ph ph-phone-call mr-1 text-emerald-400"></i> Hotline: <strong class="text-white ml-1">1900 633 045</strong>
         </a>
       </div>
     </div>
@@ -155,7 +154,7 @@
                   Hàng</span>
               </div>
 
-              <a href="javascript:void(0)" onclick="openOrderTracking(); toggleUserDropdown(false);"
+              <a href="javascript:void(0)" onclick="openMyOrdersModal(); toggleUserDropdown(false);"
                 class="flex items-center space-x-2 px-4 py-2.5 text-xs text-stone-700 hover:bg-stone-50 hover:text-rose-600 transition">
                 <i class="ph ph-clock-counter-clockwise text-base text-stone-400"></i>
                 <span>Lịch Sử Đơn Hàng</span>
@@ -191,55 +190,55 @@
     </div>
   </header>
 
-  <!-- ================= SECONDARY NAVIGATION / MEGA MENU (Chuẩn phong cách FlowerCorner) ================= -->
-  <nav class="bg-white border-b border-stone-200 shadow-sm relative z-30 hidden md:block">
+  <!-- ================= SECONDARY NAVIGATION / CATEGORIES MENU ================= -->
+  <nav class="bg-white border-b border-stone-200/80 shadow-xs relative z-30 hidden md:block">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between">
-        <ul class="flex items-center space-x-1 lg:space-x-2 text-[13px] font-bold tracking-wide uppercase text-stone-700 py-2.5">
+      <div class="flex items-center justify-between h-11">
+        <ul class="flex items-center gap-1 lg:gap-2 text-[13px] font-medium text-stone-700 whitespace-nowrap py-1">
           <!-- Hoa Sinh Nhật -->
           <li>
-            <a href="javascript:void(0)" onclick="navFilterCategory('sinh-nhat', 'Hoa Sinh Nhật Tươi Sắc')" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center">
-              <span>HOA SINH NHẬT</span>
+            <a href="javascript:void(0)" onclick="navFilterCategory('sinh-nhat', 'Hoa Sinh Nhật Tươi Sắc')" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
+              <span>Hoa Sinh Nhật</span>
             </a>
           </li>
 
           <!-- Hoa Khai Trương -->
           <li>
-            <a href="javascript:void(0)" onclick="navFilterCategory('khai-truong', 'Hoa Khai Trương Hồng Phát')" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center">
-              <span>HOA KHAI TRƯƠNG</span>
+            <a href="javascript:void(0)" onclick="navFilterCategory('khai-truong', 'Hoa Khai Trương Hồng Phát')" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
+              <span>Hoa Khai Trương</span>
             </a>
           </li>
 
           <!-- Lan Hồ Điệp -->
           <li>
-            <a href="javascript:void(0)" onclick="navFilterCategory('lan-ho-diep', 'Chậu Lan Hồ Điệp Sang Trọng')" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center">
-              <span>LAN HỒ ĐIỆP</span>
+            <a href="javascript:void(0)" onclick="navFilterCategory('lan-ho-diep', 'Chậu Lan Hồ Điệp Sang Trọng')" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
+              <span>Lan Hồ Điệp</span>
             </a>
           </li>
 
           <!-- Hoa Tang Lễ -->
           <li>
-            <a href="javascript:void(0)" onclick="navFilterCategory('chia-buon', 'Hoa Tang Lễ & Chia Buồn Thành Kính')" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center">
-              <span>HOA TANG LỄ</span>
+            <a href="javascript:void(0)" onclick="navFilterCategory('chia-buon', 'Hoa Tang Lễ & Chia Buồn Thành Kính')" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
+              <span>Hoa Tang Lễ</span>
             </a>
           </li>
 
           <!-- Dropdown: CHỦ ĐỀ -->
-          <li class="nav-dropdown-wrapper">
-            <button type="button" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center space-x-1 uppercase font-bold text-rose-600">
-              <span>CHỦ ĐỀ</span>
-              <i class="ph ph-caret-down text-xs"></i>
+          <li class="nav-dropdown-wrapper group">
+            <button type="button" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center gap-1 font-medium">
+              <span>Chủ Đề</span>
+              <i class="ph ph-caret-down text-[11px] text-stone-400 group-hover:text-rose-600 transition-transform duration-200 group-hover:rotate-180"></i>
             </button>
-            <div class="nav-dropdown-content absolute left-0 top-full w-64 bg-white rounded-2xl shadow-2xl border border-stone-100 p-2 z-50">
+            <div class="nav-dropdown-content absolute left-0 top-full w-60 bg-white rounded-xl shadow-xl border border-stone-100 p-2 z-50">
               <a href="javascript:void(0)" onclick="navFilterTheme('chúc mừng', 'Hoa Chúc Mừng')"><i class="ph ph-sparkle text-rose-500"></i> Hoa Chúc Mừng</a>
               <a href="javascript:void(0)" onclick="navFilterTheme('cưới', 'Hoa Cưới Cầm Tay')"><i class="ph ph-heart text-rose-500"></i> Hoa Cưới Cầm Tay</a>
-              <a href="javascript:void(0)" onclick="navFilterCategory('chia-buon', 'Hoa Tang Lễ - Hoa Chia Buồn')"><i class="ph ph-flower-lotus text-stone-500"></i> Hoa Tang Lễ - Hoa Chia Buồn</a>
+              <a href="javascript:void(0)" onclick="navFilterCategory('chia-buon', 'Hoa Tang Lễ - Hoa Chia Buồn')"><i class="ph ph-flower-lotus text-stone-500"></i> Hoa Tang Lễ - Chia Buồn</a>
               <a href="javascript:void(0)" onclick="navFilterCategory('tinh-yeu', 'Hoa Tình Yêu Lãng Mạn')"><i class="ph ph-heart-straight text-rose-500"></i> Hoa Tình Yêu</a>
               <a href="javascript:void(0)" onclick="navFilterTheme('valentine', 'Hoa Valentine Ngọt Ngào')"><i class="ph ph-heart text-red-500"></i> Hoa Valentine</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('kỷ niệm', 'Hoa Kỷ Niệm Ngày Cưới')"><i class="ph ph-diamonds-four text-amber-500"></i> Hoa Kỷ Niệm Ngày Cưới</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('kỷ niệm', 'Hoa Kỷ Niệm Ngày Cưới')"><i class="ph ph-diamonds-four text-amber-500"></i> Hoa Kỷ Niệm</a>
               <a href="javascript:void(0)" onclick="navFilterTheme('mẹ', 'Hoa Tặng Ngày Của Mẹ')"><i class="ph ph-hand-heart text-pink-500"></i> Ngày Của Mẹ</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('8-3', 'Hoa Chúc Mừng Quốc Tế Phụ Nữ 8-3')"><i class="ph ph-gift text-rose-500"></i> Hoa Chúc Mừng 8-3</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('20-10', 'Hoa Chúc Mừng Phụ Nữ Việt Nam 20-10')"><i class="ph ph-flower text-rose-500"></i> Hoa Chúc Mừng 20-10</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('8-3', 'Hoa Chúc Mừng Quốc Tế Phụ Nữ 8-3')"><i class="ph ph-gift text-rose-500"></i> Hoa 8-3</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('20-10', 'Hoa Chúc Mừng Phụ Nữ Việt Nam 20-10')"><i class="ph ph-flower text-rose-500"></i> Hoa 20-10</a>
               <a href="javascript:void(0)" onclick="navFilterTheme('nhà giáo', 'Hoa Tri Ân Ngày Nhà Giáo VN')"><i class="ph ph-graduation-cap text-blue-500"></i> Ngày Nhà Giáo VN</a>
               <a href="javascript:void(0)" onclick="navFilterTheme('giáng sinh', 'Hoa & Cây Thông Giáng Sinh')"><i class="ph ph-tree text-emerald-500"></i> Giáng Sinh</a>
               <a href="javascript:void(0)" onclick="navFilterTheme('tết', 'Hoa Tết Âm Lịch')"><i class="ph ph-sun text-amber-500"></i> Tết Âm Lịch</a>
@@ -249,12 +248,12 @@
           </li>
 
           <!-- Dropdown: THIẾT KẾ -->
-          <li class="nav-dropdown-wrapper">
-            <button type="button" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center space-x-1 uppercase font-bold">
-              <span>THIẾT KẾ</span>
-              <i class="ph ph-caret-down text-xs"></i>
+          <li class="nav-dropdown-wrapper group">
+            <button type="button" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center gap-1 font-medium">
+              <span>Thiết Kế</span>
+              <i class="ph ph-caret-down text-[11px] text-stone-400 group-hover:text-rose-600 transition-transform duration-200 group-hover:rotate-180"></i>
             </button>
-            <div class="nav-dropdown-content absolute left-0 top-full w-56 bg-white rounded-2xl shadow-2xl border border-stone-100 p-2 z-50">
+            <div class="nav-dropdown-content absolute left-0 top-full w-56 bg-white rounded-xl shadow-xl border border-stone-100 p-2 z-50">
               <a href="javascript:void(0)" onclick="navFilterDesign('bó hoa', 'Thiết Kế: Bó Hoa Tươi Nghệ Thuật')"><i class="ph ph-spiral text-rose-500"></i> Bó Hoa Tươi</a>
               <a href="javascript:void(0)" onclick="navFilterDesign('giỏ hoa', 'Thiết Kế: Giỏ Hoa Để Bàn')"><i class="ph ph-tote text-amber-500"></i> Giỏ Hoa Để Bàn</a>
               <a href="javascript:void(0)" onclick="navFilterDesign('hộp hoa', 'Thiết Kế: Hộp Hoa Trái Tim')"><i class="ph ph-package text-pink-500"></i> Hộp Hoa Trái Tim</a>
@@ -264,14 +263,14 @@
             </div>
           </li>
 
-          <!-- Dropdown: HOA TƯƠI / LOẠI HOA -->
-          <li class="nav-dropdown-wrapper">
-            <button type="button" class="px-3 py-2 rounded-lg hover:text-rose-600 hover:bg-rose-50 transition flex items-center space-x-1 uppercase font-bold">
-              <span>HOA TƯƠI</span>
-              <i class="ph ph-caret-down text-xs"></i>
+          <!-- Dropdown: LOẠI HOA -->
+          <li class="nav-dropdown-wrapper group">
+            <button type="button" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center gap-1 font-medium">
+              <span>Loại Hoa</span>
+              <i class="ph ph-caret-down text-[11px] text-stone-400 group-hover:text-rose-600 transition-transform duration-200 group-hover:rotate-180"></i>
             </button>
-            <div class="nav-dropdown-content absolute left-0 top-full w-56 bg-white rounded-2xl shadow-2xl border border-stone-100 p-2 z-50">
-              <a href="javascript:void(0)" onclick="navFilterFlower('hồng', 'Hoa Hồng Ecuador & Côn Minh')"><i class="ph ph-flower-lotus text-rose-500"></i> Hoa Hồng Đỏ / Pastel</a>
+            <div class="nav-dropdown-content absolute left-0 top-full w-56 bg-white rounded-xl shadow-xl border border-stone-100 p-2 z-50">
+              <a href="javascript:void(0)" onclick="navFilterFlower('hồng', 'Hoa Hồng Ecuador & Côn Minh')"><i class="ph ph-flower-lotus text-rose-500"></i> Hoa Hồng</a>
               <a href="javascript:void(0)" onclick="navFilterFlower('hướng dương', 'Hoa Hướng Dương Rực Rỡ')"><i class="ph ph-sun text-amber-500"></i> Hoa Hướng Dương</a>
               <a href="javascript:void(0)" onclick="navFilterFlower('lan hồ điệp', 'Hoa Lan Hồ Điệp')"><i class="ph ph-flower text-purple-500"></i> Lan Hồ Điệp</a>
               <a href="javascript:void(0)" onclick="navFilterFlower('baby', 'Hoa Baby Trắng Nhập Khẩu')"><i class="ph ph-snowflake text-stone-400"></i> Hoa Baby Trắng</a>
@@ -280,31 +279,25 @@
             </div>
           </li>
 
-          <!-- Hoa Tươi Giảm 30% (Khuyến mãi Hot) -->
-          <li>
-            <a href="javascript:void(0)" onclick="navFilterSale()" class="px-3 py-2 rounded-lg text-rose-600 bg-rose-50 hover:bg-rose-100 font-extrabold transition flex items-center space-x-1.5 border border-rose-200">
-              <i class="ph ph-tag text-sm animate-pulse"></i>
-              <span>HOA TƯƠI GIẢM 30%</span>
+          <!-- Hoa Tươi Giảm 30% (Khuyến mãi Hot - Pill Badge gọn đẹp) -->
+          <li class="ml-1">
+            <a href="javascript:void(0)" onclick="navFilterSale()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200/80 transition shadow-xs">
+              <i class="ph-bold ph-tag text-xs text-rose-500"></i>
+              <span>Giảm 30%</span>
             </a>
           </li>
         </ul>
 
-        <!-- Hotline đặt hoa nhanh bên góc phải -->
-        <div class="hidden xl:flex items-center space-x-2 text-xs font-semibold text-stone-600">
-          <i class="ph ph-headset text-base text-rose-600"></i>
-          <span>Hỗ trợ 24/7: <strong class="text-rose-600 font-bold">1900 633 045</strong></span>
+        <!-- Hotline đặt hoa nhanh bên góc phải (Thanh lịch & Tối giản) -->
+        <div class="hidden xl:flex items-center text-xs text-stone-500 whitespace-nowrap">
+          <a href="tel:1900633045" class="flex items-center gap-1.5 font-medium hover:text-rose-600 transition-colors">
+            <i class="ph-fill ph-headset text-rose-500 text-sm"></i>
+            <span>Hỗ trợ 24/7: <strong class="font-bold text-rose-600">1900 633 045</strong></span>
+          </a>
         </div>
       </div>
     </div>
   </nav>
-
-  <!-- ================= HOTLINE BANNER CHẠY NGANG (Chuẩn phong cách FlowerCorner) ================= -->
-  <div class="bg-rose-50/80 border-b border-rose-100 py-2 px-4 text-center">
-    <div class="max-w-7xl mx-auto flex items-center justify-center space-x-2 text-xs sm:text-sm font-bold text-rose-600 tracking-wide">
-      <i class="ph ph-phone-call animate-bounce"></i>
-      <span>HOTLINE ĐẶT HOA NHANH - TP HCM: <a href="tel:1900633045" class="underline hover:text-rose-800">1900 633 045</a> - HÀ NỘI: <a href="tel:0942007921" class="underline hover:text-rose-800">094 200 7921</a></span>
-    </div>
-  </div>
 
   <!-- ================= HERO SECTION & SMART FILTER (Phối hợp phong cách FlowerDJ & FaSunflower) ================= -->
   <section class="relative bg-gradient-to-b from-stone-100 via-rose-50/40 to-stone-50 py-12 lg:py-16 overflow-hidden">
@@ -761,7 +754,7 @@
       <div class="flex items-center justify-between pb-4 border-b border-stone-200 mb-6">
         <div>
           <h3 class="font-serif-title text-2xl font-bold text-stone-900">Thông Tin Đặt Hoa</h3>
-          <p class="text-xs text-stone-500">Mộc Lam Florist cam kết bảo mật thông tin & gửi ảnh hoa trước khi giao</p>
+          <p class="text-xs text-stone-500">Bloomora Florist cam kết bảo mật thông tin & gửi ảnh hoa trước khi giao</p>
         </div>
         <button onclick="closeCheckoutModal()"
           class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 text-lg">
@@ -828,7 +821,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-[11px] font-medium text-stone-600 mb-1">Ngày giao hoa</label>
-              <input type="date" name="deliveryDate" value="2026-11-08"
+              <input type="date" name="deliveryDate" id="checkoutDeliveryDate"
                 class="w-full text-xs px-3 py-2 bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none" />
             </div>
             <div>
@@ -924,6 +917,32 @@
     </div>
   </div>
 
+  <!-- ================= MODAL LỊCH SỬ ĐƠN HÀNG CỦA TÔI (MY ORDERS) ================= -->
+  <div id="myOrdersModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div onclick="closeMyOrdersModal()" class="fixed inset-0 modal-backdrop"></div>
+    <div
+      class="relative bg-white rounded-3xl max-w-2xl w-full max-h-[92vh] overflow-y-auto shadow-2xl z-10 p-6 sm:p-8 border border-stone-100">
+      <div class="flex items-center justify-between pb-4 border-b border-stone-200">
+        <div>
+          <h3 class="font-serif-title text-2xl font-bold text-stone-900">Lịch Sử Đơn Hàng Của Tôi</h3>
+          <p class="text-xs text-stone-500">Xem lại các đơn hoa bạn đã đặt và tiến độ giao nhận</p>
+        </div>
+        <button onclick="closeMyOrdersModal()"
+          class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 text-lg">
+          <i class="ph ph-x"></i>
+        </button>
+      </div>
+
+      <div id="myOrdersList" class="mt-5 space-y-4">
+        <!-- Render from js/app.js -->
+        <div class="py-12 text-center text-stone-400 text-xs">
+          <i class="ph ph-spinner animate-spin text-2xl block mb-2 text-rose-600"></i>
+          Đang tải danh sách đơn hàng...
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= MODAL TRA CỨU ĐƠN HÀNG (ORDER TRACKING) ================= -->
   <div id="orderTrackingModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div onclick="closeOrderTrackingModal()" class="fixed inset-0 modal-backdrop"></div>
@@ -942,7 +961,7 @@
 
       <div class="mt-5">
         <div class="flex space-x-2">
-          <input type="text" id="trackingInput" placeholder="Nhập mã đơn hàng (Ví dụ: ML89241)..."
+          <input type="text" id="trackingInput" placeholder="Nhập mã đơn hàng (Ví dụ: BL89241)..."
             class="flex-1 text-xs px-3.5 py-2.5 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none font-mono" />
           <button onclick="lookupOrder()"
             class="px-5 py-2.5 bg-stone-900 hover:bg-black text-white rounded-xl text-xs font-bold transition flex items-center space-x-1">

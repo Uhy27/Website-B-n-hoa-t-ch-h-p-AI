@@ -2,9 +2,11 @@
 /**
  * API: Tra cứu hành trình đơn hoa (Order Tracking)
  * Endpoint: GET /api/tracking.php?code=BL89241
+ * Bảo mật: Ẩn danh người tặng nếu is_anonymous = 1, hỗ trợ tra cứu chính xác
  */
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/helpers.php';
 
 try {
     $pdo = getDBConnection();
@@ -13,9 +15,7 @@ try {
     $phone = isset($_GET['phone']) ? trim($_GET['phone']) : '';
 
     if (empty($code) && empty($phone)) {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'message' => 'Vui lòng cung cấp mã đơn hàng hoặc số điện thoại!'], JSON_UNESCAPED_UNICODE);
-        exit;
+        json_response(['success' => false, 'message' => 'Vui lòng cung cấp mã đơn hàng hoặc số điện thoại!'], 400);
     }
 
     $where = [];
@@ -45,14 +45,18 @@ try {
     $order = $stmt->fetch();
 
     if (!$order) {
-        http_response_code(404);
-        echo json_encode(['success' => false, 'message' => 'Không tìm thấy đơn hàng với thông tin đã nhập.'], JSON_UNESCAPED_UNICODE);
-        exit;
+        json_response(['success' => false, 'message' => 'Không tìm thấy đơn hàng với thông tin đã nhập.'], 404);
+    }
+
+    // Bảo vệ quyền riêng tư nếu khách hàng chọn tặng ẩn danh
+    if (!empty($order['is_anonymous'])) {
+        $order['sender_name'] = 'Người tặng ẩn danh';
+        $order['sender_phone'] = '***.***.****';
     }
 
     // Lấy danh sách sản phẩm trong đơn
     $itemSql = "SELECT oi.product_id, oi.product_name, oi.product_sku, oi.unit_price, oi.quantity, oi.total_price,
-                       p.thumbnail
+                       COALESCE(p.thumbnail, '') AS thumbnail
                 FROM order_items oi
                 LEFT JOIN products p ON oi.product_id = p.id
                 WHERE oi.order_id = :order_id";
@@ -69,21 +73,20 @@ try {
     $histStmt->execute([':order_id' => $order['id']]);
     $history = $histStmt->fetchAll();
 
-    echo json_encode([
+    json_response([
         'success' => true,
         'data' => [
             'order' => $order,
             'items' => $items,
             'history' => $history
         ]
-    ], JSON_UNESCAPED_UNICODE);
+    ]);
 
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode([
+    error_log("[Tracking Error] " . $e->getMessage());
+    json_response([
         'success' => false,
-        'message' => 'Lỗi tra cứu đơn hàng: ' . $e->getMessage()
-    ], JSON_UNESCAPED_UNICODE);
+        'message' => 'Lỗi tra cứu đơn hàng.'
+    ], 500);
 }
 ?>
-

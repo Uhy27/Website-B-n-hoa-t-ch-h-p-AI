@@ -1,7 +1,18 @@
 /**
  * BLOOMORA - LOGIC ỨNG DỤNG TÍCH HỢP REST API & MYSQL
- * Kết nối API Backend: categories.php, products.php, checkout.php, tracking.php
+ * Kết nối API Backend: categories.php, products.php, checkout.php, tracking.php, user/orders.php
  */
+
+// Hàm mã hóa chuỗi HTML chống tấn công Stored / Reflected XSS
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
 // Format tiền tệ Việt Nam (VNĐ)
 function formatCurrency(amount) {
@@ -841,6 +852,14 @@ function openCheckoutDrawer() {
     if (senderPhoneInput && !senderPhoneInput.value) senderPhoneInput.value = AppState.currentUser.phone || '';
   }
 
+  // Tự động gán ngày giao hoa mặc định là hôm nay nếu chưa chọn
+  const dateInput = document.getElementById('checkoutDeliveryDate') || document.querySelector('input[name="deliveryDate"]');
+  if (dateInput && !dateInput.value) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
+    dateInput.min = today;
+  }
+
   modal.classList.remove('hidden');
   document.body.classList.add('overflow-hidden');
 }
@@ -989,9 +1008,9 @@ function showOrderSuccessModal(order) {
       `}
 
       <div class="bg-gray-50 rounded-xl p-4 text-left text-xs space-y-1 text-gray-600 mb-6">
-        <p><strong class="text-gray-800">Người nhận:</strong> ${order.receiverName} - ${order.receiverPhone}</p>
-        <p><strong class="text-gray-800">Địa chỉ giao:</strong> ${order.address}</p>
-        <p><strong class="text-gray-800">Thời gian giao:</strong> ${order.deliveryDate} (${order.deliveryTime})</p>
+        <p><strong class="text-gray-800">Người nhận:</strong> ${escapeHtml(order.receiverName)} - ${escapeHtml(order.receiverPhone)}</p>
+        <p><strong class="text-gray-800">Địa chỉ giao:</strong> ${escapeHtml(order.address)}</p>
+        <p><strong class="text-gray-800">Thời gian giao:</strong> ${escapeHtml(order.deliveryDate)} (${escapeHtml(order.deliveryTime)})</p>
       </div>
 
       <div class="flex items-center space-x-3">
@@ -1108,11 +1127,11 @@ function renderTrackingResult(order, items, history) {
       <div class="flex items-center justify-between mb-4">
         <div>
           <span class="text-xs text-gray-500">Mã đơn hàng:</span>
-          <h4 class="text-base font-bold text-gray-900 font-mono">${order.order_code}</h4>
+          <h4 class="text-base font-bold text-gray-900 font-mono">${escapeHtml(order.order_code)}</h4>
         </div>
         <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold flex items-center">
           <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping mr-2"></span>
-          ${STATUS_STEPS[activeIdx] ? STATUS_STEPS[activeIdx].title : order.order_status}
+          ${escapeHtml(STATUS_STEPS[activeIdx] ? STATUS_STEPS[activeIdx].title : order.order_status)}
         </span>
       </div>
 
@@ -1130,14 +1149,14 @@ function renderTrackingResult(order, items, history) {
                 'bg-gray-300 ring-4 ring-white'
               }"></div>
               <div>
-                <h5 class="text-xs font-bold ${isCurrent ? 'text-amber-700' : 'text-gray-900'}">${step.title}</h5>
-                <p class="text-[11px] text-gray-500">${step.desc}</p>
+                <h5 class="text-xs font-bold ${isCurrent ? 'text-amber-700' : 'text-gray-900'}">${escapeHtml(step.title)}</h5>
+                <p class="text-[11px] text-gray-500">${escapeHtml(step.desc)}</p>
                 
                 ${step.key === 'photo_ready' && order.photo_proof ? `
                   <div class="mt-2">
                     <span class="text-[10px] font-bold text-rose-600 block mb-1">Ảnh hoa thực tế đã cắm:</span>
-                    <a href="${order.photo_proof}" target="_blank" class="block w-24 h-24 rounded-lg overflow-hidden border border-rose-300 shadow hover:opacity-90 transition">
-                      <img src="${order.photo_proof}" alt="Ảnh hoa thực tế" class="w-full h-full object-cover" />
+                    <a href="${escapeHtml(order.photo_proof)}" target="_blank" rel="noopener noreferrer" class="block w-24 h-24 rounded-lg overflow-hidden border border-rose-300 shadow hover:opacity-90 transition">
+                      <img src="${escapeHtml(order.photo_proof)}" alt="Ảnh hoa thực tế" class="w-full h-full object-cover" />
                     </a>
                   </div>
                 ` : ''}
@@ -1518,5 +1537,146 @@ async function handleCustomerLogout() {
   AppState.currentUser = null;
   updateAuthUI();
   toggleUserDropdown(false);
+  closeMyOrdersModal();
   showToast('Đã đăng xuất tài khoản thành công!', 'info');
+}
+
+// ==========================================
+// PHÂN HỆ: LỊCH SỬ ĐƠN HÀNG CỦA TÔI
+// ==========================================
+async function openMyOrdersModal() {
+  const modal = document.getElementById('myOrdersModal');
+  const listContainer = document.getElementById('myOrdersList');
+  if (!modal || !listContainer) return;
+
+  modal.classList.remove('hidden');
+  document.body.classList.add('overflow-hidden');
+
+  if (!AppState.currentUser) {
+    listContainer.innerHTML = `
+      <div class="py-10 text-center text-stone-500 text-xs">
+        <i class="ph ph-lock-key text-3xl block mb-2 text-rose-500"></i>
+        <p class="font-bold mb-3">Vui lòng đăng nhập để xem danh sách đơn hàng đã đặt!</p>
+        <button onclick="closeMyOrdersModal(); openAuthModal('login');" class="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold transition">
+          Đăng Nhập Ngay
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  listContainer.innerHTML = `
+    <div class="py-10 text-center text-stone-400 text-xs">
+      <div class="w-8 h-8 border-3 border-rose-600 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+      Đang tải danh sách đơn hàng của bạn...
+    </div>
+  `;
+
+  try {
+    const res = await fetch('api/user/orders.php');
+    if (res.status === 401) {
+      AppState.currentUser = null;
+      updateAuthUI();
+      openMyOrdersModal();
+      return;
+    }
+    const json = await res.json();
+
+    if (json.success && json.data) {
+      renderMyOrders(json.data);
+    } else {
+      listContainer.innerHTML = `<div class="py-8 text-center text-stone-400 text-xs">${escapeHtml(json.message || 'Chưa có đơn hàng nào')}</div>`;
+    }
+  } catch (err) {
+    listContainer.innerHTML = `<div class="py-8 text-center text-rose-500 text-xs">Lỗi tải dữ liệu từ máy chủ.</div>`;
+  }
+}
+
+function closeMyOrdersModal() {
+  const modal = document.getElementById('myOrdersModal');
+  if (modal) {
+    modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
+}
+
+function renderMyOrders(orders) {
+  const container = document.getElementById('myOrdersList');
+  if (!container) return;
+
+  if (orders.length === 0) {
+    container.innerHTML = `
+      <div class="py-12 text-center text-stone-400 text-xs">
+        <i class="ph ph-bag text-3xl block mb-2 text-stone-300"></i>
+        <p class="font-medium text-stone-600 mb-2">Bạn chưa có đơn đặt hoa nào.</p>
+        <button onclick="closeMyOrdersModal(); scrollToProducts();" class="px-4 py-2 bg-rose-600 text-white rounded-xl font-bold hover:bg-rose-700 transition">
+          Khám Phá Mẫu Hoa Ngay
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  const STATUS_LABELS = {
+    'received': { text: 'Đã tiếp nhận', cls: 'bg-stone-100 text-stone-700' },
+    'preparing': { text: 'Đang cắm hoa', cls: 'bg-amber-100 text-amber-800' },
+    'photo_ready': { text: 'Đã có ảnh duyệt', cls: 'bg-blue-100 text-blue-800' },
+    'delivering': { text: 'Đang giao hàng', cls: 'bg-purple-100 text-purple-800' },
+    'completed': { text: 'Đã hoàn thành', cls: 'bg-emerald-100 text-emerald-800' },
+    'cancelled': { text: 'Đã hủy', cls: 'bg-rose-100 text-rose-800' },
+  };
+
+  container.innerHTML = orders.map(ord => {
+    const st = STATUS_LABELS[ord.order_status] || { text: ord.order_status, cls: 'bg-stone-100 text-stone-700' };
+    const itemsHtml = (ord.items && ord.items.length > 0)
+      ? ord.items.map(it => `
+          <div class="flex items-center justify-between text-xs py-1 border-b border-stone-100 last:border-0">
+            <span class="text-stone-700">• ${escapeHtml(it.product_name)} <strong class="text-rose-600 font-mono">x${it.quantity}</strong></span>
+            <span class="font-mono text-stone-900">${formatCurrency(it.total_price)}</span>
+          </div>
+        `).join('')
+      : '<span class="text-stone-400 text-xs italic">Chi tiết đơn hàng</span>';
+
+    return `
+      <div class="bg-stone-50 border border-stone-200/80 rounded-2xl p-4 space-y-3">
+        <div class="flex items-center justify-between pb-2 border-b border-stone-200">
+          <div>
+            <span class="text-[10px] text-stone-400 font-bold uppercase block">MÃ ĐƠN HÀNG</span>
+            <span class="font-mono font-bold text-rose-600 text-sm">${escapeHtml(ord.order_code)}</span>
+          </div>
+          <div class="text-right">
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${st.cls}">
+              ${st.text}
+            </span>
+          </div>
+        </div>
+
+        <div>
+          ${itemsHtml}
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-stone-500 pt-2 border-t border-stone-100">
+          <div>
+            <span>Giao đến: <strong class="text-stone-800">${escapeHtml(ord.receiver_name)}</strong> (${escapeHtml(ord.receiver_phone)})</span>
+            <p class="truncate text-stone-600">${escapeHtml(ord.receiver_address)}</p>
+          </div>
+          <div class="sm:text-right">
+            <span>Hẹn giờ: <strong class="text-stone-800">${escapeHtml(ord.delivery_date)}</strong> (${escapeHtml(ord.delivery_time_slot)})</span>
+            <div class="mt-1 font-bold text-rose-600 text-sm font-serif-title">${formatCurrency(ord.total_amount)}</div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-2 border-t border-stone-200">
+          <span class="text-[10px] text-stone-400 font-medium">Đặt lúc: ${escapeHtml(ord.created_at || '')}</span>
+          <button 
+            onclick="closeMyOrdersModal(); openOrderTracking('${escapeHtml(ord.order_code)}');"
+            class="px-3 py-1.5 bg-stone-900 hover:bg-black text-white text-xs font-semibold rounded-lg shadow transition flex items-center space-x-1"
+          >
+            <i class="ph ph-map-pin"></i>
+            <span>Xem Hành Trình</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
 }

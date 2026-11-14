@@ -5,6 +5,7 @@
  */
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/helpers.php';
 
 try {
     $pdo = getDBConnection();
@@ -41,7 +42,7 @@ try {
         $params[':color'] = $color;
     }
 
-    // 4. Tìm kiếm từ khóa (Full-text/Like)
+    // 4. Tìm kiếm từ khóa (Prepared Statement chống SQLi)
     if ($q !== '') {
         $where[] = "(p.name LIKE :kw1 OR p.primary_flower LIKE :kw2 OR p.color_name LIKE :kw3 OR p.meaning LIKE :kw4 OR c.name LIKE :kw5)";
         $kw = "%" . $q . "%";
@@ -76,29 +77,30 @@ try {
     $stmt->execute($params);
     $products = $stmt->fetchAll();
 
-    // Format tags thành array
+    // Format tags thành array và ép kiểu số chuẩn xác
     foreach ($products as &$p) {
+        $p['id'] = (int)$p['id'];
         $p['price'] = (float)$p['price'];
         $p['originalPrice'] = $p['sale_price'] ? (float)$p['sale_price'] : (float)$p['price'];
+        $p['stock_quantity'] = (int)$p['stock_quantity'];
         $p['rating'] = (float)$p['rating'];
         $p['reviewsCount'] = (int)$p['reviewsCount'];
-        $p['tags'] = $p['tags'] ? explode(',', $p['tags']) : [];
+        $p['tags'] = !empty($p['tags']) ? array_map('trim', explode(',', $p['tags'])) : [];
         $p['flowerTypes'] = $p['primary_flower'];
         $p['size'] = $p['size_dimensions'];
     }
 
-    echo json_encode([
+    json_response([
         'success' => true,
         'count' => count($products),
         'data' => $products
-    ], JSON_UNESCAPED_UNICODE);
+    ]);
 
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode([
+    error_log("[Products API Error] " . $e->getMessage());
+    json_response([
         'success' => false,
-        'message' => 'Lỗi truy vấn sản phẩm: ' . $e->getMessage()
-    ], JSON_UNESCAPED_UNICODE);
+        'message' => 'Lỗi truy vấn danh sách sản phẩm.'
+    ], 500);
 }
 ?>
-

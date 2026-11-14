@@ -2,9 +2,14 @@
 /**
  * API Thống kê tổng quan (Dashboard Stats)
  * Endpoint: GET /api/admin/stats.php
+ * Bảo mật: Chỉ dành riêng cho Quản trị viên & Nhân viên (Admin/Staff)
  */
 
 require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../config/helpers.php';
+
+// Bảo vệ chặt chẽ quyền Admin
+require_admin_auth();
 
 try {
     $pdo = getDBConnection();
@@ -16,7 +21,7 @@ try {
     $completedOrders = (int)$pdo->query("SELECT COUNT(*) FROM orders WHERE order_status = 'completed'")->fetchColumn();
     $totalProducts = (int)$pdo->query("SELECT COUNT(*) FROM products WHERE is_active = 1")->fetchColumn();
 
-    echo json_encode([
+    json_response([
         'success' => true,
         'data' => [
             'totalRevenue' => $totalRevenue,
@@ -26,14 +31,13 @@ try {
             'completedOrders' => $completedOrders,
             'totalProducts' => $totalProducts
         ]
-    ], JSON_UNESCAPED_UNICODE);
+    ]);
 
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode([
+    error_log("[Admin Stats Error] " . $e->getMessage());
+    json_response([
         'success' => false,
-        'message' => 'Lỗi thống kê: ' . $e->getMessage()
-    ], JSON_UNESCAPED_UNICODE);
+        'message' => 'Lỗi thống kê hệ thống.'
+    ], 500);
 }
 ?>
-

@@ -2,11 +2,10 @@
 /**
  * BLOOMORA ADMIN DASHBOARD - BẢO VỆ PHIÊN ĐĂNG NHẬP
  */
-header('Content-Type: text/html; charset=UTF-8');
+require_once __DIR__ . '/../config/helpers.php';
+require_once __DIR__ . '/../config/database.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+init_secure_session();
 
 // Kiểm tra quyền Admin/Staff
 if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role_name'] ?? '', ['admin', 'staff'])) {
@@ -50,15 +49,6 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
         }
       }
     }
-    async function handleAdminLogout() {
-      if (!confirm('Bạn có chắc chắn muốn đăng xuất khỏi trang quản trị?')) return;
-      try {
-        await fetch('../api/auth/logout.php');
-        window.location.href = 'login.php';
-      } catch (e) {
-        window.location.href = 'login.php';
-      }
-    }
   </script>
 </head>
 <body class="bg-stone-100 text-stone-800 antialiased min-h-screen flex flex-col">
@@ -73,7 +63,7 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
           </div>
           <span class="font-serif-title text-xl font-bold tracking-wide">BLOOMORA ADMIN</span>
         </a>
-        <span class="text-[11px] bg-rose-900/60 text-rose-300 px-2.5 py-0.5 rounded-full font-semibold border border-rose-700/50">v1.0 Quản Trị</span>
+        <span class="text-[11px] bg-rose-900/60 text-rose-300 px-2.5 py-0.5 rounded-full font-semibold border border-rose-700/50">v1.2 Secure</span>
       </div>
 
       <div class="flex items-center space-x-3 sm:space-x-4">
@@ -176,6 +166,7 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
             <option value="photo_ready">3. Đã chụp ảnh duyệt</option>
             <option value="delivering">4. Đang giao hàng</option>
             <option value="completed">5. Đã hoàn thành</option>
+            <option value="cancelled">Đã hủy</option>
           </select>
           <button onclick="loadAdminOrders()" class="p-2 bg-stone-100 hover:bg-stone-200 rounded-xl text-stone-600 transition" title="Làm mới">
             <i class="ph ph-arrows-clockwise text-base"></i>
@@ -191,6 +182,7 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
               <th class="py-3.5 px-4">Mã Đơn</th>
               <th class="py-3.5 px-4">Người Đặt & Nhận</th>
               <th class="py-3.5 px-4">Địa Chỉ & Hẹn Giờ</th>
+              <th class="py-3.5 px-4">Sản Phẩm</th>
               <th class="py-3.5 px-4">Lời Chúc / Băng Rôn</th>
               <th class="py-3.5 px-4">Số Tiền</th>
               <th class="py-3.5 px-4">Trạng Thái</th>
@@ -200,7 +192,7 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
           </thead>
           <tbody id="ordersTableBody" class="divide-y divide-stone-100">
             <tr>
-              <td colspan="8" class="text-center py-10 text-stone-400">Đang tải dữ liệu đơn hàng...</td>
+              <td colspan="9" class="text-center py-10 text-stone-400">Đang tải dữ liệu đơn hàng...</td>
             </tr>
           </tbody>
         </table>
@@ -266,7 +258,7 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
           <button type="button" onclick="closeUpdateOrderModal()" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-600 rounded-xl font-medium transition">
             Hủy
           </button>
-          <button type="submit" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold shadow transition">
+          <button type="submit" id="modalSaveBtn" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold shadow transition">
             Lưu Thay Đổi
           </button>
         </div>
@@ -279,6 +271,17 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
   </footer>
 
   <script>
+    // Hàm chống XSS bảo vệ toàn diện
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
     function formatMoney(amount) {
       return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
     }
@@ -302,6 +305,10 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
     async function loadStats() {
       try {
         const res = await fetch('../api/admin/stats.php');
+        if (res.status === 401) {
+          window.location.href = 'login.php';
+          return;
+        }
         const json = await res.json();
         if (json.success) {
           document.getElementById('statRevenue').textContent = formatMoney(json.data.totalRevenue);
@@ -317,50 +324,65 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
     async function loadAdminOrders() {
       const status = document.getElementById('statusFilter').value;
       const tbody = document.getElementById('ordersTableBody');
-      tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-stone-400">Đang tải danh sách đơn...</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-stone-400">Đang tải danh sách đơn...</td></tr>`;
 
       try {
-        const url = `../api/admin/orders.php?status=${status}`;
+        const url = `../api/admin/orders.php?status=${encodeURIComponent(status)}`;
         const res = await fetch(url);
+        if (res.status === 401) {
+          window.location.href = 'login.php';
+          return;
+        }
         const json = await res.json();
 
         if (json.success) {
           currentOrders = json.data;
           renderOrdersTable(json.data);
+        } else {
+          tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-rose-500">${escapeHtml(json.message)}</td></tr>`;
         }
       } catch (e) {
-        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-rose-500">Lỗi kết nối API Admin</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-rose-500">Lỗi kết nối API Admin</td></tr>`;
       }
     }
 
     function renderOrdersTable(orders) {
       const tbody = document.getElementById('ordersTableBody');
       if (orders.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-stone-400">Không có đơn hàng nào phù hợp bộ lọc.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-stone-400">Không có đơn hàng nào phù hợp bộ lọc.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = orders.map(o => {
         const st = STATUS_MAP[o.order_status] || { text: o.order_status, bg: 'bg-stone-100 text-stone-700' };
+        
+        // Render tóm tắt danh sách sản phẩm trong đơn
+        const itemsSummary = (o.items && o.items.length > 0)
+          ? o.items.map(it => `<div>• ${escapeHtml(it.product_name)} <span class="text-rose-600 font-bold">x${it.quantity}</span></div>`).join('')
+          : '<span class="text-stone-400 italic">Đơn tiêu chuẩn</span>';
+
         return `
           <tr class="hover:bg-stone-50 transition">
             <td class="py-3 px-4 font-mono font-bold text-rose-600">
-              ${o.order_code}
+              ${escapeHtml(o.order_code)}
             </td>
             <td class="py-3 px-4">
-              <div class="font-bold text-stone-900">${o.receiver_name} (${o.receiver_phone})</div>
-              <div class="text-[11px] text-stone-400">Người đặt: ${o.is_anonymous == 1 ? '<em class="text-rose-500">Ẩn danh</em>' : o.sender_name}</div>
+              <div class="font-bold text-stone-900">${escapeHtml(o.receiver_name)} (${escapeHtml(o.receiver_phone)})</div>
+              <div class="text-[11px] text-stone-400">Người đặt: ${o.is_anonymous == 1 ? '<em class="text-rose-500">Ẩn danh</em>' : escapeHtml(o.sender_name)}</div>
             </td>
             <td class="py-3 px-4 max-w-xs">
-              <div class="truncate text-stone-700">${o.receiver_address}</div>
-              <div class="text-[11px] text-stone-400">${o.delivery_date} • <strong class="text-stone-600">${o.delivery_time_slot}</strong></div>
+              <div class="truncate text-stone-700" title="${escapeHtml(o.receiver_address)}">${escapeHtml(o.receiver_address)}</div>
+              <div class="text-[11px] text-stone-400">${escapeHtml(o.delivery_date)} • <strong class="text-stone-600">${escapeHtml(o.delivery_time_slot)}</strong></div>
             </td>
-            <td class="py-3 px-4 max-w-xs truncate text-stone-600 italic">
-              "${o.ribbon_message || o.card_message || 'Không in'}"
+            <td class="py-3 px-4 max-w-xs text-[11px] text-stone-600">
+              ${itemsSummary}
+            </td>
+            <td class="py-3 px-4 max-w-xs truncate text-stone-600 italic" title="${escapeHtml(o.ribbon_message || o.card_message || 'Không in')}">
+              "${escapeHtml(o.ribbon_message || o.card_message || 'Không in')}"
             </td>
             <td class="py-3 px-4 font-bold text-stone-900">
               ${formatMoney(o.total_amount)}
-              <span class="block text-[10px] text-stone-400 font-normal uppercase">${o.payment_method}</span>
+              <span class="block text-[10px] text-stone-400 font-normal uppercase">${escapeHtml(o.payment_method)} • <span class="${o.payment_status === 'paid' ? 'text-emerald-600 font-bold' : 'text-amber-600'}">${escapeHtml(o.payment_status)}</span></span>
             </td>
             <td class="py-3 px-4">
               <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold ${st.bg}">
@@ -369,8 +391,8 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
             </td>
             <td class="py-3 px-4">
               ${o.photo_proof ? `
-                <a href="${o.photo_proof}" target="_blank" class="block w-10 h-10 rounded-lg overflow-hidden border border-stone-300 shadow hover:opacity-80 transition" title="Bấm để xem ảnh to">
-                  <img src="${o.photo_proof}" class="w-full h-full object-cover" />
+                <a href="${escapeHtml(o.photo_proof)}" target="_blank" rel="noopener noreferrer" class="block w-10 h-10 rounded-lg overflow-hidden border border-stone-300 shadow hover:opacity-80 transition" title="Bấm để xem ảnh to">
+                  <img src="${escapeHtml(o.photo_proof)}" class="w-full h-full object-cover" />
                 </a>
               ` : `
                 <span class="text-stone-300 text-[11px]">Chưa chụp</span>
@@ -413,6 +435,10 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
       const status = document.getElementById('modalOrderStatus').value;
       const photoProof = document.getElementById('modalPhotoProof').value.trim();
       const note = document.getElementById('modalNote').value.trim();
+      const saveBtn = document.getElementById('modalSaveBtn');
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Đang lưu...';
 
       try {
         const res = await fetch('../api/admin/orders.php', {
@@ -432,8 +458,12 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
         }
       } catch (err) {
         alert('Lỗi kết nối máy chủ');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Lưu Thay Đổi';
       }
     }
+
     async function handleAdminLogout() {
       if (!confirm('Bạn có chắc chắn muốn đăng xuất khỏi trang quản trị?')) return;
       try {
@@ -446,4 +476,3 @@ $adminEmail = $_SESSION['email'] ?? 'admin@bloomora.vn';
   </script>
 </body>
 </html>
-
