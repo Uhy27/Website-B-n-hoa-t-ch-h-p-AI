@@ -1,60 +1,17 @@
 <?php
-/**
- * API: Lấy lịch sử đơn hàng của tài khoản đang đăng nhập
- * Endpoint: GET /api/user/orders.php
- */
-
-require_once __DIR__ . '/../../config/database.php';
-require_once __DIR__ . '/../../config/helpers.php';
-
-init_secure_session();
-
-if (empty($_SESSION['user_id'])) {
-    json_response(['success' => false, 'message' => 'Vui lòng đăng nhập để xem lịch sử đơn hàng!'], 401);
-}
-
-$userId = (int)$_SESSION['user_id'];
-
+declare(strict_types=1);
+require_once __DIR__ . '/../../core/bootstrap.php';
+init_secure_session(); api_only_method('GET');
+if (empty($_SESSION['user_id'])) json_response(['success'=>false,'message'=>'Vui lòng đăng nhập để xem lịch sử đơn hàng.'],401);
 try {
-    $pdo = getDBConnection();
-
-    $stmt = $pdo->prepare("SELECT id, order_code, receiver_name, receiver_phone, receiver_address, city,
-                                  delivery_date, delivery_time_slot, card_message, ribbon_message,
-                                  subtotal, shipping_fee, total_amount, payment_method, payment_status,
-                                  order_status, photo_proof, created_at
-                           FROM orders
-                           WHERE user_id = :user_id
-                           ORDER BY id DESC");
-    $stmt->execute([':user_id' => $userId]);
-    $orders = $stmt->fetchAll();
-
-    if (!empty($orders)) {
-        $orderIds = array_column($orders, 'id');
-        $placeholders = implode(',', array_fill(0, count($orderIds), '?'));
-        $itemStmt = $pdo->prepare("SELECT order_id, product_name, product_sku, unit_price, quantity, total_price 
-                                   FROM order_items 
-                                   WHERE order_id IN ($placeholders)");
-        $itemStmt->execute($orderIds);
-        $allItems = $itemStmt->fetchAll();
-
-        $itemsByOrder = [];
-        foreach ($allItems as $it) {
-            $itemsByOrder[$it['order_id']][] = $it;
-        }
-
-        foreach ($orders as &$ord) {
-            $ord['items'] = $itemsByOrder[$ord['id']] ?? [];
-        }
+    $pdo=getDBConnection(); $uid=(int)$_SESSION['user_id'];
+    $st=$pdo->prepare("SELECT id,order_code,receiver_name,receiver_phone,receiver_address,city,delivery_date,delivery_time_slot,card_message,ribbon_message,subtotal,shipping_fee,discount_amount,total_amount,payment_method,payment_status,order_status,photo_proof,created_at FROM orders WHERE user_id=:uid ORDER BY id DESC");
+    $st->execute([':uid'=>$uid]); $orders=$st->fetchAll();
+    if(!empty($orders)){
+        $ids=array_column($orders,'id'); $ph=implode(',',array_fill(0,count($ids),'?'));
+        $it=$pdo->prepare("SELECT order_id,product_name,product_sku,unit_price,quantity,total_price FROM order_items WHERE order_id IN ($ph)");
+        $it->execute($ids); $by=[]; foreach($it->fetchAll() as $r){ $by[$r['order_id']][]=$r; }
+        foreach($orders as &$o){ $o['items']=$by[$o['id']]??[]; }
     }
-
-    json_response([
-        'success' => true,
-        'count' => count($orders),
-        'data' => $orders
-    ]);
-
-} catch (Exception $e) {
-    error_log("[User Orders Error] " . $e->getMessage());
-    json_response(['success' => false, 'message' => 'Lỗi tải lịch sử đơn hàng.'], 500);
-}
-?>
+    json_response(['success'=>true,'count'=>count($orders),'data'=>$orders]);
+} catch (Throwable $e){ error_log('[User Orders] '.$e->getMessage()); json_response(['success'=>false,'message'=>'Lỗi tải lịch sử đơn hàng.'],500);} 
