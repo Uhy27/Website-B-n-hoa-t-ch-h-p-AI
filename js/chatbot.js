@@ -357,11 +357,62 @@
     return d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
   }
 
+  // 7. Auto-hide floating actions & chatbot whenever ANY modal or drawer is open
+  function checkModalsState() {
+    const cartDrawer = document.getElementById('cartDrawer');
+    const isCartOpen = cartDrawer && !cartDrawer.classList.contains('translate-x-full');
+    const isCheckoutOpen = document.getElementById('checkoutModal') && !document.getElementById('checkoutModal').classList.contains('hidden');
+    const isQuickViewOpen = document.getElementById('quickViewModal') && !document.getElementById('quickViewModal').classList.contains('hidden');
+    const isAuthOpen = document.getElementById('authModal') && !document.getElementById('authModal').classList.contains('hidden');
+    const isOrdersOpen = document.getElementById('myOrdersModal') && !document.getElementById('myOrdersModal').classList.contains('hidden');
+    const isTrackingOpen = document.getElementById('orderTrackingModal') && !document.getElementById('orderTrackingModal').classList.contains('hidden');
+    const isSuccessOpen = document.getElementById('orderSuccessModal') && !document.getElementById('orderSuccessModal').classList.contains('hidden');
+    const isBodyLocked = document.body.classList.contains('overflow-hidden');
+
+    const shouldHide = isCartOpen || isCheckoutOpen || isQuickViewOpen || isAuthOpen || isOrdersOpen || isTrackingOpen || isSuccessOpen || isBodyLocked;
+
+    const floatingGroup = document.getElementById('floatingActionsGroup');
+    const chatModal = document.getElementById('bloomora-chat-modal');
+
+    if (shouldHide) {
+      if (floatingGroup) floatingGroup.classList.add('hidden-by-modal');
+      if (chatModal) {
+        chatModal.classList.remove('open');
+        chatModal.classList.add('hidden-by-modal');
+        isOpen = false;
+      }
+    } else {
+      if (floatingGroup) floatingGroup.classList.remove('hidden-by-modal');
+      if (chatModal) chatModal.classList.remove('hidden-by-modal');
+    }
+  }
+
+  // Setup observer and event listeners
+  function initModalStateWatcher() {
+    const observer = new MutationObserver(checkModalsState);
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    const drawer = document.getElementById('cartDrawer');
+    if (drawer) {
+      observer.observe(drawer, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    ['click', 'keydown', 'touchend'].forEach(evt => {
+      document.addEventListener(evt, () => setTimeout(checkModalsState, 80), { passive: true });
+    });
+
+    checkModalsState();
+  }
+
   // Initialize on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', createWidgetDOM);
+    document.addEventListener('DOMContentLoaded', () => {
+      createWidgetDOM();
+      initModalStateWatcher();
+    });
   } else {
     createWidgetDOM();
+    initModalStateWatcher();
   }
 
 })();

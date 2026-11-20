@@ -4,7 +4,7 @@
 
 #bloomora-chat-widget {
   font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
-  z-index: 9999;
+  z-index: 35;
 }
 
 /* Floating Launcher Button */
@@ -42,7 +42,7 @@
 /* Chat Window Container */
 .bloomora-chat-window {
   position: fixed;
-  bottom: 90px;
+  bottom: 85px;
   right: 24px;
   width: 390px;
   max-width: calc(100vw - 32px);
@@ -58,13 +58,27 @@
   pointer-events: none;
   transform: translateY(20px) scale(0.96);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 9999;
+  z-index: 35;
 }
 
 .bloomora-chat-window.open {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0) scale(1);
+}
+
+/* TỰ ĐỘNG ẨN CỤM NÚT NỔI & CỬA SỔ CHAT KHI MỞ GIỎ HÀNG HOẶC BẤT KỲ MODAL NÀO */
+body.overflow-hidden #floatingActionsGroup,
+body.overflow-hidden .bloomora-chat-window,
+body.has-modal-open #floatingActionsGroup,
+body.has-modal-open .bloomora-chat-window,
+#floatingActionsGroup.hidden-by-modal,
+.bloomora-chat-window.hidden-by-modal {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(24px) scale(0.9) !important;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s !important;
 }
 
 /* Header */
