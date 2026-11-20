@@ -23,6 +23,7 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chatbot.css">
 
   <script>
     tailwind.config = {
@@ -119,6 +120,13 @@
             class="hidden sm:flex items-center space-x-1 px-3 py-2 text-stone-600 hover:text-rose-600 hover:bg-rose-50 rounded-xl text-xs font-semibold transition">
             <i class="ph ph-receipt text-base"></i>
             <span>Tra Cứu Đơn</span>
+          </button>
+
+          <!-- Nút Tư vấn AI 24/7 -->
+          <button onclick="document.getElementById('bloomora-chat-btn')?.click()"
+            class="hidden md:flex items-center space-x-1.5 px-3 py-2 text-rose-700 bg-rose-50 hover:bg-rose-100 hover:text-rose-800 border border-rose-200 rounded-xl text-xs font-bold transition shadow-xs">
+            <span class="text-sm">🌸</span>
+            <span>Tư Vấn AI</span>
           </button>
 
           <!-- KHU VỰC TÀI KHOẢN (AUTH) -->
@@ -286,6 +294,14 @@
               <span>Giảm 30%</span>
             </a>
           </li>
+
+          <!-- Nút Trợ lý AI trên Menu -->
+          <li class="ml-1">
+            <button type="button" onclick="document.getElementById('bloomora-chat-btn')?.click()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 transition shadow-xs">
+              <span>🌸</span>
+              <span>Trợ Lý AI</span>
+            </button>
+          </li>
         </ul>
 
         <!-- Hotline đặt hoa nhanh bên góc phải (Thanh lịch & Tối giản) -->
@@ -408,6 +424,13 @@
                 class="w-full mt-2 py-3 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white rounded-xl font-bold text-sm shadow-lg shadow-rose-600/30 transition flex items-center justify-center space-x-2">
                 <i class="ph ph-magnifying-glass-bold text-base"></i>
                 <span>Tìm Kiếm Mẫu Hoa Phù Hợp</span>
+              </button>
+
+              <!-- Nút Trợ lý AI tư vấn nhanh -->
+              <button type="button" onclick="document.getElementById('bloomora-chat-btn')?.click()"
+                class="w-full py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200/80 rounded-xl font-bold text-xs transition flex items-center justify-center space-x-2">
+                <span>🌸</span>
+                <span>Hoặc Hỏi Trợ Lý AI Tìm Hoa Theo Yêu Cầu</span>
               </button>
             </div>
           </div>
@@ -1133,8 +1156,18 @@
   </div>
 
   <!-- ================= FLOATING ACTION BUTTONS THUẦN VIỆT ================= -->
-  <!-- Nút Chat Zalo & Hotline Rung Lắc & Nút Cuộn -->
+  <!-- Nút Chat AI, Chat Zalo & Hotline Rung Lắc & Nút Cuộn -->
   <div class="fixed bottom-6 right-6 z-40 flex flex-col space-y-3 items-end">
+
+    <!-- Nút Chat AI Bloomora -->
+    <button id="bloomora-chat-btn"
+      class="bloomora-chat-launcher flex items-center space-x-2 bg-gradient-to-r from-rose-600 to-rose-700 text-white px-4 py-2.5 rounded-full shadow-xl transition-all duration-300 hover:scale-105 border border-white/20"
+      title="Trợ lý AI tư vấn hoa 24/7">
+      <div class="w-6 h-6 rounded-full bg-white text-rose-600 flex items-center justify-center text-xs font-black">
+        🌸
+      </div>
+      <span class="text-xs font-bold">Trợ lý AI Bloomora</span>
+    </button>
 
     <!-- Nút Chat Zalo -->
     <a href="https://zalo.me/0908123456" target="_blank"
@@ -1159,6 +1192,7 @@
   <!-- Scripts -->
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/chatbot.js"></script>
 </body>
 
 </html>
