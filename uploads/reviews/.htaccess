@@ -1,0 +1,7 @@
+# Disable script execution for uploaded user review images
+<FilesMatch "\.(php|phtml|php3|php4|php5|phps|phar|sh|pl|cgi)$">
+Order Deny,Allow
+Deny from all
+</FilesMatch>
+Options -ExecCGI
+AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi

@@ -21,9 +21,9 @@
   <!-- Phosphor Icons (Bộ icon cao cấp, thanh mảnh) -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/chatbot.css">
+  <!-- Custom CSS với Cache Busters v2.2 -->
+  <link rel="stylesheet" href="css/style.css?v=2.2">
+  <link rel="stylesheet" href="css/chatbot.css?v=2.2">
 
   <script>
     tailwind.config = {
@@ -63,7 +63,8 @@
           TP.HCM</span>
         <span class="hidden md:inline">|</span>
         <a href="tel:1900633045" class="flex items-center hover:text-white transition">
-          <i class="ph ph-phone-call mr-1 text-emerald-400"></i> Hotline: <strong class="text-white ml-1">1900 633 045</strong>
+          <i class="ph ph-phone-call mr-1 text-emerald-400"></i> Hotline: <strong class="text-white ml-1">1900 633
+            045</strong>
         </a>
       </div>
     </div>
@@ -205,91 +206,131 @@
         <ul class="flex items-center gap-1 lg:gap-2 text-[13px] font-medium text-stone-700 whitespace-nowrap py-1">
           <!-- Hoa Sinh Nhật -->
           <li>
-            <a href="javascript:void(0)" onclick="navFilterCategory('sinh-nhat', 'Hoa Sinh Nhật Tươi Sắc')" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
+            <a href="javascript:void(0)" onclick="navFilterCategory('sinh-nhat', 'Hoa Sinh Nhật Tươi Sắc')"
+              class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
               <span>Hoa Sinh Nhật</span>
             </a>
           </li>
 
           <!-- Hoa Khai Trương -->
           <li>
-            <a href="javascript:void(0)" onclick="navFilterCategory('khai-truong', 'Hoa Khai Trương Hồng Phát')" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
+            <a href="javascript:void(0)" onclick="navFilterCategory('khai-truong', 'Hoa Khai Trương Hồng Phát')"
+              class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
               <span>Hoa Khai Trương</span>
             </a>
           </li>
 
           <!-- Lan Hồ Điệp -->
           <li>
-            <a href="javascript:void(0)" onclick="navFilterCategory('lan-ho-diep', 'Chậu Lan Hồ Điệp Sang Trọng')" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
+            <a href="javascript:void(0)" onclick="navFilterCategory('lan-ho-diep', 'Chậu Lan Hồ Điệp Sang Trọng')"
+              class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
               <span>Lan Hồ Điệp</span>
             </a>
           </li>
 
           <!-- Hoa Tang Lễ -->
           <li>
-            <a href="javascript:void(0)" onclick="navFilterCategory('chia-buon', 'Hoa Tang Lễ & Chia Buồn Thành Kính')" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
+            <a href="javascript:void(0)" onclick="navFilterCategory('chia-buon', 'Hoa Tang Lễ & Chia Buồn Thành Kính')"
+              class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center">
               <span>Hoa Tang Lễ</span>
             </a>
           </li>
 
           <!-- Dropdown: CHỦ ĐỀ -->
           <li class="nav-dropdown-wrapper group">
-            <button type="button" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center gap-1 font-medium">
+            <button type="button"
+              class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center gap-1 font-medium">
               <span>Chủ Đề</span>
-              <i class="ph ph-caret-down text-[11px] text-stone-400 group-hover:text-rose-600 transition-transform duration-200 group-hover:rotate-180"></i>
+              <i
+                class="ph ph-caret-down text-[11px] text-stone-400 group-hover:text-rose-600 transition-transform duration-200 group-hover:rotate-180"></i>
             </button>
-            <div class="nav-dropdown-content absolute left-0 top-full w-60 bg-white rounded-xl shadow-xl border border-stone-100 p-2 z-50">
-              <a href="javascript:void(0)" onclick="navFilterTheme('chúc mừng', 'Hoa Chúc Mừng')"><i class="ph ph-sparkle text-rose-500"></i> Hoa Chúc Mừng</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('cưới', 'Hoa Cưới Cầm Tay')"><i class="ph ph-heart text-rose-500"></i> Hoa Cưới Cầm Tay</a>
-              <a href="javascript:void(0)" onclick="navFilterCategory('chia-buon', 'Hoa Tang Lễ - Hoa Chia Buồn')"><i class="ph ph-flower-lotus text-stone-500"></i> Hoa Tang Lễ - Chia Buồn</a>
-              <a href="javascript:void(0)" onclick="navFilterCategory('tinh-yeu', 'Hoa Tình Yêu Lãng Mạn')"><i class="ph ph-heart-straight text-rose-500"></i> Hoa Tình Yêu</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('valentine', 'Hoa Valentine Ngọt Ngào')"><i class="ph ph-heart text-red-500"></i> Hoa Valentine</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('kỷ niệm', 'Hoa Kỷ Niệm Ngày Cưới')"><i class="ph ph-diamonds-four text-amber-500"></i> Hoa Kỷ Niệm</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('mẹ', 'Hoa Tặng Ngày Của Mẹ')"><i class="ph ph-hand-heart text-pink-500"></i> Ngày Của Mẹ</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('8-3', 'Hoa Chúc Mừng Quốc Tế Phụ Nữ 8-3')"><i class="ph ph-gift text-rose-500"></i> Hoa 8-3</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('20-10', 'Hoa Chúc Mừng Phụ Nữ Việt Nam 20-10')"><i class="ph ph-flower text-rose-500"></i> Hoa 20-10</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('nhà giáo', 'Hoa Tri Ân Ngày Nhà Giáo VN')"><i class="ph ph-graduation-cap text-blue-500"></i> Ngày Nhà Giáo VN</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('giáng sinh', 'Hoa & Cây Thông Giáng Sinh')"><i class="ph ph-tree text-emerald-500"></i> Giáng Sinh</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('tết', 'Hoa Tết Âm Lịch')"><i class="ph ph-sun text-amber-500"></i> Tết Âm Lịch</a>
-              <a href="javascript:void(0)" onclick="navFilterCategory('tot-nghiep', 'Hoa Chúc Mừng Tốt Nghiệp')"><i class="ph ph-student text-indigo-500"></i> Hoa Tốt Nghiệp</a>
-              <a href="javascript:void(0)" onclick="navFilterTheme('định kỳ', 'Gói Hoa Tươi Định Kỳ')"><i class="ph ph-calendar-check text-teal-500"></i> Hoa Định Kỳ</a>
+            <div
+              class="nav-dropdown-content absolute left-0 top-full w-60 bg-white rounded-xl shadow-xl border border-stone-100 p-2 z-50">
+              <a href="javascript:void(0)" onclick="navFilterTheme('chúc mừng', 'Hoa Chúc Mừng')"><i
+                  class="ph ph-sparkle text-rose-500"></i> Hoa Chúc Mừng</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('cưới', 'Hoa Cưới Cầm Tay')"><i
+                  class="ph ph-heart text-rose-500"></i> Hoa Cưới Cầm Tay</a>
+              <a href="javascript:void(0)" onclick="navFilterCategory('chia-buon', 'Hoa Tang Lễ - Hoa Chia Buồn')"><i
+                  class="ph ph-flower-lotus text-stone-500"></i> Hoa Tang Lễ - Chia Buồn</a>
+              <a href="javascript:void(0)" onclick="navFilterCategory('tinh-yeu', 'Hoa Tình Yêu Lãng Mạn')"><i
+                  class="ph ph-heart-straight text-rose-500"></i> Hoa Tình Yêu</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('valentine', 'Hoa Valentine Ngọt Ngào')"><i
+                  class="ph ph-heart text-red-500"></i> Hoa Valentine</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('kỷ niệm', 'Hoa Kỷ Niệm Ngày Cưới')"><i
+                  class="ph ph-diamonds-four text-amber-500"></i> Hoa Kỷ Niệm</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('mẹ', 'Hoa Tặng Ngày Của Mẹ')"><i
+                  class="ph ph-hand-heart text-pink-500"></i> Ngày Của Mẹ</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('8-3', 'Hoa Chúc Mừng Quốc Tế Phụ Nữ 8-3')"><i
+                  class="ph ph-gift text-rose-500"></i> Hoa 8-3</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('20-10', 'Hoa Chúc Mừng Phụ Nữ Việt Nam 20-10')"><i
+                  class="ph ph-flower text-rose-500"></i> Hoa 20-10</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('nhà giáo', 'Hoa Tri Ân Ngày Nhà Giáo VN')"><i
+                  class="ph ph-graduation-cap text-blue-500"></i> Ngày Nhà Giáo VN</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('giáng sinh', 'Hoa & Cây Thông Giáng Sinh')"><i
+                  class="ph ph-tree text-emerald-500"></i> Giáng Sinh</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('tết', 'Hoa Tết Âm Lịch')"><i
+                  class="ph ph-sun text-amber-500"></i> Tết Âm Lịch</a>
+              <a href="javascript:void(0)" onclick="navFilterCategory('tot-nghiep', 'Hoa Chúc Mừng Tốt Nghiệp')"><i
+                  class="ph ph-student text-indigo-500"></i> Hoa Tốt Nghiệp</a>
+              <a href="javascript:void(0)" onclick="navFilterTheme('định kỳ', 'Gói Hoa Tươi Định Kỳ')"><i
+                  class="ph ph-calendar-check text-teal-500"></i> Hoa Định Kỳ</a>
             </div>
           </li>
 
           <!-- Dropdown: THIẾT KẾ -->
           <li class="nav-dropdown-wrapper group">
-            <button type="button" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center gap-1 font-medium">
+            <button type="button"
+              class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center gap-1 font-medium">
               <span>Thiết Kế</span>
-              <i class="ph ph-caret-down text-[11px] text-stone-400 group-hover:text-rose-600 transition-transform duration-200 group-hover:rotate-180"></i>
+              <i
+                class="ph ph-caret-down text-[11px] text-stone-400 group-hover:text-rose-600 transition-transform duration-200 group-hover:rotate-180"></i>
             </button>
-            <div class="nav-dropdown-content absolute left-0 top-full w-56 bg-white rounded-xl shadow-xl border border-stone-100 p-2 z-50">
-              <a href="javascript:void(0)" onclick="navFilterDesign('bó hoa', 'Thiết Kế: Bó Hoa Tươi Nghệ Thuật')"><i class="ph ph-spiral text-rose-500"></i> Bó Hoa Tươi</a>
-              <a href="javascript:void(0)" onclick="navFilterDesign('giỏ hoa', 'Thiết Kế: Giỏ Hoa Để Bàn')"><i class="ph ph-tote text-amber-500"></i> Giỏ Hoa Để Bàn</a>
-              <a href="javascript:void(0)" onclick="navFilterDesign('hộp hoa', 'Thiết Kế: Hộp Hoa Trái Tim')"><i class="ph ph-package text-pink-500"></i> Hộp Hoa Trái Tim</a>
-              <a href="javascript:void(0)" onclick="navFilterDesign('kệ hoa', 'Thiết Kế: Kệ Hoa 2 Tầng Chúc Mừng')"><i class="ph ph-columns text-emerald-500"></i> Kệ Hoa 2 Tầng</a>
-              <a href="javascript:void(0)" onclick="navFilterDesign('bình hoa', 'Thiết Kế: Bình Hoa Cao Cấp')"><i class="ph ph-brand-telegram text-indigo-500"></i> Bình Hoa Cao Cấp</a>
-              <a href="javascript:void(0)" onclick="navFilterDesign('chậu', 'Thiết Kế: Chậu Lan Hồ Điệp')"><i class="ph ph-plant text-purple-500"></i> Chậu Lan Hồ Điệp</a>
+            <div
+              class="nav-dropdown-content absolute left-0 top-full w-56 bg-white rounded-xl shadow-xl border border-stone-100 p-2 z-50">
+              <a href="javascript:void(0)" onclick="navFilterDesign('bó hoa', 'Thiết Kế: Bó Hoa Tươi Nghệ Thuật')"><i
+                  class="ph ph-spiral text-rose-500"></i> Bó Hoa Tươi</a>
+              <a href="javascript:void(0)" onclick="navFilterDesign('giỏ hoa', 'Thiết Kế: Giỏ Hoa Để Bàn')"><i
+                  class="ph ph-tote text-amber-500"></i> Giỏ Hoa Để Bàn</a>
+              <a href="javascript:void(0)" onclick="navFilterDesign('hộp hoa', 'Thiết Kế: Hộp Hoa Trái Tim')"><i
+                  class="ph ph-package text-pink-500"></i> Hộp Hoa Trái Tim</a>
+              <a href="javascript:void(0)" onclick="navFilterDesign('kệ hoa', 'Thiết Kế: Kệ Hoa 2 Tầng Chúc Mừng')"><i
+                  class="ph ph-columns text-emerald-500"></i> Kệ Hoa 2 Tầng</a>
+              <a href="javascript:void(0)" onclick="navFilterDesign('bình hoa', 'Thiết Kế: Bình Hoa Cao Cấp')"><i
+                  class="ph ph-brand-telegram text-indigo-500"></i> Bình Hoa Cao Cấp</a>
+              <a href="javascript:void(0)" onclick="navFilterDesign('chậu', 'Thiết Kế: Chậu Lan Hồ Điệp')"><i
+                  class="ph ph-plant text-purple-500"></i> Chậu Lan Hồ Điệp</a>
             </div>
           </li>
 
           <!-- Dropdown: LOẠI HOA -->
           <li class="nav-dropdown-wrapper group">
-            <button type="button" class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center gap-1 font-medium">
+            <button type="button"
+              class="px-2.5 py-1.5 rounded-lg hover:text-rose-600 hover:bg-rose-50/70 transition-colors flex items-center gap-1 font-medium">
               <span>Loại Hoa</span>
-              <i class="ph ph-caret-down text-[11px] text-stone-400 group-hover:text-rose-600 transition-transform duration-200 group-hover:rotate-180"></i>
+              <i
+                class="ph ph-caret-down text-[11px] text-stone-400 group-hover:text-rose-600 transition-transform duration-200 group-hover:rotate-180"></i>
             </button>
-            <div class="nav-dropdown-content absolute left-0 top-full w-56 bg-white rounded-xl shadow-xl border border-stone-100 p-2 z-50">
-              <a href="javascript:void(0)" onclick="navFilterFlower('hồng', 'Hoa Hồng Ecuador & Côn Minh')"><i class="ph ph-flower-lotus text-rose-500"></i> Hoa Hồng</a>
-              <a href="javascript:void(0)" onclick="navFilterFlower('hướng dương', 'Hoa Hướng Dương Rực Rỡ')"><i class="ph ph-sun text-amber-500"></i> Hoa Hướng Dương</a>
-              <a href="javascript:void(0)" onclick="navFilterFlower('lan hồ điệp', 'Hoa Lan Hồ Điệp')"><i class="ph ph-flower text-purple-500"></i> Lan Hồ Điệp</a>
-              <a href="javascript:void(0)" onclick="navFilterFlower('baby', 'Hoa Baby Trắng Nhập Khẩu')"><i class="ph ph-snowflake text-stone-400"></i> Hoa Baby Trắng</a>
-              <a href="javascript:void(0)" onclick="navFilterFlower('mẫu đơn', 'Hoa Cúc Mẫu Đơn')"><i class="ph ph-sparkle text-pink-500"></i> Cúc Mẫu Đơn</a>
-              <a href="javascript:void(0)" onclick="navFilterFlower('hoa ly', 'Hoa Ly Thanh Khiết')"><i class="ph ph-drop text-blue-400"></i> Hoa Ly Trắng / Vàng</a>
+            <div
+              class="nav-dropdown-content absolute left-0 top-full w-56 bg-white rounded-xl shadow-xl border border-stone-100 p-2 z-50">
+              <a href="javascript:void(0)" onclick="navFilterFlower('hồng', 'Hoa Hồng Ecuador & Côn Minh')"><i
+                  class="ph ph-flower-lotus text-rose-500"></i> Hoa Hồng</a>
+              <a href="javascript:void(0)" onclick="navFilterFlower('hướng dương', 'Hoa Hướng Dương Rực Rỡ')"><i
+                  class="ph ph-sun text-amber-500"></i> Hoa Hướng Dương</a>
+              <a href="javascript:void(0)" onclick="navFilterFlower('lan hồ điệp', 'Hoa Lan Hồ Điệp')"><i
+                  class="ph ph-flower text-purple-500"></i> Lan Hồ Điệp</a>
+              <a href="javascript:void(0)" onclick="navFilterFlower('baby', 'Hoa Baby Trắng Nhập Khẩu')"><i
+                  class="ph ph-snowflake text-stone-400"></i> Hoa Baby Trắng</a>
+              <a href="javascript:void(0)" onclick="navFilterFlower('mẫu đơn', 'Hoa Cúc Mẫu Đơn')"><i
+                  class="ph ph-sparkle text-pink-500"></i> Cúc Mẫu Đơn</a>
+              <a href="javascript:void(0)" onclick="navFilterFlower('hoa ly', 'Hoa Ly Thanh Khiết')"><i
+                  class="ph ph-drop text-blue-400"></i> Hoa Ly Trắng / Vàng</a>
             </div>
           </li>
 
           <!-- Hoa Tươi Giảm 30% (Khuyến mãi Hot - Pill Badge gọn đẹp) -->
           <li class="ml-1">
-            <a href="javascript:void(0)" onclick="navFilterSale()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200/80 transition shadow-xs">
+            <a href="javascript:void(0)" onclick="navFilterSale()"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200/80 transition shadow-xs">
               <i class="ph-bold ph-tag text-xs text-rose-500"></i>
               <span>Giảm 30%</span>
             </a>
@@ -297,7 +338,8 @@
 
           <!-- Nút Trợ lý AI trên Menu -->
           <li class="ml-1">
-            <button type="button" onclick="document.getElementById('bloomora-chat-btn')?.click()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 transition shadow-xs">
+            <button type="button" onclick="document.getElementById('bloomora-chat-btn')?.click()"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 transition shadow-xs">
               <span>🌸</span>
               <span>Trợ Lý AI</span>
             </button>
@@ -769,6 +811,22 @@
     </div>
   </div>
 
+  <!-- ================= MODAL LIGHTBOX XEM ẢNH ĐÁNH GIÁ THỰC TẾ ================= -->
+  <div id="reviewImageLightbox"
+    class="fixed inset-0 z-[60] hidden flex items-center justify-center bg-black/85 backdrop-blur-sm p-4"
+    onclick="closeReviewLightbox()">
+    <button type="button" onclick="closeReviewLightbox()"
+      class="absolute top-4 right-4 text-white hover:text-rose-400 text-2xl p-2 transition">
+      <i class="ph ph-x-bold"></i>
+    </button>
+    <div class="relative max-w-3xl max-h-[90vh] flex flex-col items-center" onclick="event.stopPropagation()">
+      <img id="reviewLightboxImg" src="" alt="Ảnh hoa thực tế từ khách hàng"
+        class="max-w-full max-h-[82vh] rounded-2xl object-contain shadow-2xl border border-white/20" />
+      <span id="reviewLightboxCaption" class="mt-2 text-xs text-stone-300 font-medium text-center">Ảnh hoa thực tế chụp
+        bởi khách hàng đã mua</span>
+    </div>
+  </div>
+
   <!-- ================= MODAL CHECKOUT / ĐẶT HÀNG THUẦN VIỆT ================= -->
   <div id="checkoutModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
     <div onclick="closeCheckoutModal()" class="fixed inset-0 modal-backdrop"></div>
@@ -1156,43 +1214,52 @@
   </div>
 
   <!-- ================= FLOATING ACTION BUTTONS THUẦN VIỆT ================= -->
-  <!-- Nút Chat AI, Chat Zalo & Hotline Rung Lắc (Tự động ẩn khi mở Giỏ hàng hoặc Modal) -->
-  <div id="floatingActionsGroup" class="fixed bottom-6 right-6 z-30 flex flex-col space-y-3 items-end transition-all duration-300">
+  <!-- Nút Chat AI, Chat Zalo & Hotline Rung Lắc (Thiết kế tròn tinh gọn, tự động ẩn khi mở Giỏ hàng hoặc Modal) -->
+  <div id="floatingActionsGroup"
+    class="fixed bottom-5 right-5 z-30 flex flex-col space-y-3 items-end transition-all duration-300">
 
     <!-- Nút Chat AI Bloomora -->
-    <button id="bloomora-chat-btn"
-      class="bloomora-chat-launcher flex items-center space-x-2 bg-gradient-to-r from-rose-600 to-rose-700 text-white px-4 py-2.5 rounded-full shadow-xl transition-all duration-300 hover:scale-105 border border-white/20"
-      title="Trợ lý AI tư vấn hoa 24/7">
-      <div class="w-6 h-6 rounded-full bg-white text-rose-600 flex items-center justify-center text-xs font-black">
-        🌸
-      </div>
-      <span class="text-xs font-bold">Trợ lý AI Bloomora</span>
-    </button>
+    <div class="relative group flex items-center">
+      <span class="pointer-events-none absolute right-full mr-3 whitespace-nowrap bg-stone-900/90 text-white text-xs font-semibold px-3 py-1.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl border border-white/10">
+        🌸 Trợ lý AI Bloomora 24/7
+      </span>
+      <button id="bloomora-chat-btn"
+        class="bloomora-chat-launcher w-12 h-12 rounded-full bg-gradient-to-r from-rose-600 to-rose-700 text-white shadow-xl hover:shadow-rose-600/40 flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/30"
+        title="Trợ lý AI tư vấn hoa 24/7">
+        <span class="text-xl">🌸</span>
+      </button>
+    </div>
 
     <!-- Nút Chat Zalo -->
-    <a href="https://zalo.me/0908123456" target="_blank"
-      class="zalo-ring flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-full shadow-xl transition-all duration-300 hover:scale-105"
-      title="Chat tư vấn Zalo 24/7">
-      <div class="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center text-xs font-black">
+    <div class="relative group flex items-center">
+      <span class="pointer-events-none absolute right-full mr-3 whitespace-nowrap bg-stone-900/90 text-white text-xs font-semibold px-3 py-1.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl border border-white/10">
+        Tư vấn Zalo 24/7
+      </span>
+      <a href="https://zalo.me/0908123456" target="_blank"
+        class="zalo-ring w-11 h-11 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-xl flex items-center justify-center text-sm font-black transition-all duration-300 hover:scale-110 border border-white/20"
+        title="Chat tư vấn Zalo 24/7">
         Z
-      </div>
-      <span class="text-xs font-bold hidden sm:inline">Tư vấn Zalo 24/7</span>
-    </a>
+      </a>
+    </div>
 
     <!-- Nút Hotline Gọi Ngay -->
-    <a href="tel:0908123456"
-      class="pulse-ring phone-shake flex items-center space-x-2 bg-rose-600 hover:bg-rose-700 text-white px-4 py-2.5 rounded-full shadow-xl transition-all duration-300 hover:scale-105"
-      title="Gọi Hotline đặt hoa nhanh">
-      <i class="ph ph-phone-call text-lg"></i>
-      <span class="text-xs font-bold hidden sm:inline">0908 123 456</span>
-    </a>
+    <div class="relative group flex items-center">
+      <span class="pointer-events-none absolute right-full mr-3 whitespace-nowrap bg-stone-900/90 text-white text-xs font-semibold px-3 py-1.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-xl border border-white/10">
+        Hotline: 0908 123 456
+      </span>
+      <a href="tel:0908123456"
+        class="pulse-ring phone-shake w-11 h-11 rounded-full bg-rose-600 hover:bg-rose-700 text-white shadow-xl flex items-center justify-center text-lg transition-all duration-300 hover:scale-110 border border-white/20"
+        title="Gọi Hotline đặt hoa nhanh">
+        <i class="ph ph-phone-call"></i>
+      </a>
+    </div>
 
   </div>
 
-  <!-- Scripts -->
+  <!-- Scripts với Cache Busters v2.2 -->
   <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/chatbot.js"></script>
+  <script src="js/app.js?v=2.2"></script>
+  <script src="js/chatbot.js?v=2.2"></script>
 </body>
 
 </html>

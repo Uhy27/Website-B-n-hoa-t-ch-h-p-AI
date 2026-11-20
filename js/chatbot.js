@@ -30,9 +30,9 @@
         <span class="font-bold text-xs tracking-wide">Trợ lý AI Bloomora</span>
       `;
       btn.style.position = 'fixed';
-      btn.style.bottom = '24px';
-      btn.style.right = '24px';
-      btn.style.zIndex = '9999';
+      btn.style.bottom = '20px';
+      btn.style.right = '20px';
+      btn.style.zIndex = '30';
       document.body.appendChild(btn);
     }
 
@@ -359,6 +359,11 @@
 
   // 7. Auto-hide floating actions & chatbot whenever ANY modal or drawer is open
   function checkModalsState() {
+    if (typeof window.updateFloatingActionsVisibility === 'function') {
+      window.updateFloatingActionsVisibility();
+      return;
+    }
+
     const cartDrawer = document.getElementById('cartDrawer');
     const isCartOpen = cartDrawer && !cartDrawer.classList.contains('translate-x-full');
     const isCheckoutOpen = document.getElementById('checkoutModal') && !document.getElementById('checkoutModal').classList.contains('hidden');
@@ -367,22 +372,29 @@
     const isOrdersOpen = document.getElementById('myOrdersModal') && !document.getElementById('myOrdersModal').classList.contains('hidden');
     const isTrackingOpen = document.getElementById('orderTrackingModal') && !document.getElementById('orderTrackingModal').classList.contains('hidden');
     const isSuccessOpen = document.getElementById('orderSuccessModal') && !document.getElementById('orderSuccessModal').classList.contains('hidden');
-    const isBodyLocked = document.body.classList.contains('overflow-hidden');
+    const isLightboxOpen = document.getElementById('reviewImageLightbox') && !document.getElementById('reviewImageLightbox').classList.contains('hidden');
+    const isBodyLocked = document.body.classList.contains('overflow-hidden') || document.body.classList.contains('cart-open');
 
-    const shouldHide = isCartOpen || isCheckoutOpen || isQuickViewOpen || isAuthOpen || isOrdersOpen || isTrackingOpen || isSuccessOpen || isBodyLocked;
+    const shouldHide = isCartOpen || isCheckoutOpen || isQuickViewOpen || isAuthOpen || isOrdersOpen || isTrackingOpen || isSuccessOpen || isLightboxOpen || isBodyLocked;
 
     const floatingGroup = document.getElementById('floatingActionsGroup');
     const chatModal = document.getElementById('bloomora-chat-modal');
 
     if (shouldHide) {
-      if (floatingGroup) floatingGroup.classList.add('hidden-by-modal');
+      if (floatingGroup) {
+        floatingGroup.style.setProperty('display', 'none', 'important');
+        floatingGroup.classList.add('hidden-by-modal');
+      }
       if (chatModal) {
         chatModal.classList.remove('open');
         chatModal.classList.add('hidden-by-modal');
         isOpen = false;
       }
     } else {
-      if (floatingGroup) floatingGroup.classList.remove('hidden-by-modal');
+      if (floatingGroup) {
+        floatingGroup.style.display = 'flex';
+        floatingGroup.classList.remove('hidden-by-modal');
+      }
       if (chatModal) chatModal.classList.remove('hidden-by-modal');
     }
   }

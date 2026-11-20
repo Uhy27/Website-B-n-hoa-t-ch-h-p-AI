@@ -35,7 +35,21 @@ const AppState = {
   activeRibbonColor: 'red',
   lastCreatedOrder: null,
   currentUser: null,
-  isLoading: false
+  isLoading: false,
+  reviews: {
+    productId: null,
+    summary: null,
+    eligibility: null,
+    items: [],
+    pagination: null,
+    ratingFilter: 'all',
+    hasImageFilter: false,
+    sortBy: 'priority',
+    isFormOpen: false,
+    selectedStars: 5,
+    selectedTags: [],
+    selectedFiles: []
+  }
 };
 
 // Khởi tạo khi DOM sẵn sàng
@@ -543,7 +557,22 @@ function openQuickView(productId) {
             <span>Mã SP: <strong class="text-gray-800">${product.sku || product.id}</strong></span>
           </div>
 
-          <h2 class="text-2xl font-bold text-gray-900 mb-2 font-serif-title">${product.name}</h2>
+          <h2 class="text-2xl font-bold text-gray-900 mb-1.5 font-serif-title">${product.name}</h2>
+
+          <!-- Đánh giá sao & lượt xem ngay dưới tên sản phẩm -->
+          <div class="flex items-center space-x-3 mb-3 text-xs">
+            <button type="button" onclick="scrollToReviews()" class="flex items-center text-amber-500 hover:text-amber-600 font-semibold transition" title="Xem chi tiết đánh giá">
+              <span class="flex text-amber-400 mr-1.5 text-sm" id="qvRatingStarsTop">
+                ${renderStarsHTML(product.rating || 5.0)}
+              </span>
+              <strong class="text-stone-900 text-sm mr-1" id="qvRatingValTop">${product.rating ? Number(product.rating).toFixed(1) : '5.0'}</strong>
+              <span class="text-stone-400 underline" id="qvReviewsCountTop">(${product.reviewsCount || product.reviews_count || 1} đánh giá)</span>
+            </button>
+            <span class="text-stone-300">•</span>
+            <span class="text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full text-[11px] font-bold flex items-center">
+              <i class="ph ph-shield-check mr-1 text-sm"></i> 100% Đánh giá thật từ khách mua
+            </span>
+          </div>
 
           <div class="flex items-center space-x-3 mb-4">
             <span class="text-2xl font-extrabold text-rose-600">${formatCurrency(product.price)}</span>
@@ -630,10 +659,24 @@ function openQuickView(productId) {
         </div>
       </div>
     </div>
+
+    <!-- ================= KHỐI ĐÁNH GIÁ SẢN PHẨM & ẢNH THỰC TẾ ================= -->
+    <div id="productReviewsSection" class="border-t border-stone-200 mt-6 pt-6 bg-stone-50/70 p-6 sm:p-8 rounded-b-3xl">
+      <div id="productReviewsContent">
+        <div class="text-center py-8 text-stone-400">
+          <i class="ph ph-circle-notch animate-spin text-2xl text-rose-600"></i>
+          <p class="text-xs mt-2">Đang tải đánh giá sản phẩm...</p>
+        </div>
+      </div>
+    </div>
   `;
 
   modal.classList.remove('hidden');
   document.body.classList.add('overflow-hidden');
+  updateFloatingActionsVisibility();
+
+  // Tải dữ liệu đánh giá thực tế từ MySQL
+  loadProductReviews(product.id, 1);
 }
 
 function closeQuickView() {
@@ -641,6 +684,660 @@ function closeQuickView() {
   if (modal) {
     modal.classList.add('hidden');
     document.body.classList.remove('overflow-hidden');
+    updateFloatingActionsVisibility();
+  }
+}
+
+// ==========================================================================
+// HỆ THỐNG ĐÁNH GIÁ SẢN PHẨM (PRODUCT REVIEWS & REAL PHOTOS ENGINE)
+// ==========================================================================
+
+function renderStarsHTML(rating, size = 'text-sm') {
+  const num = Number(rating) || 5;
+  const full = Math.floor(num);
+  const half = (num - full) >= 0.5 ? 1 : 0;
+  const empty = 5 - full - half;
+  let html = '';
+  for (let i = 0; i < full; i++) html += `<i class="ph-fill ph-star text-amber-400 ${size}"></i>`;
+  if (half) html += `<i class="ph-fill ph-star-half text-amber-400 ${size}"></i>`;
+  for (let i = 0; i < empty; i++) html += `<i class="ph ph-star text-stone-300 ${size}"></i>`;
+  return html;
+}
+
+function scrollToReviews() {
+  const section = document.getElementById('productReviewsSection');
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+async function loadProductReviews(productId, page = 1, append = false) {
+  AppState.reviews.productId = productId;
+  AppState.reviews.currentPage = page;
+
+  const content = document.getElementById('productReviewsContent');
+  if (!content) return;
+
+  if (!append) {
+    content.innerHTML = `
+      <div class="text-center py-8 text-stone-400">
+        <i class="ph ph-circle-notch animate-spin text-2xl text-rose-600"></i>
+        <p class="text-xs mt-2">Đang tải đánh giá sản phẩm...</p>
+      </div>
+    `;
+  }
+
+  try {
+    const params = new URLSearchParams({
+      product_id: productId,
+      page: page,
+      limit: 5,
+      rating: AppState.reviews.ratingFilter,
+      has_image: AppState.reviews.hasImageFilter ? '1' : '0',
+      sort: AppState.reviews.sortBy
+    });
+
+    const res = await fetch(`api/reviews.php?${params.toString()}`);
+    const json = await res.json();
+
+    if (!json.success) {
+      content.innerHTML = `<div class="text-center py-6 text-xs text-rose-600">${escapeHtml(json.message || 'Lỗi tải đánh giá')}</div>`;
+      return;
+    }
+
+    AppState.reviews.summary = json.summary;
+    AppState.reviews.eligibility = json.eligibility;
+    AppState.reviews.pagination = json.pagination;
+
+    if (append) {
+      AppState.reviews.items = [...AppState.reviews.items, ...json.data];
+    } else {
+      AppState.reviews.items = json.data;
+    }
+
+    renderReviewsUI(json.summary, json.eligibility, AppState.reviews.items, json.pagination);
+
+    // Cập nhật điểm sao góc trên của modal
+    const topStars = document.getElementById('qvRatingStarsTop');
+    const topVal = document.getElementById('qvRatingValTop');
+    const topCount = document.getElementById('qvReviewsCountTop');
+    if (topStars && json.summary) {
+      topStars.innerHTML = renderStarsHTML(json.summary.average_rating);
+      if (topVal) topVal.textContent = json.summary.average_rating.toFixed(1);
+      if (topCount) topCount.textContent = `(${json.summary.total_reviews} đánh giá)`;
+    }
+  } catch (err) {
+    console.error('[Load Reviews Error]', err);
+    content.innerHTML = `<div class="text-center py-6 text-xs text-stone-400">Không thể kết nối đến máy chủ để tải đánh giá.</div>`;
+  }
+}
+
+function renderReviewsUI(summary, eligibility, reviews, pagination) {
+  const container = document.getElementById('productReviewsContent');
+  if (!container) return;
+
+  const total = summary.total_reviews || 0;
+  const avg = Number(summary.average_rating || 5).toFixed(1);
+  const starsBreakdown = summary.stars_breakdown || {
+    5: { count: 0, percentage: 0 },
+    4: { count: 0, percentage: 0 },
+    3: { count: 0, percentage: 0 },
+    2: { count: 0, percentage: 0 },
+    1: { count: 0, percentage: 0 }
+  };
+  const withImages = summary.with_images_count || 0;
+
+  let html = `
+    <!-- Header Khối Đánh Giá -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-stone-200 gap-3">
+      <div>
+        <h3 class="text-xl font-bold text-stone-900 font-serif-title flex items-center gap-2">
+          <span>Đánh Giá Từ Khách Hàng</span>
+          <span class="text-xs bg-rose-100 text-rose-700 px-2.5 py-0.5 rounded-full font-bold">Xác minh đơn hàng</span>
+        </h3>
+        <p class="text-xs text-stone-500 mt-1">100% nhận xét và ảnh thực tế từ khách hàng đã đặt hoa thành công tại Bloomora</p>
+      </div>
+
+      <!-- Nút Viết Đánh Giá (Call to Action) -->
+      <div>
+        ${renderEligibilityCTA(eligibility)}
+      </div>
+    </div>
+
+    <!-- KHỐI FORM GỬI ĐÁNH GIÁ (MẶC ĐỊNH ẨN, MỞ KHI BẤM NÚT) -->
+    <div id="writeReviewFormWrap" class="${AppState.reviews.isFormOpen ? 'block' : 'hidden'} mt-5 p-5 bg-white rounded-2xl border border-rose-200 shadow-sm transition-all duration-300">
+      ${renderWriteReviewForm(eligibility)}
+    </div>
+
+    <!-- KHỐI TỔNG QUAN ĐIỂM SỐ & BIỂU ĐỒ PHÂN BỐ SAO -->
+    <div class="mt-6 p-5 sm:p-6 bg-white rounded-2xl border border-stone-200/80 shadow-xs grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+      <!-- Cột 1: Điểm số trung bình -->
+      <div class="md:col-span-4 text-center md:border-r border-stone-100 md:pr-6">
+        <div class="text-5xl font-extrabold text-stone-900 font-serif-title">${avg}</div>
+        <div class="flex justify-center text-amber-400 text-lg my-1.5">
+          ${renderStarsHTML(avg, 'text-lg')}
+        </div>
+        <div class="text-xs text-stone-500 font-medium">Dựa trên <strong>${total}</strong> lượt đánh giá hợp lệ</div>
+        ${withImages > 0 ? `
+          <div class="mt-2 text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full inline-flex items-center">
+            <i class="ph ph-camera mr-1 text-xs"></i> <strong>${withImages}</strong> đánh giá có ảnh chụp hoa thật
+          </div>
+        ` : ''}
+      </div>
+
+      <!-- Cột 2: Phân bố sao thực tế -->
+      <div class="md:col-span-8 space-y-2">
+        ${[5, 4, 3, 2, 1].map(star => {
+          const item = starsBreakdown[star] || { count: 0, percentage: 0 };
+          return `
+            <div class="flex items-center text-xs text-stone-600 gap-3 cursor-pointer hover:text-stone-900" onclick="filterReviewsByRating(${star})">
+              <span class="w-12 font-medium flex items-center justify-end">
+                <span>${star}</span>
+                <i class="ph-fill ph-star text-amber-400 ml-1"></i>
+              </span>
+              <div class="review-progress-track">
+                <div class="review-progress-fill" style="width: ${item.percentage}%;"></div>
+              </div>
+              <span class="w-16 text-right font-medium text-stone-400">
+                ${item.count} (${item.percentage}%)
+              </span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- BỘ LỌC ĐÁNH GIÁ (FILTER PILLS) & SẮP XẾP -->
+    <div class="mt-6 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <button type="button" 
+                onclick="filterReviewsByRating('all')" 
+                class="review-pill-filter ${AppState.reviews.ratingFilter === 'all' && !AppState.reviews.hasImageFilter ? 'active' : ''}">
+          Tất cả (${total})
+        </button>
+
+        ${[5, 4, 3, 2, 1].map(star => `
+          <button type="button" 
+                  onclick="filterReviewsByRating(${star})" 
+                  class="review-pill-filter ${AppState.reviews.ratingFilter == star ? 'active' : ''}">
+            ${star} Sao (${starsBreakdown[star]?.count || 0})
+          </button>
+        `).join('')}
+
+        <button type="button" 
+                onclick="toggleReviewsHasImage()" 
+                class="review-pill-filter flex items-center gap-1 ${AppState.reviews.hasImageFilter ? 'active' : ''}">
+          <i class="ph ph-camera text-sm"></i> Có hình ảnh (${withImages})
+        </button>
+      </div>
+
+      <!-- Sắp xếp -->
+      <div class="flex items-center space-x-2 text-xs">
+        <span class="text-stone-400">Sắp xếp:</span>
+        <select onchange="changeReviewsSort(this.value)" class="bg-white border border-stone-200 rounded-xl px-3 py-1.5 text-xs text-stone-700 font-medium focus:ring-1 focus:ring-rose-500 focus:outline-none">
+          <option value="priority" ${AppState.reviews.sortBy === 'priority' ? 'selected' : ''}>Ưu tiên có ảnh thực tế</option>
+          <option value="newest" ${AppState.reviews.sortBy === 'newest' ? 'selected' : ''}>Mới nhất</option>
+          <option value="highest" ${AppState.reviews.sortBy === 'highest' ? 'selected' : ''}>Điểm đánh giá cao</option>
+          <option value="lowest" ${AppState.reviews.sortBy === 'lowest' ? 'selected' : ''}>Điểm đánh giá thấp</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- DANH SÁCH CÁC BÀI ĐÁNH GIÁ THỰC TẾ -->
+    <div class="mt-6 space-y-4" id="reviewsListItems">
+      ${renderReviewsList(reviews)}
+    </div>
+
+    <!-- PHÂN TRANG / XEM THÊM ĐÁNH GIÁ -->
+    ${pagination && pagination.has_more ? `
+      <div class="mt-6 text-center">
+        <button type="button" onclick="loadMoreReviews()" class="px-6 py-2.5 bg-white hover:bg-stone-100 text-stone-700 font-semibold text-xs rounded-xl border border-stone-200 shadow-xs transition flex items-center space-x-1.5 mx-auto">
+          <span>Xem Thêm Đánh Giá Khác</span>
+          <i class="ph ph-caret-down"></i>
+        </button>
+      </div>
+    ` : ''}
+  `;
+
+  container.innerHTML = html;
+}
+
+function renderEligibilityCTA(eligibility) {
+  if (!eligibility) return '';
+
+  if (eligibility.can_review) {
+    return `
+      <button type="button" onclick="toggleReviewForm()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow-md shadow-rose-600/20 transition flex items-center space-x-1.5">
+        <i class="ph ph-pencil-simple-line-bold text-sm"></i>
+        <span>${AppState.reviews.isFormOpen ? 'Đóng Form Đánh Giá' : 'Viết Đánh Giá Của Bạn'}</span>
+      </button>
+    `;
+  }
+
+  if (eligibility.reason === 'login_required') {
+    return `
+      <button type="button" onclick="openAuthModal('login')" class="px-3.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-medium transition flex items-center space-x-1">
+        <i class="ph ph-user text-sm"></i>
+        <span>Đăng nhập để đánh giá</span>
+      </button>
+    `;
+  }
+
+  if (eligibility.reason === 'already_reviewed') {
+    return `
+      <span class="text-xs text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl font-medium inline-flex items-center">
+        <i class="ph ph-check-circle mr-1"></i> Bạn đã đánh giá sản phẩm này
+      </span>
+    `;
+  }
+
+  // Not purchased or not completed
+  return `
+    <span class="text-[11px] text-stone-400 bg-stone-100 px-3 py-1.5 rounded-xl inline-flex items-center" title="${escapeHtml(eligibility.message)}">
+      <i class="ph ph-shield-check mr-1 text-emerald-600"></i> Đánh giá xác minh theo đơn mua
+    </span>
+  `;
+}
+
+function renderWriteReviewForm(eligibility) {
+  if (!eligibility || !eligibility.can_review) return '';
+
+  const tags = ['Hoa tươi lâu', 'Đóng gói cẩn thận', 'Giao đúng giờ', 'Giống hình 100%', 'Florist cắm rất khéo', 'Mùi thơm tự nhiên'];
+
+  return `
+    <form onsubmit="handleReviewSubmit(event)" class="space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-stone-100">
+        <div>
+          <h4 class="font-bold text-sm text-stone-900">Gửi Đánh Giá Cho Đơn Hàng #${escapeHtml(eligibility.order_code)}</h4>
+          <p class="text-[11px] text-stone-400">Trải nghiệm thật của bạn sẽ giúp những người yêu hoa khác an tâm mua sắm</p>
+        </div>
+        <button type="button" onclick="toggleReviewForm()" class="text-stone-400 hover:text-stone-600">
+          <i class="ph ph-x text-base"></i>
+        </button>
+      </div>
+
+      <!-- Chọn số sao (Bắt buộc) -->
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">1. Bạn đánh giá sản phẩm này mấy sao? <span class="text-rose-600">*</span></label>
+        <div class="star-rating-interactive" id="reviewStarPicker">
+          ${[1, 2, 3, 4, 5].map(s => `
+            <button type="button" onclick="setReviewStars(${s})" title="${s} sao">
+              <i class="ph-fill ph-star text-2xl ${s <= AppState.reviews.selectedStars ? 'text-amber-400' : 'text-stone-300'}"></i>
+            </button>
+          `).join('')}
+        </div>
+        <span class="text-[11px] font-semibold text-amber-600 ml-2" id="starRatingLabel">
+          ${getStarLabel(AppState.reviews.selectedStars)}
+        </span>
+      </div>
+
+      <!-- Tiêu chí nhanh cho hoa tươi -->
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">2. Điểm bạn ưng ý nhất về bó hoa này:</label>
+        <div class="flex flex-wrap gap-2">
+          ${tags.map(t => {
+            const isSel = AppState.reviews.selectedTags.includes(t);
+            return `
+              <button type="button" 
+                      onclick="toggleReviewTag('${escapeHtml(t)}')"
+                      class="px-3 py-1 rounded-full text-xs font-medium border transition ${
+                        isSel 
+                          ? 'bg-rose-50 border-rose-500 text-rose-700 font-semibold' 
+                          : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-stone-300'
+                      }">
+                ${t}
+              </button>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Nội dung nhận xét -->
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">3. Chia sẻ chi tiết trải nghiệm của bạn:</label>
+        <textarea id="reviewCommentInput" rows="3" required maxlength="2000"
+                  placeholder="Chia sẻ cảm nhận về độ tươi của hoa, màu sắc thực tế, cách đóng gói và thái độ giao hàng..." 
+                  class="w-full text-xs p-3 bg-stone-50 border border-stone-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:outline-none"></textarea>
+      </div>
+
+      <!-- Tải ảnh thực tế (Tối đa 5 ảnh) -->
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">4. Đính kèm ảnh thực tế hoa bạn đã nhận (Tối đa 5 ảnh, định dạng JPG/PNG/WEBP):</label>
+        <input type="file" id="reviewFileInput" accept="image/jpeg,image/png,image/webp" multiple onchange="handleReviewFilesChanged(event)" class="hidden" />
+
+        <div class="flex flex-wrap gap-2.5 items-center">
+          <button type="button" onclick="document.getElementById('reviewFileInput').click()" class="h-20 w-20 rounded-xl border-2 border-dashed border-stone-300 hover:border-rose-500 bg-stone-50 text-stone-400 hover:text-rose-600 flex flex-col items-center justify-center text-xs transition">
+            <i class="ph ph-camera text-xl mb-1"></i>
+            <span class="text-[10px] font-bold">Thêm ảnh</span>
+          </button>
+
+          <!-- Previews Container -->
+          <div id="reviewPhotosPreviewGrid" class="flex flex-wrap gap-2.5">
+            ${AppState.reviews.selectedFiles.map((fileObj, idx) => `
+              <div class="relative w-20 h-20 rounded-xl overflow-hidden border border-stone-200 shadow-xs">
+                <img src="${fileObj.previewUrl}" alt="Preview" class="w-full h-full object-cover" />
+                <button type="button" onclick="removeReviewFile(${idx})" class="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/60 text-white flex items-center justify-center text-[10px] hover:bg-rose-600 transition">
+                  <i class="ph ph-x-bold"></i>
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <span class="text-[11px] text-stone-400 mt-1 block">Hình ảnh thực tế sẽ giúp cộng đồng đánh giá chính xác chất lượng cắm hoa của nghệ nhân.</span>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="pt-3 border-t border-stone-100 flex items-center justify-end space-x-2">
+        <button type="button" onclick="toggleReviewForm()" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-600 rounded-xl text-xs font-medium transition">
+          Hủy Bỏ
+        </button>
+        <button type="submit" id="submitReviewBtn" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow-md shadow-rose-600/30 transition flex items-center space-x-1.5">
+          <i class="ph ph-paper-plane-right-bold"></i>
+          <span>Gửi Đánh Giá Xác Minh</span>
+        </button>
+      </div>
+    </form>
+  `;
+}
+
+function renderReviewsList(reviews) {
+  if (!reviews || reviews.length === 0) {
+    return `
+      <div class="text-center py-12 bg-white rounded-2xl border border-stone-100">
+        <div class="w-12 h-12 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mx-auto text-xl mb-2">
+          <i class="ph ph-chat-circle-dots"></i>
+        </div>
+        <h4 class="font-bold text-stone-700 text-sm">Chưa có đánh giá nào phù hợp với bộ lọc</h4>
+        <p class="text-xs text-stone-400 mt-1">Hãy là người đầu tiên chia sẻ cảm nhận về mẫu hoa này nhé!</p>
+      </div>
+    `;
+  }
+
+  return reviews.map(r => {
+    const initials = r.customer_name ? r.customer_name.trim().charAt(0).toUpperCase() : 'K';
+    const images = Array.isArray(r.images) ? r.images : [];
+
+    return `
+      <div class="p-5 bg-white rounded-2xl border border-stone-100 shadow-xs space-y-3">
+        <!-- Header bài đánh giá -->
+        <div class="flex items-start justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-rose-600 to-rose-400 text-white font-bold flex items-center justify-center text-xs shadow-xs">
+              ${escapeHtml(initials)}
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="font-bold text-xs text-stone-900">${escapeHtml(r.customer_name)}</span>
+                ${r.is_verified_purchase ? `
+                  <span class="inline-flex items-center text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full border border-emerald-200/60">
+                    <i class="ph-bold ph-check text-[10px] mr-1"></i> Đã mua hàng
+                  </span>
+                ` : ''}
+              </div>
+              <div class="flex items-center space-x-2 mt-0.5 text-xs text-stone-400">
+                <span class="flex text-amber-400">${renderStarsHTML(r.rating, 'text-xs')}</span>
+                <span>•</span>
+                <span class="text-[11px]">${escapeHtml(r.created_at_formatted || 'Gần đây')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tag tiêu chí hoa nếu có -->
+        ${r.flower_quality_tag ? `
+          <div>
+            <span class="inline-block bg-rose-50 text-rose-700 text-[11px] font-semibold px-2.5 py-0.5 rounded-md">
+              <i class="ph ph-sparkle mr-1"></i> ${escapeHtml(r.flower_quality_tag)}
+            </span>
+          </div>
+        ` : ''}
+
+        <!-- Nội dung nhận xét -->
+        <p class="text-xs text-stone-700 leading-relaxed">${escapeHtml(r.comment || '')}</p>
+
+        <!-- Thư viện ảnh thực tế từ khách -->
+        ${images.length > 0 ? `
+          <div class="flex flex-wrap gap-2.5 pt-1">
+            ${images.map(img => `
+              <div class="review-thumb-item w-16 h-16 sm:w-20 sm:h-20" onclick="openReviewLightbox('${escapeHtml(img)}')">
+                <img src="${escapeHtml(img)}" alt="Ảnh hoa thực tế" loading="lazy" />
+                <div class="thumb-overlay">
+                  <i class="ph ph-magnifying-glass-plus text-base"></i>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+
+        <!-- Phản hồi chính thức từ Bloomora (Shop Reply) -->
+        ${r.reply ? `
+          <div class="mt-3.5 p-3.5 bg-rose-50/70 border-l-4 border-rose-600 rounded-r-2xl text-xs space-y-1">
+            <div class="flex items-center space-x-2 text-rose-900 font-bold">
+              <i class="ph ph-flower-lotus text-base text-rose-600"></i>
+              <span>${escapeHtml(r.reply.staff_name || 'Bloomora Florist')}</span>
+              <span class="text-[10px] bg-rose-600 text-white font-semibold px-1.5 py-0.2 rounded">Phản hồi chính thức</span>
+            </div>
+            <p class="text-stone-700 text-xs leading-relaxed pt-0.5">${escapeHtml(r.reply.reply_content)}</p>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function getStarLabel(stars) {
+  const map = {
+    1: '1 sao - Rất không hài lòng',
+    2: '2 sao - Chưa hài lòng',
+    3: '3 sao - Bình thường',
+    4: '4 sao - Rất hài lòng',
+    5: '5 sao - Tuyệt vời, vượt mong đợi!'
+  };
+  return map[stars] || '5 sao - Tuyệt vời!';
+}
+
+function setReviewStars(stars) {
+  AppState.reviews.selectedStars = stars;
+  const picker = document.getElementById('reviewStarPicker');
+  const label = document.getElementById('starRatingLabel');
+  if (picker) {
+    picker.innerHTML = [1, 2, 3, 4, 5].map(s => `
+      <button type="button" onclick="setReviewStars(${s})" title="${s} sao">
+        <i class="ph-fill ph-star text-2xl ${s <= stars ? 'text-amber-400' : 'text-stone-300'}"></i>
+      </button>
+    `).join('');
+  }
+  if (label) {
+    label.textContent = getStarLabel(stars);
+  }
+}
+
+function toggleReviewTag(tag) {
+  const idx = AppState.reviews.selectedTags.indexOf(tag);
+  if (idx >= 0) {
+    AppState.reviews.selectedTags.splice(idx, 1);
+  } else {
+    AppState.reviews.selectedTags.push(tag);
+  }
+  // Re-render form part
+  const formWrap = document.getElementById('writeReviewFormWrap');
+  if (formWrap) {
+    formWrap.innerHTML = renderWriteReviewForm(AppState.reviews.eligibility);
+  }
+}
+
+function toggleReviewForm() {
+  AppState.reviews.isFormOpen = !AppState.reviews.isFormOpen;
+  const formWrap = document.getElementById('writeReviewFormWrap');
+  if (formWrap) {
+    if (AppState.reviews.isFormOpen) {
+      formWrap.classList.remove('hidden');
+      formWrap.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      formWrap.classList.add('hidden');
+    }
+  }
+}
+
+function handleReviewFilesChanged(e) {
+  const files = Array.from(e.target.files || []);
+  if (files.length === 0) return;
+
+  const currentCount = AppState.reviews.selectedFiles.length;
+  const remaining = 5 - currentCount;
+
+  if (remaining <= 0) {
+    if (typeof showToast === 'function') showToast('Bạn chỉ có thể tải lên tối đa 5 ảnh thực tế.', 'warning');
+    return;
+  }
+
+  const toAdd = files.slice(0, remaining);
+  toAdd.forEach(file => {
+    if (file.size > 5 * 1024 * 1024) {
+      if (typeof showToast === 'function') showToast(`Ảnh ${file.name} vượt quá 5MB.`, 'warning');
+      return;
+    }
+    const previewUrl = URL.createObjectURL(file);
+    AppState.reviews.selectedFiles.push({ file, previewUrl });
+  });
+
+  // Re-render preview grid
+  const grid = document.getElementById('reviewPhotosPreviewGrid');
+  if (grid) {
+    grid.innerHTML = AppState.reviews.selectedFiles.map((fileObj, idx) => `
+      <div class="relative w-20 h-20 rounded-xl overflow-hidden border border-stone-200 shadow-xs">
+        <img src="${fileObj.previewUrl}" alt="Preview" class="w-full h-full object-cover" />
+        <button type="button" onclick="removeReviewFile(${idx})" class="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/60 text-white flex items-center justify-center text-[10px] hover:bg-rose-600 transition">
+          <i class="ph ph-x-bold"></i>
+        </button>
+      </div>
+    `).join('');
+  }
+}
+
+function removeReviewFile(idx) {
+  if (AppState.reviews.selectedFiles[idx]) {
+    URL.revokeObjectURL(AppState.reviews.selectedFiles[idx].previewUrl);
+    AppState.reviews.selectedFiles.splice(idx, 1);
+  }
+  const grid = document.getElementById('reviewPhotosPreviewGrid');
+  if (grid) {
+    grid.innerHTML = AppState.reviews.selectedFiles.map((fileObj, i) => `
+      <div class="relative w-20 h-20 rounded-xl overflow-hidden border border-stone-200 shadow-xs">
+        <img src="${fileObj.previewUrl}" alt="Preview" class="w-full h-full object-cover" />
+        <button type="button" onclick="removeReviewFile(${i})" class="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/60 text-white flex items-center justify-center text-[10px] hover:bg-rose-600 transition">
+          <i class="ph ph-x-bold"></i>
+        </button>
+      </div>
+    `).join('');
+  }
+}
+
+async function handleReviewSubmit(e) {
+  e.preventDefault();
+  const comment = document.getElementById('reviewCommentInput')?.value.trim();
+  const rating = AppState.reviews.selectedStars;
+  const productId = AppState.reviews.productId;
+
+  if (!rating || rating < 1 || rating > 5) {
+    if (typeof showToast === 'function') showToast('Vui lòng chọn số sao đánh giá.', 'warning');
+    return;
+  }
+
+  const submitBtn = document.getElementById('submitReviewBtn');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<i class="ph ph-circle-notch animate-spin"></i><span>Đang gửi đánh giá...</span>`;
+  }
+
+  const formData = new FormData();
+  formData.append('product_id', productId);
+  formData.append('rating', rating);
+  formData.append('comment', comment);
+  if (AppState.reviews.selectedTags.length > 0) {
+    formData.append('quality_tag', AppState.reviews.selectedTags.join(', '));
+  }
+  AppState.reviews.selectedFiles.forEach((item) => {
+    formData.append('images[]', item.file);
+  });
+
+  try {
+    const res = await fetch('api/reviews.php', {
+      method: 'POST',
+      body: formData
+    });
+    const json = await res.json();
+
+    if (json.success) {
+      if (typeof showToast === 'function') {
+        showToast(json.message || 'Cảm ơn bạn đã chia sẻ trải nghiệm cùng Bloomora. Đánh giá của bạn đang chờ kiểm duyệt.', 'success');
+      } else {
+        alert(json.message);
+      }
+      AppState.reviews.isFormOpen = false;
+      AppState.reviews.selectedFiles = [];
+      AppState.reviews.selectedTags = [];
+      loadProductReviews(productId, 1);
+    } else {
+      if (typeof showToast === 'function') {
+        showToast(json.message || 'Không thể gửi đánh giá.', 'warning');
+      } else {
+        alert(json.message);
+      }
+    }
+  } catch (err) {
+    console.error('[Submit Review Error]', err);
+    if (typeof showToast === 'function') showToast('Lỗi máy chủ khi gửi đánh giá.', 'error');
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `<i class="ph ph-paper-plane-right-bold"></i><span>Gửi Đánh Giá Xác Minh</span>`;
+    }
+  }
+}
+
+function filterReviewsByRating(star) {
+  AppState.reviews.ratingFilter = star;
+  loadProductReviews(AppState.reviews.productId, 1);
+}
+
+function toggleReviewsHasImage() {
+  AppState.reviews.hasImageFilter = !AppState.reviews.hasImageFilter;
+  loadProductReviews(AppState.reviews.productId, 1);
+}
+
+function changeReviewsSort(sortVal) {
+  AppState.reviews.sortBy = sortVal;
+  loadProductReviews(AppState.reviews.productId, 1);
+}
+
+function loadMoreReviews() {
+  const next = (AppState.reviews.currentPage || 1) + 1;
+  loadProductReviews(AppState.reviews.productId, next, true);
+}
+
+function openReviewLightbox(imgSrc) {
+  const modal = document.getElementById('reviewImageLightbox');
+  const img = document.getElementById('reviewLightboxImg');
+  if (modal && img) {
+    img.src = imgSrc;
+    modal.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+    updateFloatingActionsVisibility();
+  }
+}
+
+function closeReviewLightbox() {
+  const modal = document.getElementById('reviewImageLightbox');
+  if (modal) {
+    modal.classList.add('hidden');
+    // If quickview is still open, keep body overflow-hidden
+    if (!document.getElementById('quickViewModal')?.classList.contains('hidden')) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    updateFloatingActionsVisibility();
   }
 }
 
@@ -818,10 +1515,14 @@ function toggleCartDrawer(open) {
     backdrop.classList.remove('hidden');
     drawer.classList.remove('translate-x-full');
     document.body.classList.add('overflow-hidden');
+    document.body.classList.add('cart-open');
+    updateFloatingActionsVisibility();
   } else {
     drawer.classList.add('translate-x-full');
     backdrop.classList.add('hidden');
     document.body.classList.remove('overflow-hidden');
+    document.body.classList.remove('cart-open');
+    updateFloatingActionsVisibility();
   }
 }
 
@@ -862,6 +1563,7 @@ function openCheckoutDrawer() {
 
   modal.classList.remove('hidden');
   document.body.classList.add('overflow-hidden');
+  updateFloatingActionsVisibility();
 }
 
 function closeCheckoutModal() {
@@ -869,6 +1571,7 @@ function closeCheckoutModal() {
   if (modal) {
     modal.classList.add('hidden');
     document.body.classList.remove('overflow-hidden');
+    updateFloatingActionsVisibility();
   }
 }
 
@@ -1040,6 +1743,7 @@ function closeOrderSuccessModal() {
   if (modal) {
     modal.classList.add('hidden');
     document.body.classList.remove('overflow-hidden');
+    updateFloatingActionsVisibility();
   }
 }
 
@@ -1056,6 +1760,7 @@ function openOrderTracking(orderId = '') {
 
   modal.classList.remove('hidden');
   document.body.classList.add('overflow-hidden');
+  updateFloatingActionsVisibility();
 
   if (orderId) {
     lookupOrder(orderId);
@@ -1067,6 +1772,7 @@ function closeOrderTrackingModal() {
   if (modal) {
     modal.classList.add('hidden');
     document.body.classList.remove('overflow-hidden');
+    updateFloatingActionsVisibility();
   }
 }
 
@@ -1368,6 +2074,7 @@ function openAuthModal(tab = 'login') {
   if (!modal) return;
   modal.classList.remove('hidden');
   document.body.classList.add('overflow-hidden');
+  updateFloatingActionsVisibility();
   switchAuthTab(tab);
   clearAuthAlert();
 }
@@ -1378,6 +2085,7 @@ function closeAuthModal() {
   if (!modal) return;
   modal.classList.add('hidden');
   document.body.classList.remove('overflow-hidden');
+  updateFloatingActionsVisibility();
 }
 
 // Chuyển giữa Tab Đăng Nhập & Đăng Ký
@@ -1551,6 +2259,7 @@ async function openMyOrdersModal() {
 
   modal.classList.remove('hidden');
   document.body.classList.add('overflow-hidden');
+  updateFloatingActionsVisibility();
 
   if (!AppState.currentUser) {
     listContainer.innerHTML = `
@@ -1597,6 +2306,7 @@ function closeMyOrdersModal() {
   if (modal) {
     modal.classList.add('hidden');
     document.body.classList.remove('overflow-hidden');
+    updateFloatingActionsVisibility();
   }
 }
 
@@ -1680,3 +2390,52 @@ function renderMyOrders(orders) {
     `;
   }).join('');
 }
+
+// ==========================================================================
+// TỰ ĐỘNG KIỂM SOÁT HIỂN THỊ CỦA NÚT NỔI & TRỢ LÝ AI (CHỈ HIỂN THỊ Ở TRANG NGOÀI)
+// ==========================================================================
+function updateFloatingActionsVisibility() {
+  const floatingGroup = document.getElementById('floatingActionsGroup');
+  const chatModal = document.getElementById('bloomora-chat-modal');
+  if (!floatingGroup && !chatModal) return;
+
+  const cartDrawer = document.getElementById('cartDrawer');
+  const isCartOpen = cartDrawer && !cartDrawer.classList.contains('translate-x-full');
+  const isCheckoutOpen = document.getElementById('checkoutModal') && !document.getElementById('checkoutModal').classList.contains('hidden');
+  const isQuickViewOpen = document.getElementById('quickViewModal') && !document.getElementById('quickViewModal').classList.contains('hidden');
+  const isAuthOpen = document.getElementById('authModal') && !document.getElementById('authModal').classList.contains('hidden');
+  const isOrdersOpen = document.getElementById('myOrdersModal') && !document.getElementById('myOrdersModal').classList.contains('hidden');
+  const isTrackingOpen = document.getElementById('orderTrackingModal') && !document.getElementById('orderTrackingModal').classList.contains('hidden');
+  const isSuccessOpen = document.getElementById('orderSuccessModal') && !document.getElementById('orderSuccessModal').classList.contains('hidden');
+  const isLightboxOpen = document.getElementById('reviewImageLightbox') && !document.getElementById('reviewImageLightbox').classList.contains('hidden');
+  const isBodyLocked = document.body.classList.contains('overflow-hidden') || document.body.classList.contains('cart-open');
+
+  const shouldHide = isCartOpen || isCheckoutOpen || isQuickViewOpen || isAuthOpen || isOrdersOpen || isTrackingOpen || isSuccessOpen || isLightboxOpen || isBodyLocked;
+
+  if (shouldHide) {
+    if (floatingGroup) {
+      floatingGroup.style.setProperty('display', 'none', 'important');
+      floatingGroup.classList.add('hidden-by-modal');
+    }
+    if (chatModal) {
+      chatModal.classList.remove('open');
+      chatModal.classList.add('hidden-by-modal');
+    }
+  } else {
+    if (floatingGroup) {
+      floatingGroup.style.display = 'flex';
+      floatingGroup.classList.remove('hidden-by-modal');
+    }
+    if (chatModal) {
+      chatModal.classList.remove('hidden-by-modal');
+    }
+  }
+}
+window.updateFloatingActionsVisibility = updateFloatingActionsVisibility;
+
+// Khởi chạy theo dõi đa sự kiện để bảo đảm không bị ghim hay đè lên các trang chức năng
+['click', 'keydown', 'touchend', 'popstate', 'resize'].forEach(evt => {
+  document.addEventListener(evt, () => setTimeout(updateFloatingActionsVisibility, 50), { passive: true });
+});
+document.addEventListener('DOMContentLoaded', updateFloatingActionsVisibility);
+

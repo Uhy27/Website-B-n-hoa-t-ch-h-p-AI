@@ -11,11 +11,13 @@
 .bloomora-chat-launcher {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
   background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
   color: #ffffff;
-  padding: 10px 16px;
-  border-radius: 9999px;
   box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.4), 0 8px 10px -6px rgba(225, 29, 72, 0.3);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -23,7 +25,7 @@
 }
 
 .bloomora-chat-launcher:hover {
-  transform: translateY(-2px) scale(1.03);
+  transform: translateY(-2px) scale(1.08);
   box-shadow: 0 15px 30px -5px rgba(225, 29, 72, 0.5);
 }
 
@@ -31,12 +33,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #ffffff;
-  color: #e11d48;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 /* Chat Window Container */
@@ -67,18 +64,21 @@
   transform: translateY(0) scale(1);
 }
 
-/* TỰ ĐỘNG ẨN CỤM NÚT NỔI & CỬA SỔ CHAT KHI MỞ GIỎ HÀNG HOẶC BẤT KỲ MODAL NÀO */
+/* TRIỆT ĐỂ ẨN FLOATING BUTTONS VÀ CỬA SỔ CHAT TRÊN MỌI TRANG CHỨC NĂNG / MODAL / GIỎ HÀNG */
 body.overflow-hidden #floatingActionsGroup,
 body.overflow-hidden .bloomora-chat-window,
+body.cart-open #floatingActionsGroup,
+body.cart-open .bloomora-chat-window,
 body.has-modal-open #floatingActionsGroup,
 body.has-modal-open .bloomora-chat-window,
 #floatingActionsGroup.hidden-by-modal,
 .bloomora-chat-window.hidden-by-modal {
+  display: none !important;
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
   transform: translateY(24px) scale(0.9) !important;
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s !important;
+  z-index: -9999 !important;
 }
 
 /* Header */
